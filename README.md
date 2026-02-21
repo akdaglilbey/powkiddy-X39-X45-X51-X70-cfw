@@ -51,6 +51,8 @@ echo "0,0" > /sys/class/graphics/fb0/pan
 ## ALSA SOUND
 32 bits / rate 8000-192000 / stereo
 
+Avoid MMAP ! sound is really dirty !
+
 Buffer size 4096
 
 Period size 1024
@@ -61,7 +63,23 @@ cat /proc/asound/card0/pcm0p/sub0/hw_params
 
 content of /mnt/card/alsa.conf :
 ```
-tbd
+pcm.hw0 {
+    type hw
+    card 0
+    device 0
+}
+pcm.!default {
+    type plug
+    slave.pcm "hw0"
+    slave.format S32_LE
+    slave.channels 2
+}
+
+ctl.!default {
+    type hw
+    card 0
+}
+
 ```
 
 ## Keybinding

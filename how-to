@@ -2,27 +2,15 @@ To compile:
 source project/set_env.sh
 
 alsa-lib:
-./configure --host=arm-buildroot-linux-uclibcgnueabihf --enable-shared --disable-python --with-configdir=/mnt/card --with-plugindir=/mnt/card
+./configure --host=arm-buildroot-linux-uclibcgnueabihf --enable-shared --disable-python --with-configdir=/mnt/card/cfw --with-plugindir=/mnt/card/cfw
 
 configure : see _compile in SDL folder :  ./configure \
     --host=arm-buildroot-linux-uclibcgnueabi \
-    --prefix=$SYSROOT/usr \
     --disable-video-opengl \
     --disable-video-x11 \
     --disable-video-wayland \
     --enable-video-fbcon \
-    --disable-haptic \
-    --disable-joystick-hidapi \
     --enable-joystick \
-    --enable-audio \
-    --disable-tests \
-    CC=$CC \
-    CXX=$CXX \
-    AR=$AR \
-    LD=$LD \
-    RANLIB=$RANLIB \
-    STRIP=$STRIP \
-    CFLAGS="--sysroot=$SYSROOT" \
-    LDFLAGS="--sysroot=$SYSROOT"
-then make and make install
+    --enable-audio 
+ then make and make install
 
