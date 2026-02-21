@@ -2,12 +2,14 @@ Powkiddy x39pro/x45/x51/x70 Custom firmware and toolchain
 
 # Installation:
  - Copy run.sh and CFW folder on SD-card
- - Put update.zip and perform upgrade
+ - Put update.zip on SD Card
+      -  update.zip contains original Powkiddy firmware with startup script updated
+ - Reboot the console and perform the update when asked by the console.
  - When the system is now booting, after few seconds the menu is killed and retroarch is started.
  - Console is powered off when exiting retroarch
  
 # Uninstall:
- - Remove run.sh and keep the original emulators
+ - Remove run.sh from SD Card
 
 # How to compile:
  - Install ubuntu 16.04 64 bits
