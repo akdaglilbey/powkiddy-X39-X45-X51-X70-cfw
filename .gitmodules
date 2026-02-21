@@ -4,9 +4,6 @@
 [submodule "buildroot-2015.02"]
 	path = buildroot-2015.02
 	url = https://github.com/scooper540/buildroot-2015.02-powkiddy.git
-[submodule "project/RetroArch-powkiddy"]
-	path = project/RetroArch-powkiddy
-	url = https://github.com/scooper540/RetroArch-powkiddy.git
 [submodule "project/RetroArch"]
 	path = project/RetroArch
 	url = https://github.com/scooper540/RetroArch-powkiddy.git
