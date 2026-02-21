@@ -49,6 +49,8 @@ echo "0,0" > /sys/class/graphics/fb0/pan
 ```
 
 ## ALSA SOUND
+Driver source: https://github.com/LeMaker/linux-actions/tree/linux-3.10.y/sound/soc/atc260x
+
 32 bits / rate 8000-192000 / stereo
 
 Avoid MMAP ! sound is really dirty !
