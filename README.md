@@ -31,6 +31,7 @@ By installing this firmware, you agree that you do so entirely at your own risk 
 
 # Improvements:
  - Use hardware scaler instead of software scaler in retroarch (could save CPU time and battery)
+ - Better sound handling
 
 # Notes:
 
@@ -241,3 +242,4 @@ echo "3. Set addr0 to physical address of buffer"
 echo "4. Echo 1 > apply to activate"
 
 ```
+
