@@ -10,7 +10,7 @@ export STRIP=arm-buildroot-linux-uclibcgnueabihf-strip
 
 export PATH=/home/chris/powkiddy/buildroot-2015.02/output/host/usr/bin:$PATH
 
-export PKG_CONFIG_LIBDIR=$SYSROOT/usr/lib/pkgconfig:$SYSROOT/usr/share/pkgconfig
+export PKG_CONFIG_LIBDIR=$SYSROOT/usr/local/lib/pkgconfig:$SYSROOT/usr/local/share/pkgconfig:$SYSROOT/usr/lib/pkgconfig
 export PKG_CONFIG_PATH=/usr/bin/pkg-config
 export PKG_CONFIG=$PKG_CONFIG_PATH
 export PKG_CONF_PATH=$PKG_CONFIG_PATH

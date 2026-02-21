@@ -1,16 +1,73 @@
 To compile:
 source project/set_env.sh
 
-alsa-lib:
+In general:  ./configure --host=arm-buildroot-linux-uclibcgnueabihf
+make -j2
+make install DESTDIR=$SYSROOT
+
+ZLIB
+./configure
+make
+make install DESTDIR=$SYSROOT
+
+Freetype2
+./configure --host=arm-buildroot-linux-uclibcgnueabi
+make
+make install DESTDIR=$SYSROOT
+
+ALSA-LIB 1.2.9
 ./configure --host=arm-buildroot-linux-uclibcgnueabihf --enable-shared --disable-python --with-configdir=/mnt/card/cfw --with-plugindir=/mnt/card/cfw
+make -j2
+make install DESTDIR=$SYSROOT
 
-configure : see _compile in SDL folder :  ./configure \
-    --host=arm-buildroot-linux-uclibcgnueabi \
-    --disable-video-opengl \
-    --disable-video-x11 \
-    --disable-video-wayland \
-    --enable-video-fbcon \
-    --enable-joystick \
-    --enable-audio 
- then make and make install
+SDL-1.2:
+configure : see _compile in SDL folder.
+./configure --host=arm-buildroot-linux-uclibcgnueabi --disable-video-opengl --disable-video-x11 --disable-video-wayland --enable-video-fbcon --enable-joystick --enable-audio 
+make -j2
+make install DESTDIR=$SYSROOT
 
+Retroarch
+edit sdl,freetype and zlib pkgconfig to adjust lib path (not taken into account during configure)
+nano $SYSROOT/usr/local/lib/pkgconfig/sdl.pc
+and set the prefix dir of your sysroot
+
+./configure --prefix=$SYSROOT --host=arm-buildroot-linux-uclibcgnueabi --enable-sdl --disable-sdl2 --disable-networking --disable-opengl --disable-mali_fbdev --disable-x11 --disable-wayland --enable-alsa --enable-tinyalsa --disable-audioio --disable-oss --disable-rsound --disable-roar --disable-pulse --disable-coreaudio --enable-neon --enable-floathard --disable-vulkan --disable-wifi --disable-ozone --disable-debug --enable-sdl_dingux
+
+edit config.mk and add under prefix line:
+DINGUX = 1
+update CFLAGS and CXXFlAGS to add freetype and SDL path : -I/home/chris/powkiddy/sysroot/usr/local/include/freetype2 -I/home/chris/powkiddy/sysroot/usr/local/include/SDL
+update HAVE_SDL to 0
+
+make -j2
+make install DESTDIR=$SYSROOT 
+
+cd libretro-common/audio/dsp_filters
+extra_rules_gcc=armv7 make
+make install DESTDIR=$SYSROOT 
+
+libretro-super cores
+git clone https://github.com/libretro/libretro-super.git
+ ./libretro-fetch.sh corename
+edit makefile or makefile.libretro of the core 
+go to arch classic-armv7 
+# (armv7 a7, hard point, neon based) ###
+# NESC, SNESC, C64 mini
+else ifeq ($(platform), classic_armv7_a7)
+and replace mcpu=cortexa7 by a9
+then comment the if else for arch to keep only CFLAGS +=  -march=armv7-a
+
+like:
+#       ifeq ($(shell echo `$(CC) -dumpversion` "< 4.9" | bc -l), 1)
+          CFLAGS += -march=armv7-a
+#       else
+#         CFLAGS += -march=armv7ve
+          # If gcc is 5.0 or later
+#         ifeq ($(shell echo `$(CC) -dumpversion` ">= 5" | bc -l), 1)
+#           LDFLAGS += -static-libgcc -static-libstdc++
+#         endif
+#       endif
+
+
+platform=classic_armv7_a7 ./libretro-build.sh xxxx
+
+the cores are in dist/unixll di

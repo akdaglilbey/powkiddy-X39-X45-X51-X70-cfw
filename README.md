@@ -22,7 +22,8 @@ Powkiddy x39pro/x45/x51/x70 Custom firmware and toolchain
    - Gamepad driver (LINUXRAW) : match the non-standards event code of powkiddy for gamepad input
  - Firmware directory contains the scripts to extract the various partitions of the FW, a repack for update.zip to flash the consoles is possible as well (thanks [fox_exe](https://github.com/FoxExe/PowKiddy_fw) )
 
-
+# Improvements:
+ - Use hardware scaler instead of software scaler in retroarch (could save CPU time and battery)
 
 # Notes:
 
@@ -166,3 +167,69 @@ ctl.!default {
 
 link to driver: https://github.com/LeMaker/linux-actions/blob/linux-3.10.y/drivers/watchdog/owl_wdt.c
 
+## Hardware video scaler
+
+https://github.com/LeMaker/linux-actions/tree/linux-3.10.y/drivers/video/owl/dss
+fb0 = LCD principal (854×480)
+fb1 = HDMI (pas utilisé)
+video0 = Display Engine layer 0 (background)
+video1 = Display Engine layer 1 (overlay avec scaling)
+
+echo $((fb0_phys_start + 1639680)) > /sys/kernel/debug/de/video1/addr0
+echo 256 > /sys/kernel/debug/de/video1/width
+echo 224 > /sys/kernel/debug/de/video1/height
+echo 854 > /sys/kernel/debug/de/video1/out_width
+echo 480 > /sys/kernel/debug/de/video1/out_height
+echo 1 > /sys/kernel/debug/de/video1/apply
+
+```
+#!/bin/sh
+# Test Actions OWL Display Engine Hardware Scaler
+# This tests video1 layer with hardware scaling
+
+DE_VIDEO1="/sys/kernel/debug/de/video1"
+
+echo "=== Current video1 configuration ==="
+for f in width height out_width out_height pos_x pos_y color_mode addr0 pitch0; do
+    echo "$f: $(cat $DE_VIDEO1/$f 2>/dev/null)"
+done
+
+echo ""
+echo "=== Testing hardware scaler: 256x224 → 854x480 ==="
+
+# Configure video1 layer for SNES scaling
+# Source: 256x224 (SNES resolution)
+# Output: 854x480 (fullscreen)
+
+echo 256 > $DE_VIDEO1/width
+echo 224 > $DE_VIDEO1/height
+
+echo 854 > $DE_VIDEO1/out_width
+echo 480 > $DE_VIDEO1/out_height
+
+# Position at (0,0)
+echo 0 > $DE_VIDEO1/pos_x
+echo 0 > $DE_VIDEO1/pos_y
+
+# Color mode: RGB565 = 1
+echo 1 > $DE_VIDEO1/color_mode
+
+# Pitch (stride): 256 pixels * 2 bytes = 512
+echo 512 > $DE_VIDEO1/pitch0
+
+# Get framebuffer physical address (we'll need this)
+# For now, just show current config
+echo ""
+echo "=== New configuration ==="
+for f in width height out_width out_height; do
+    echo "$f: $(cat $DE_VIDEO1/$f)"
+done
+
+echo ""
+echo "Hardware scaler configured!"
+echo "Now we need to:"
+echo "1. Allocate a buffer for 256x224 pixels"
+echo "2. Write pixels to that buffer"  
+echo "3. Set addr0 to physical address of buffer"
+echo "4. Echo 1 > apply to activate"
+```
