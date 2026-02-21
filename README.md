@@ -2,12 +2,14 @@ Powkiddy x39pro/x45/x51/x70 Custom firmware and toolchain
 
 # Installation:
  - Copy run.sh and CFW folder on SD-card
- - Put update.zip and perform upgrade
+ - Put update.zip on SD Card
+      -  update.zip contains original Powkiddy firmware with startup script updated
+ - Reboot the console and perform the update when asked by the console.
  - When the system is now booting, after few seconds the menu is killed and retroarch is started.
  - Console is powered off when exiting retroarch
  
 # Uninstall:
- - Remove run.sh and keep the original emulators
+ - Remove run.sh from SD Card
 
 # How to compile:
  - Install ubuntu 16.04 64 bits
@@ -170,8 +172,8 @@ link to driver: https://github.com/LeMaker/linux-actions/blob/linux-3.10.y/drive
 ## Hardware video scaler
 
 https://github.com/LeMaker/linux-actions/tree/linux-3.10.y/drivers/video/owl/dss
-fb0 = LCD principal (854Ã—480)
-fb1 = HDMI (pas utilisÃ©)
+fb0 = LCD principal (854×480)
+fb1 = HDMI (pas utilisé)
 video0 = Display Engine layer 0 (background)
 video1 = Display Engine layer 1 (overlay avec scaling)
 
@@ -195,7 +197,7 @@ for f in width height out_width out_height pos_x pos_y color_mode addr0 pitch0; 
 done
 
 echo ""
-echo "=== Testing hardware scaler: 256x224 â†’ 854x480 ==="
+echo "=== Testing hardware scaler: 256x224 ? 854x480 ==="
 
 # Configure video1 layer for SNES scaling
 # Source: 256x224 (SNES resolution)
