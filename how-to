@@ -38,6 +38,9 @@ DINGUX = 1
 update CFLAGS and CXXFlAGS to add freetype and SDL path : -I/home/chris/powkiddy/sysroot/usr/local/include/freetype2 -I/home/chris/powkiddy/sysroot/usr/local/include/SDL
 update HAVE_SDL to 0
 
+update config.h and add at the top
+#define DINGUX 1
+
 make -j2
 make install DESTDIR=$SYSROOT 
 
@@ -53,7 +56,7 @@ go to arch classic-armv7
 # (armv7 a7, hard point, neon based) ###
 # NESC, SNESC, C64 mini
 else ifeq ($(platform), classic_armv7_a7)
-and replace mcpu=cortexa7 by a9
+and replace mcpu=cortexa7 by a9 and remove the rest of the line neon ....
 then comment the if else for arch to keep only CFLAGS +=  -march=armv7-a
 
 like:
@@ -70,4 +73,9 @@ like:
 
 platform=classic_armv7_a7 ./libretro-build.sh xxxx
 
-the cores are in dist/unixll di
+the cores are in dist/unix
+
+PCSX_Rearmed : to avoid linker error with pthread_setname_np:
+in frontend/pcsxr-threads.c
+comment the line pthread_setname_np(thread, name);
+pthread setname do not exists in uclibc
