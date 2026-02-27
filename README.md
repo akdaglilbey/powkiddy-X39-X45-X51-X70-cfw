@@ -1,5 +1,10 @@
 Powkiddy x39pro/x45/x51/x70 Custom firmware and toolchain
 
+# Disclaimer:
+This custom firmware is provided "as is" without any warranties, express or implied.
+I shall not be held responsible for any damage, loss of data, malfunction, bricking of the device, voided warranty, or any other issues resulting from the installation or use of this firmware.
+By installing this firmware, you agree that you do so entirely at your own risk and assume full responsibility for any consequences.
+
 # Installation:
  - Copy run.sh and CFW folder on SD-card
  - Put update.zip on SD Card
@@ -26,6 +31,8 @@ Powkiddy x39pro/x45/x51/x70 Custom firmware and toolchain
 
 # Improvements:
  - Use hardware scaler instead of software scaler in retroarch (could save CPU time and battery)
+ - Better sound handling
+ - Add a menu like gmenu2x to be able to start ports or programs
 
 # Notes:
 
@@ -172,8 +179,8 @@ link to driver: https://github.com/LeMaker/linux-actions/blob/linux-3.10.y/drive
 ## Hardware video scaler
 
 https://github.com/LeMaker/linux-actions/tree/linux-3.10.y/drivers/video/owl/dss
-fb0 = LCD principal (854×480)
-fb1 = HDMI (pas utilisé)
+fb0 = LCD principal (854Ã—480)
+fb1 = HDMI (pas utilisÃ©)
 video0 = Display Engine layer 0 (background)
 video1 = Display Engine layer 1 (overlay avec scaling)
 
@@ -234,4 +241,7 @@ echo "1. Allocate a buffer for 256x224 pixels"
 echo "2. Write pixels to that buffer"  
 echo "3. Set addr0 to physical address of buffer"
 echo "4. Echo 1 > apply to activate"
+
 ```
+
+
