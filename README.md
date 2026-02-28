@@ -1,15 +1,73 @@
-Powkiddy x39pro/x45/x51/x70 Custom firmware and toolchain
+# Powkiddy x39pro/x45/x51/x70 Custom firmware with RetroArch
+
+![image](IMG_0052.jpg)
+
+Enjoy real memory card for multicd PSX games and ability to change the screen-scaling !
 
 # Disclaimer:
 This custom firmware is provided "as is" without any warranties, express or implied.
 I shall not be held responsible for any damage, loss of data, malfunction, bricking of the device, voided warranty, or any other issues resulting from the installation or use of this firmware.
 By installing this firmware, you agree that you do so entirely at your own risk and assume full responsibility for any consequences.
 
+# Retroarch
+Use:
+- **SDL_DINGUX** for video
+    - By default there is no upscaling.
+    - You can upscale with Keep aspect ratio and Integer scaling options
+- **ALSA (prefered)** or **SDL** for audio
+    - Use resampler CC or nearest to 48000
+    - Delay to 64ms
+- **SDL** for input
+- **LINUXRAW (prefered)** or **SDL** for Gamepad
+
+L1 + R1 to get Menu in game
+
+# Retroarch cores included
+- Standalone:
+  - 2048
+  - mrboom
+  - prboom
+- GB/GBC/GBA:
+  - gambatte
+  - gearboy
+  - gpsp
+  - mgba
+  - tgbdual
+  - vbam
+- NES:
+  - fceumm
+  - nestopia
+  - quicknes
+- SNES:
+  - snes9x2002
+  - snes9x2005
+  - snes9x2010
+  - snes9x
+  - mednafen_supafaust
+- Megadrive:
+  - genesis_plus_gx
+  - picodrive
+- PSX:
+  - pcsx_rearmed
+- Neogeo/CPS/Arcade
+  - fbneo
+  - mame2000
+  - mame2003
+  - mame2003_plus
+  - fbalpha2012
+
+# Changelog
+## V0.2
+- Scalling and rotation of the screen in retroarch to avoid SDL Shadowbuf, FPS > 150 in menu
+- Upscaling nearest (fast) and bilinear (slow unless we use HW scaler)
+- Better sound parameters and usage of ATC2603 registers
+
 # Installation:
  - Copy run.sh and CFW folder on SD-card
  - Put update.zip on SD Card
       -  update.zip contains original Powkiddy firmware with startup script updated
- - Reboot the console and perform the update when asked by the console.
+      -  **Verify the update.zip CRC once copied on SD is correct !**  
+ - Reboot the console and perform the update when asked by the console. If the update is not detected, remove and insert the SD card when builtin frontend is started.
  - When the system is now booting, after few seconds the menu is killed and retroarch is started.
  - Console is powered off when exiting retroarch
  
@@ -30,8 +88,6 @@ By installing this firmware, you agree that you do so entirely at your own risk 
  - Firmware directory contains the scripts to extract the various partitions of the FW, a repack for update.zip to flash the consoles is possible as well (thanks [fox_exe](https://github.com/FoxExe/PowKiddy_fw) )
 
 # Improvements:
- - Use hardware scaler instead of software scaler in retroarch (could save CPU time and battery)
- - Better sound handling
  - Add a menu like gmenu2x to be able to start ports or programs
 
 # Notes:
@@ -55,45 +111,72 @@ The script is doing the following:
 - Starting retroarch with various environments variables
 - Setting CPU to 900mhz in perf mode
 - Reset the framebuffer
-- Activate speaker + volume set to 20
+- Activate speaker + volume set to 40
 
 When retroarch exit, the console is powered off
 
 ```
 #!/bin/sh
-cd /mnt/card
-/mnt/card/watchdog_feeder 5 30 &
+export LD_LIBRARY_PATH=/mnt/card/cfw/libs:$LD_LIBRARY_PATH
+cd /mnt/card/cfw
+/mnt/card/cfw/tools/watchdog_feeder 5 30 &
 sleep 15
+echo 1 >  /sys/devices/system/cpu/cpu1/online
+#echo 1 >  /sys/devices/system/cpu/cpu2/online
+#echo 1 >  /sys/devices/system/cpu/cpu3/online
+echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+echo performance > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+#echo performance > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+#echo performance > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+echo 900000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+echo 900000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+#echo 900000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
+#echo 900000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
 killall -9 manager
 killall -9 launcher
 killall -9 audio_service
 killall -9 msg_server
 sleep 1
 /etc/backlight.sh open &
-export HOME=/mnt/card/
+export HOME=/mnt/card/cfw
 export SDL_VIDEODRIVER=fbcon
 export SDL_NOMOUSE=1
 export SDL_MOUSEDEV=/dev/null
-export SDL_VIDEO_FBCON_ROTATION=CCW
+#export SDL_VIDEO_FBCON_ROTATION=CCW
 export SDL_AUDIODRIVER=alsa
-export SDL_AUDIO_ALSA_DEBUG=1
+export SDL_AUDIO_ALSA_DEBUG=0
 export SDL_AUDIO_ALLOW_FREQUENCY_CHANGE=0
 echo "0,0" > /sys/class/graphics/fb0/pan
 # Reset virtual position
 echo 0 > /sys/class/graphics/fb0/virtual_size
 /bin/tinymix 35 1 &
-/bin/tinymix 15 20 &
+/bin/tinymix 30 1 &
+/bin/tinymix 15 40 &
 echo 1 >  /sys/devices/system/cpu/cpu1/online
+#echo 1 >  /sys/devices/system/cpu/cpu2/online
+#echo 1 >  /sys/devices/system/cpu/cpu3/online
 echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 echo performance > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+#echo performance > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+#echo performance > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
 echo 900000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+echo 900000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+#echo 900000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
+#echo 900000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
 killall -9 manager
 killall -9 launcher
 killall -9 audio_service
 killall -9 msg_server
-/bin/adbd&
+echo "2 0x0223" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
+echo "0 0x0022" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
+echo "3 0xbebe" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
+echo "5 0x0468"  > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
+echo "7 0x26BF"  > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
+ 
+#/bin/adbd&
+/mnt/card/cfw/tools/power_volume_daemon &
 sleep 1
-/mnt/card/retroarch
+/mnt/card/cfw/retroarch
 sync &
 poweroff &
 ```
@@ -125,9 +208,9 @@ Driver source: https://github.com/LeMaker/linux-actions/tree/linux-3.10.y/sound/
 
 Avoid MMAP ! sound is really dirty !
 
-Buffer size 4096
+Buffer size 768
 
-Period size 1024
+Period size 7680
 
 use plug !
 
@@ -243,5 +326,6 @@ echo "3. Set addr0 to physical address of buffer"
 echo "4. Echo 1 > apply to activate"
 
 ```
+
 
 
