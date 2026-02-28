@@ -21,6 +21,7 @@ Use:
 - **LINUXRAW (prefered)** or **SDL** for Gamepad
 
 L1 + R1 to get Menu in game
+You can copy your bios in cfw/.retroarch/system
 
 # Retroarch cores included
 - Standalone:
@@ -326,6 +327,7 @@ echo "3. Set addr0 to physical address of buffer"
 echo "4. Echo 1 > apply to activate"
 
 ```
+
 
 
 
