@@ -11,17 +11,18 @@ By installing this firmware, you agree that you do so entirely at your own risk 
 
 # Retroarch
 Use:
-- **SDL_DINGUX** for video
-    - By default there is no upscaling.
-    - You can upscale with Keep aspect ratio and Integer scaling options
+- **SDL_POWKIDDY** for video
+    - You can upscale with Keep aspect ratio and Integer scaling options (Settings -> Video -> Scaling)
+    - You can change screen orientation (Settings -> Video -> Output)
 - **ALSA (prefered)** or **SDL** for audio
     - Use resampler CC or nearest to 48000
-    - Delay to 64ms
-- **SDL** for input
+    - Delay to 160ms
+- **LINUXRAW** for input
 - **LINUXRAW (prefered)** or **SDL** for Gamepad
 
-L1 + R1 to get Menu in game
-You can copy your bios in cfw/.retroarch/system
+**L1 + R1** or **MENU** button to get menu in game
+
+**You can copy your bios in cfw/.config/retroarch/system, stock SD card contains some bios in game/.bios**
 
 # Retroarch cores included
 - Standalone:
@@ -56,12 +57,10 @@ You can copy your bios in cfw/.retroarch/system
   - mame2003
   - mame2003_plus
   - fbalpha2012
-
-# Changelog
-## V0.2
-- Scalling and rotation of the screen in retroarch to avoid SDL Shadowbuf, FPS > 150 in menu
-- Upscaling nearest (fast) and bilinear (slow unless we use HW scaler)
-- Better sound parameters and usage of ATC2603 registers
+- Others:
+  - mednafen_ngp
+  - mednafen_vb
+  - ffmpeg
 
 # Installation:
  - Copy run.sh and CFW folder on SD-card
@@ -71,19 +70,46 @@ You can copy your bios in cfw/.retroarch/system
  - Reboot the console and perform the update when asked by the console. If the update is not detected, remove and insert the SD card when builtin frontend is started.
  - When the system is now booting, after few seconds the menu is killed and retroarch is started.
  - Console is powered off when exiting retroarch
+
+## In case of CFW update and unless specified, the update.zip process is not required, only extract the cfw to the SD.
  
 # Uninstall:
  - Remove run.sh from SD Card
+
+# Changelog
+## V0.3:
+**Many thanks to @dmolina007 [https://github.com/dmolina007] for the tests and suggestions !**
+
+- Audio delay set to 160 
+- 4 Scaling mode:
+  - integer_scaling && !keep_aspect : fill full physical height
+  - !integer_scaling && keep_aspect: core output resolution
+  - integer_scaling && keep_aspect: max scaling rounded to integer (x2,x3,x4)
+  - !integer_scaling && !keep_aspect: full screen stretch
+- Charging mode do not start Retroarch
+- 3 new cores (mednafen_ngp, mednafen_vb, ffmpeg [degraded performances and crash])
+- Correct gamepad button assignement
+- Earphone detection
+- ADB shell and file transfer activation on USB detection
+- Restart Retroarch and Bilinear filtering options removed
+- Screen rotation in RetroArch's settings
+- Cleanup source code
+
+## V0.2
+- Scaling and rotation of the screen in retroarch to avoid SDL Shadowbuf, FPS > 150 in menu
+- Upscaling nearest (fast) and bilinear (slow unless we use HW scaler)
+- Better sound parameters and usage of ATC2603 registers
 
 # How to compile:
  - Install ubuntu 16.04 64 bits
  - Get this repository
  - git submodules init
- - build the toolchain (buildroot.2015.02 -> make toolchain
+ - git submodules update
+ - build the toolchain (buildroot.2015.02 -> make toolchain and check the _compile file
  - In order to compile something with the toolchain, apply the environments variables defined "source project/set_env.sh" and read how-to file
  - SDL1-2 has been modified to set the audio to correct buffer_size/period_size and do joypad remapping
  - Retroarch has been heavily modified to
-   - GFX (SDL_DINGUX) : framebuffer specs + resize/stretch screen
+   - GFX (SDL_POWKIDDY) : framebuffer specs + resize/stretch screen
    - Alsa driver (ALSA) to use 32_LE format with correct buffer/period size and integration of Bass filter (high pass) to have better sound especially in SNES games
    - Gamepad driver (LINUXRAW) : match the non-standards event code of powkiddy for gamepad input
  - Firmware directory contains the scripts to extract the various partitions of the FW, a repack for update.zip to flash the consoles is possible as well (thanks [fox_exe](https://github.com/FoxExe/PowKiddy_fw) )
@@ -122,21 +148,21 @@ export LD_LIBRARY_PATH=/mnt/card/cfw/libs:$LD_LIBRARY_PATH
 cd /mnt/card/cfw
 /mnt/card/cfw/tools/watchdog_feeder 5 30 &
 sleep 15
+while ps w | grep "[p]oweron" > /dev/null
+do
+    sleep 5
+done
 echo 1 >  /sys/devices/system/cpu/cpu1/online
-#echo 1 >  /sys/devices/system/cpu/cpu2/online
-#echo 1 >  /sys/devices/system/cpu/cpu3/online
 echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 echo performance > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-#echo performance > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-#echo performance > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
 echo 900000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 echo 900000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-#echo 900000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
-#echo 900000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
+
 killall -9 manager
 killall -9 launcher
 killall -9 audio_service
 killall -9 msg_server
+killall -9 adbd
 sleep 1
 /etc/backlight.sh open &
 export HOME=/mnt/card/cfw
@@ -154,45 +180,28 @@ echo 0 > /sys/class/graphics/fb0/virtual_size
 /bin/tinymix 30 1 &
 /bin/tinymix 15 40 &
 echo 1 >  /sys/devices/system/cpu/cpu1/online
-#echo 1 >  /sys/devices/system/cpu/cpu2/online
-#echo 1 >  /sys/devices/system/cpu/cpu3/online
 echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 echo performance > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-#echo performance > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-#echo performance > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
 echo 900000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 echo 900000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-#echo 900000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
-#echo 900000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
 killall -9 manager
 killall -9 launcher
 killall -9 audio_service
 killall -9 msg_server
+killall -9 adbd
 echo "2 0x0223" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
 echo "0 0x0022" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
 echo "3 0xbebe" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
 echo "5 0x0468"  > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
 echo "7 0x26BF"  > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
- 
-#/bin/adbd&
+
 /mnt/card/cfw/tools/power_volume_daemon &
 sleep 1
 /mnt/card/cfw/retroarch
 sync &
 poweroff &
+
 ```
-
-## Retroarch
-Use:
-- **SDL_DINGUX** for video
-    - By default there is no upscaling.
-    - You can upscale with Keep aspect ratio and Integer scaling options
-- **ALSA (prefered)** or **SDL** for audio
-    - Use resampler CC or nearest to 48000
-    - Delay to 64ms
-- **SDL** for input
-- **LINUXRAW (prefered)** or **SDL** for Gamepad
-
 
 ## Infos
 To connect to the console, you must have the USB-C (charger) connected and USB-A cable ton USB1 port.
@@ -217,7 +226,7 @@ use plug !
 
 cat /proc/asound/card0/pcm0p/sub0/hw_params
 
-content of /mnt/card/alsa.conf :
+content of /mnt/card/cfw/alsa.conf :
 ```
 pcm.hw0 {
     type hw
@@ -327,6 +336,7 @@ echo "3. Set addr0 to physical address of buffer"
 echo "4. Echo 1 > apply to activate"
 
 ```
+
 
 
 
