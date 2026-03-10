@@ -27,10 +27,10 @@ make -j2
 make install DESTDIR=$SYSROOT
 
 Retroarch
-edit sdl,freetype and zlib pkgconfig to adjust lib path (not taken into account during configure)
-nano $SYSROOT/usr/local/lib/pkgconfig/sdl.pc
-and set the prefix dir of your sysroot
+make -f Makefile.powkiddy
 
+DEPRECATED:
+or use the configure:
 ./configure --prefix=$SYSROOT --host=arm-buildroot-linux-uclibcgnueabi --enable-sdl --disable-sdl2 --disable-networking --disable-opengl --disable-mali_fbdev --disable-x11 --disable-wayland --enable-alsa --enable-tinyalsa --disable-audioio --disable-oss --disable-rsound --disable-roar --disable-pulse --disable-coreaudio --enable-neon --enable-floathard --disable-vulkan --disable-wifi --disable-ozone --disable-debug --enable-sdl_dingux
 
 edit config.mk and add under prefix line:
@@ -47,6 +47,9 @@ make install DESTDIR=$SYSROOT
 cd libretro-common/audio/dsp_filters
 extra_rules_gcc=armv7 make
 make install DESTDIR=$SYSROOT 
+
+END DEPRECATED
+
 
 libretro-super cores
 git clone https://github.com/libretro/libretro-super.git
@@ -79,3 +82,8 @@ PCSX_Rearmed : to avoid linker error with pthread_setname_np:
 in frontend/pcsxr-threads.c
 comment the line pthread_setname_np(thread, name);
 pthread setname do not exists in uclibc
+
+libretro-ffmpeg:
+./configure --arch=arm --cross-prefix=arm-buildroot-linux-uclibcgnueabihf- --sysroot=$SYSROOT --target-os=linux --disable-yasm  --enable-cross-compile  --disable-network 
+make install DESTDIR=$SYSROOT
+

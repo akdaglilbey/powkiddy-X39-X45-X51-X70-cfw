@@ -7,10 +7,11 @@ export AR=arm-buildroot-linux-uclibcgnueabihf-ar
 export LD=arm-buildroot-linux-uclibcgnueabihf-ld
 export RANLIB=arm-buildroot-linux-uclibcgnueabihf-ranlib
 export STRIP=arm-buildroot-linux-uclibcgnueabihf-strip
-
+export NM=arm-buildroot-linux-uclibcgnueabihf-nm
 export PATH=/home/chris/powkiddy/buildroot-2015.02/output/host/usr/bin:$PATH
 
 export PKG_CONFIG_LIBDIR=$SYSROOT/usr/local/lib/pkgconfig:$SYSROOT/usr/local/share/pkgconfig:$SYSROOT/usr/lib/pkgconfig
+export PKG_CONFIG_SYSROOT_DIR=$SYSROOT
 export PKG_CONFIG_PATH=/usr/bin/pkg-config
 export PKG_CONFIG=$PKG_CONFIG_PATH
 export PKG_CONF_PATH=$PKG_CONFIG_PATH
@@ -39,6 +40,6 @@ export TOOLCHAIN_DIR=/home/chris/powkiddy/buildroot-2015.02/output/host/$ARMABI
 
 export CROSS_COMPILE=$ARMABI-
 
-export SDL_CONFIG=$TOOLCHAIN_DIR/sysroot/usr/bin/sdl-config
-export FREETYPE_CONFIG=$TOOLCHAIN_DIR/sysroot/usr/bin/freetype-config
+export SDL_CONFIG=$SYSROOT/usr/local/bin/sdl-config
+export FREETYPE_CONFIG=$SYSROOT/usr/local/bin/freetype-config
 

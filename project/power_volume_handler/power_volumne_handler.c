@@ -1,302 +1,376 @@
-/* Power/Volume Control Daemon for Powkiddy X39 Pro
+/*
+ * powkiddy_daemon.c
+ * Unified daemon for Powkiddy X39 Pro:
+ *   - ADB hotplug (USB PC+Charger detection)
+ *   - Earphone detection (via /sys/kernel/debug/gpio)
+ *   - Power button long press shutdown (5s)
  *
- * - Monitors volume up/down buttons and adjusts ALSA mixer
- * - Long press POWER (5s) triggers safe shutdown
- *
- * Compile:
- * arm-linux-gcc -o volume_daemon volume_daemon.c -static -Os  */
+ * Build:
+ *   arm-buildroot-linux-uclibcgnueabi-gcc -O2 -o powkiddy_daemon powkiddy_daemon.c
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <string.h>
 #include <errno.h>
 #include <signal.h>
-#include <sys/select.h>
-#include <linux/input.h>
 #include <time.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <sys/select.h>
 #include <sys/reboot.h>
+#include <linux/input.h>
 
-/* Button definitions */
-#define EVDEV_BTN_VOLUP    115
-#define EVDEV_BTN_VOLDOWN  114
-#define EVDEV_BTN_ON       116
+/* ─── Configuration ─────────────────────────────────────────────────────── */
 
-/* Power hold duration */
-#define POWER_HOLD_MS      5000
+#define POLL_INTERVAL_MS        500
 
-/* Volume settings */
-#define VOLUME_MIN         0
-#define VOLUME_MAX         40
-#define VOLUME_STEP        1
-#define TINYMIX_CONTROL    15
+/* USB monitor sysfs paths */
+#define USB_PC_CONNECTED        "/sys/monitor/usb_port/status/pc_connected"
+#define USB_CHARGER_CONNECTED   "/sys/monitor/usb_port/status/charger_connected"
+#define USB_PORT_TYPE           "/sys/monitor/usb_port/config/port_type"
+#define USB_RUN                 "/sys/monitor/usb_port/config/run"
 
-/* Repeat settings */
-#define REPEAT_INITIAL_DELAY_MS  500
-#define REPEAT_RATE_MS           100
+/* GPIO debug for earphone */
+#define GPIO_DEBUG              "/sys/kernel/debug/gpio"
+#define GPIO_EARPHONE_NAME      "earphone_detect_gpio"
 
-static int running = 1;
-static int current_volume = -1;
+/* USB gadget control via native usb.sh */
+#define USB_SH                  "/usr/bin/usb.sh"
 
-/* Button state tracking */
-static int volup_pressed = 0;
-static int voldown_pressed = 0;
-static long long volup_press_time = 0;
-static long long voldown_press_time = 0; static long long last_repeat_time = 0;
+/* Tinymix PA controls */
+#define TINYMIX_PATH            "/bin/tinymix"
+#define PA_SWITCH_CTL           "35"    /* speaker on off switch */
 
-static int power_pressed = 0;
-static long long power_press_time = 0;
-static int power_triggered = 0;
+/* Power button */
+#define INPUT_EVENT0            "/dev/input/event0"
+#define INPUT_EVENT1            "/dev/input/event1"
+#define EVDEV_BTN_POWER         116
+#define POWER_HOLD_MS           5000
 
-void signal_handler(int sig)
-{
-    printf("Received signal %d, exiting...\n", sig);
-    running = 0;
-}
+/* Log */
+#define LOG_PATH                "/tmp/powkiddy_daemon.log"
 
-long long get_time_ms(void)
+/* ─── Globals ────────────────────────────────────────────────────────────── */
+
+static FILE        *log_fp       = NULL;
+static volatile int running      = 1;
+static int          adb_active   = 0;
+
+/* Power button state */
+static int          power_pressed     = 0;
+static long long    power_press_time  = 0;
+static int          power_triggered   = 0;
+
+/* ─── Time ───────────────────────────────────────────────────────────────── */
+
+static long long get_time_ms(void)
 {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (long long)ts.tv_sec * 1000 + ts.tv_nsec / 1000000; }
+    return (long long)ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
+}
 
-int get_volume(void)
+static void sleep_ms(int ms)
 {
-    FILE *fp;
-    char cmd[128];
-    char output[256];
-    int volume = -1;
+    struct timespec ts;
+    ts.tv_sec  = ms / 1000;
+    ts.tv_nsec = (ms % 1000) * 1000000L;
+    nanosleep(&ts, NULL);
+}
 
-    snprintf(cmd, sizeof(cmd),
-             "/bin/tinymix %d 2>/dev/null", TINYMIX_CONTROL);
+/* ─── Logging ────────────────────────────────────────────────────────────── */
 
-    fp = popen(cmd, "r");
-    if (!fp)
+static void log_msg(const char *fmt, ...)
+{
+    time_t t = time(NULL);
+    struct tm *tm = localtime(&t);
+    char timebuf[32];
+    strftime(timebuf, sizeof(timebuf), "%Y-%m-%d %H:%M:%S", tm);
+
+    va_list ap;
+    va_start(ap, fmt);
+    fprintf(log_fp, "[%s] ", timebuf);
+    vfprintf(log_fp, fmt, ap);
+    fprintf(log_fp, "\n");
+    fflush(log_fp);
+    va_end(ap);
+}
+
+/* ─── File helpers ───────────────────────────────────────────────────────── */
+
+static int read_file_str(const char *path, char *buf, size_t len)
+{
+    int fd = open(path, O_RDONLY);
+    if (fd < 0) return -1;
+    ssize_t n = read(fd, buf, len - 1);
+    close(fd);
+    if (n <= 0) return -1;
+    buf[n] = '\0';
+    char *nl = strchr(buf, '\n');
+    if (nl) *nl = '\0';
+    return 0;
+}
+
+static int write_file_str(const char *path, const char *val)
+{
+    int fd = open(path, O_WRONLY);
+    if (fd < 0) return -1;
+    write(fd, val, strlen(val));
+    close(fd);
+    return 0;
+}
+
+static int read_file_int(const char *path)
+{
+    char buf[16];
+    if (read_file_str(path, buf, sizeof(buf)) < 0) return -1;
+    return atoi(buf);
+}
+
+static int run_cmd(const char *cmd)
+{
+    log_msg("CMD: %s", cmd);
+    int ret = system(cmd);
+    if (ret != 0) log_msg("CMD failed: %d", ret);
+    return ret;
+}
+
+/* ─── Earphone detection ─────────────────────────────────────────────────── */
+
+/*
+ * Parse /sys/kernel/debug/gpio for earphone_detect_gpio
+ * Returns 1 if plugged (lo), 0 if unplugged (hi), -1 on error
+ */
+static int read_earphone_state(void)
+{
+    FILE *f = fopen(GPIO_DEBUG, "r");
+    if (!f) return -1;
+
+    char line[128];
+    int result = -1;
+
+    while (fgets(line, sizeof(line), f)) {
+        if (strstr(line, GPIO_EARPHONE_NAME)) {
+            if (strstr(line, " lo"))
+                result = 1;  /* lo = plugged */
+            else if (strstr(line, " hi"))
+                result = 0;  /* hi = unplugged */
+            break;
+        }
+    }
+
+    fclose(f);
+    return result;
+}
+
+static void set_pa(int on)
+{
+    if (on) {
+        log_msg("Earphone unplugged -> PA on");
+        run_cmd(TINYMIX_PATH " " PA_SWITCH_CTL " 1");
+    } else {
+        log_msg("Earphone plugged -> PA off");
+        run_cmd(TINYMIX_PATH " " PA_SWITCH_CTL " 0");
+    }
+}
+
+/* ─── ADB management ─────────────────────────────────────────────────────── */
+
+static void adb_cleanup(void)
+{
+    log_msg("ADB cleanup...");
+    run_cmd(USB_SH " DISABLE 2>/dev/null");
+    sleep_ms(1000);
+    run_cmd(USB_SH " ENABLE_HOST 2>/dev/null");
+    sleep_ms(1000);
+}
+
+static int adb_load(void)
+{
+    log_msg("ADB loading...");
+
+    run_cmd(USB_SH " DISABLE_HOST 2>/dev/null");
+    sleep_ms(1000);
+
+    if (run_cmd(USB_SH " ADD_FUNCTIONS mass_adb 2>/dev/null") != 0) {
+        log_msg("usb.sh ADD_FUNCTIONS failed");
         return -1;
-
-    if (fgets(output, sizeof(output), fp))
-    {
-        char *value = strchr(output, ':');
-        if (value)
-            volume = atoi(value + 1);
-        else
-            volume = atoi(output);
     }
 
-    pclose(fp);
-    return volume;
+    /* Wait for gadget + adbd to fully initialize.
+     * USB status fluctuates during this period - main loop must ignore it. */
+    sleep_ms(4000);
+
+    char state[32] = "";
+    read_file_str("/sys/class/android_usb/android0/state", state, sizeof(state));
+    log_msg("ADB gadget state: %s", state);
+
+    adb_active = 1;
+    return 0;
 }
 
-int set_volume(int volume)
+/* ─── Power button ───────────────────────────────────────────────────────── */
+
+static void trigger_poweroff(void)
 {
-    char cmd[128];
-
-    if (volume < VOLUME_MIN)
-        volume = VOLUME_MIN;
-    if (volume > VOLUME_MAX)
-        volume = VOLUME_MAX;
-
-    snprintf(cmd, sizeof(cmd),
-             "/bin/tinymix %d %d >/dev/null 2>&1",
-             TINYMIX_CONTROL, volume);
-
-    if (system(cmd) == 0)
-    {
-        current_volume = volume;
-        printf("Volume set to: %d/%d\n", volume, VOLUME_MAX);
-        return 0;
-    }
-
-    return -1;
-}
-
-void adjust_volume(int delta)
-{
-    if (current_volume < 0)
-    {
-        current_volume = get_volume();
-        if (current_volume < 0)
-            current_volume = 20;
-    }
-
-    set_volume(current_volume + delta);
-}
-
-void trigger_poweroff(void)
-{
-    printf("Power button held for 5 seconds. Shutting down...\n");
-
+    log_msg("Power button held %dms -> shutdown", POWER_HOLD_MS);
     sync();
-    system("killall retroarch >/dev/null 2>&1");
+    system("killall retroarch 2>/dev/null");
     sleep(1);
-
-    /* You can replace with reboot(RB_POWER_OFF); if preferred */
     system("poweroff");
-
     running = 0;
 }
 
-void handle_key_event(struct input_event *ev) {
-    long long now = get_time_ms();
+static void handle_key_event(struct input_event *ev)
+{
+    if (ev->type != EV_KEY) return;
 
-    if (ev->type != EV_KEY)
-        return;
-
-    switch (ev->code)
-    {
-        case EVDEV_BTN_VOLUP:
-            if (ev->value == 1)
-            {
-                adjust_volume(VOLUME_STEP);
-                volup_pressed = 1;
-                volup_press_time = now;
-                last_repeat_time = now;
-            }
-            else if (ev->value == 0)
-            {
-                volup_pressed = 0;
-            }
-            break;
-
-        case EVDEV_BTN_VOLDOWN:
-            if (ev->value == 1)
-            {
-                adjust_volume(-VOLUME_STEP);
-                voldown_pressed = 1;
-                voldown_press_time = now;
-                last_repeat_time = now;
-            }
-            else if (ev->value == 0)
-            {
-                voldown_pressed = 0;
-            }
-            break;
-
-        case EVDEV_BTN_ON:
-            if (ev->value == 1)
-            {
-                power_pressed = 1;
-                power_press_time = now;
-                power_triggered = 0;
-                printf("POWER pressed\n");
-            }
-            else if (ev->value == 0)
-            {
-                power_pressed = 0;
-                power_triggered = 0;
-                printf("POWER released\n");
-            }
-            break;
+    if (ev->code == EVDEV_BTN_POWER) {
+        if (ev->value == 1) {
+            power_pressed    = 1;
+            power_press_time = get_time_ms();
+            power_triggered  = 0;
+            log_msg("Power button pressed");
+        } else if (ev->value == 0) {
+            power_pressed   = 0;
+            power_triggered = 0;
+            log_msg("Power button released");
+        }
     }
 }
 
-int open_input(const char *dev)
+static int open_input(const char *dev)
 {
     int fd = open(dev, O_RDONLY | O_NONBLOCK);
     if (fd >= 0)
-        printf("Opened %s\n", dev);
+        log_msg("Opened input: %s", dev);
+    else
+        log_msg("Failed to open input: %s (%s)", dev, strerror(errno));
     return fd;
 }
 
+/* ─── Signal handler ─────────────────────────────────────────────────────── */
+
+static void sig_handler(int sig)
+{
+    (void)sig;
+    running = 0;
+}
+
+/* ─── Main ───────────────────────────────────────────────────────────────── */
+
 int main(void)
 {
-    int event0_fd, event1_fd;
-    struct input_event ev;
-    fd_set readfds;
-    struct timeval tv;
+    log_fp = fopen(LOG_PATH, "w");
+    if (!log_fp) log_fp = stderr;
 
-    signal(SIGINT, signal_handler);
-    signal(SIGTERM, signal_handler);
+    log_msg("powkiddy_daemon started");
 
-    printf("Volume Control Daemon starting...\n");
+    signal(SIGTERM, sig_handler);
+    signal(SIGINT,  sig_handler);
+    signal(SIGCHLD, SIG_DFL);  /* Avoid zombie children from system() */
 
-    event0_fd = open_input("/dev/input/event0");
-    event1_fd = open_input("/dev/input/event1");
+    /* Init USB monitor in device mode */
+    write_file_str(USB_PORT_TYPE, "0");
+    write_file_str(USB_RUN,       "1");
 
-    if (event0_fd < 0 && event1_fd < 0)
-    {
-        fprintf(stderr, "No input devices found\n");
-        return 1;
-    }
+    /* Open input devices for power button */
+    int event0_fd = open_input(INPUT_EVENT0);
+    int event1_fd = open_input(INPUT_EVENT1);
 
-    current_volume = get_volume();
-    printf("Initial volume: %d\n", current_volume);
+    int prev_pc       = -1;
+    int prev_earphone = -1;
 
-    while (running)
-    {
-        FD_ZERO(&readfds);
-        int max_fd = -1;
+    while (running) {
 
-        if (event0_fd >= 0)
-        {
-            FD_SET(event0_fd, &readfds);
-            if (event0_fd > max_fd) max_fd = event0_fd;
-        }
+        /* ── Input event polling (non-blocking) ── */
+        if (event0_fd >= 0 || event1_fd >= 0) {
+            fd_set readfds;
+            struct timeval tv;
+            FD_ZERO(&readfds);
+            int max_fd = -1;
 
-        if (event1_fd >= 0)
-        {
-            FD_SET(event1_fd, &readfds);
-            if (event1_fd > max_fd) max_fd = event1_fd;
-        }
+            if (event0_fd >= 0) { FD_SET(event0_fd, &readfds); if (event0_fd > max_fd) max_fd = event0_fd; }
+            if (event1_fd >= 0) { FD_SET(event1_fd, &readfds); if (event1_fd > max_fd) max_fd = event1_fd; }
 
-        tv.tv_sec = 0;
-        tv.tv_usec = 50000;
+            tv.tv_sec  = 0;
+            tv.tv_usec = 50000;  /* 50ms */
 
-        int ret = select(max_fd + 1, &readfds, NULL, NULL, &tv);
-        if (ret < 0)
-        {
-            if (errno == EINTR)
-                continue;
-            break;
+            if (select(max_fd + 1, &readfds, NULL, NULL, &tv) > 0) {
+                struct input_event ev;
+                if (event0_fd >= 0 && FD_ISSET(event0_fd, &readfds))
+                    while (read(event0_fd, &ev, sizeof(ev)) == sizeof(ev))
+                        handle_key_event(&ev);
+                if (event1_fd >= 0 && FD_ISSET(event1_fd, &readfds))
+                    while (read(event1_fd, &ev, sizeof(ev)) == sizeof(ev))
+                        handle_key_event(&ev);
+            }
         }
 
         long long now = get_time_ms();
 
-        /* Volume repeat */
-        if (volup_pressed &&
-            (now - volup_press_time) >= REPEAT_INITIAL_DELAY_MS &&
-            (now - last_repeat_time) >= REPEAT_RATE_MS)
-        {
-            adjust_volume(VOLUME_STEP);
-            last_repeat_time = now;
-        }
-
-        if (voldown_pressed &&
-            (now - voldown_press_time) >= REPEAT_INITIAL_DELAY_MS &&
-            (now - last_repeat_time) >= REPEAT_RATE_MS)
-        {
-            adjust_volume(-VOLUME_STEP);
-            last_repeat_time = now;
-        }
-
-        /* Power hold */
-        if (power_pressed && !power_triggered)
-        {
-            if ((now - power_press_time) >= POWER_HOLD_MS)
-            {
+        /* ── Power button hold check ── */
+        if (power_pressed && !power_triggered) {
+            if ((now - power_press_time) >= POWER_HOLD_MS) {
                 power_triggered = 1;
                 trigger_poweroff();
             }
         }
 
-        /* Process events */
-        if (event0_fd >= 0 && FD_ISSET(event0_fd, &readfds))
-        {
-            while (read(event0_fd, &ev, sizeof(ev)) == sizeof(ev))
-                handle_key_event(&ev);
+        /* ── Earphone detection ── */
+        int earphone = read_earphone_state();
+        if (earphone >= 0 && earphone != prev_earphone) {
+            set_pa(!earphone);  /* plugged=1 -> PA off, unplugged=0 -> PA on */
+            prev_earphone = earphone;
         }
 
-        if (event1_fd >= 0 && FD_ISSET(event1_fd, &readfds))
-        {
-            while (read(event1_fd, &ev, sizeof(ev)) == sizeof(ev))
-                handle_key_event(&ev);
+        /* ── ADB hotplug ── */
+        int pc      = read_file_int(USB_PC_CONNECTED);
+        int charger = read_file_int(USB_CHARGER_CONNECTED);
+
+        if (pc == 1 && charger != 0 && prev_pc != 1) {
+            log_msg("USB PC+Charger detected");
+            /* Record connect time for debounce */
+            long long connect_time = get_time_ms();
+            if (adb_load() < 0) {
+                log_msg("ADB init failed, will retry on next plug");
+                prev_pc = 0;
+            } else {
+                prev_pc = 1;
+                (void)connect_time;
+            }
+        } else if (pc == 0 && charger == 0 && prev_pc == 1) {
+            /* Only disconnect if BOTH pc and charger are 0
+             * and we wait for a stable low reading */
+            sleep_ms(1000);
+            int pc2      = read_file_int(USB_PC_CONNECTED);
+            int charger2 = read_file_int(USB_CHARGER_CONNECTED);
+            if (pc2 == 0 && charger2 == 0) {
+                log_msg("USB disconnected (confirmed)");
+                adb_cleanup();
+                adb_active = 0;
+                prev_pc = 0;
+            } else {
+                log_msg("USB disconnect was transient, ignoring");
+            }
+        } else if (pc >= 0 && prev_pc == -1) {
+            /* First read - init state without triggering */
+            prev_pc = (pc == 1 && charger != 0) ? 1 : 0;
         }
+
+        sleep_ms(POLL_INTERVAL_MS);
     }
 
+    /* Cleanup on exit */
+    log_msg("Daemon exiting...");
+    if (adb_active) adb_cleanup();
     if (event0_fd >= 0) close(event0_fd);
     if (event1_fd >= 0) close(event1_fd);
+    if (log_fp != stderr) fclose(log_fp);
 
-    printf("Volume daemon exiting\n");
     return 0;
 }
