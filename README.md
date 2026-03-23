@@ -115,7 +115,7 @@ Use:
  - Firmware directory contains the scripts to extract the various partitions of the FW, a repack for update.zip to flash the consoles is possible as well (thanks [fox_exe](https://github.com/FoxExe/PowKiddy_fw) )
 
 ## Needed package:
- - build-essentials bzip2 automake
+ - build-essentials bzip2 automake git
 # Improvements:
  - Add a menu like gmenu2x to be able to start ports or programs
 
