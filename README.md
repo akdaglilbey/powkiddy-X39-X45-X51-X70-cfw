@@ -101,11 +101,11 @@ Use:
 - Better sound parameters and usage of ATC2603 registers
 
 # How to compile:
- - Install ubuntu 16.04 64 bits
+ - Install Ubuntu or WSL2
  - Get this repository
- - git submodules init
- - git submodules update
- - build the toolchain (buildroot.2015.02 -> make toolchain and check the _compile file
+ - git submodule init
+ - git submodule update
+ - extract toolchain
  - In order to compile something with the toolchain, apply the environments variables defined "source project/set_env.sh" and read how-to file
  - SDL1-2 has been modified to set the audio to correct buffer_size/period_size and do joypad remapping
  - Retroarch has been heavily modified to
@@ -114,6 +114,8 @@ Use:
    - Gamepad driver (LINUXRAW) : match the non-standards event code of powkiddy for gamepad input
  - Firmware directory contains the scripts to extract the various partitions of the FW, a repack for update.zip to flash the consoles is possible as well (thanks [fox_exe](https://github.com/FoxExe/PowKiddy_fw) )
 
+## Needed package:
+ - build-essentials bzip2 automake
 # Improvements:
  - Add a menu like gmenu2x to be able to start ports or programs
 
