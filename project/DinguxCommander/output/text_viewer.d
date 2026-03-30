@@ -1,0 +1,122 @@
+output/text_viewer.o: src/text_viewer.cpp src/text_viewer.h \
+ src/sdl_ptrs.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_main.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_stdinc.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_config.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_platform.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/begin_code.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/close_code.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_audio.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_error.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_endian.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_mutex.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_thread.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_rwops.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_cdrom.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_cpuinfo.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_events.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_active.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_keyboard.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_keysym.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_mouse.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_video.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_joystick.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_quit.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_loadso.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_timer.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_version.h \
+ src/sdl_ttf_multifont.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_ttf.h \
+ /home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL.h \
+ src/window.h src/sdl_backports.h src/config.h src/config_def.h src/def.h \
+ src/error_dialog.h src/dialog.h src/keyboard.h src/text_edit.h \
+ src/resourceManager.h src/screen.h src/sdlutils.h src/utf8.h
+
+src/text_viewer.h:
+
+src/sdl_ptrs.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_main.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_stdinc.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_config.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_platform.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/begin_code.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/close_code.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_audio.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_error.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_endian.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_mutex.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_thread.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_rwops.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_cdrom.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_cpuinfo.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_events.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_active.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_keyboard.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_keysym.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_mouse.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_video.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_joystick.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_quit.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_loadso.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_timer.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_version.h:
+
+src/sdl_ttf_multifont.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL_ttf.h:
+
+/home/chris/powkiddy/project/../sysroot/usr/local/include/SDL/SDL.h:
+
+src/window.h:
+
+src/sdl_backports.h:
+
+src/config.h:
+
+src/config_def.h:
+
+src/def.h:
+
+src/error_dialog.h:
+
+src/dialog.h:
+
+src/keyboard.h:
+
+src/text_edit.h:
+
+src/resourceManager.h:
+
+src/screen.h:
+
+src/sdlutils.h:
+
+src/utf8.h:

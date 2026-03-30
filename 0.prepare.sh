@@ -21,7 +21,8 @@ sudo apt-get -y install \
 	scons \
 	tree \
 	unzip \
-	wget
+	wget \
+	pkg-config
 
 ## extract linaro to toolchain
 rm -rf sysroot
