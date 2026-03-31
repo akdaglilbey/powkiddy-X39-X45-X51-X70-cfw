@@ -84,6 +84,32 @@ cd ..
 rm -rf SDL_mixer
 git clone -b SDL-1.2 --depth 1 https://github.com/libsdl-org/SDL_mixer.git
 cd SDL_mixer
+./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine)
 make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 cd ..
+
+rm -rf SDL_gfx
+git clone https://github.com/ferzkopp/SDL_gfx.git
+cd SDL_gfx
+./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine) --disable-mmx
+make -j$NUM_THREAD
+make install DESTDIR=$SYSROOT
+cd ..
+
+rm -rf rapidjson-1.1.0
+unzip rapidjson-1.1.0.zip
+cp -rf rapidjson-1.1.0/include/rapidjson $SYSROOT/usr/include
+
+
+#boost
+rm -rf boost
+git clone -b boost-1.87.0 --depth 1 https://github.com/boostorg/boost.git
+cd boost
+git submodule init
+git submodule update
+PATH=/usr/bin:/bin ./bootstrap.sh --with-libraries=filesystem,locale --with-toolset=gcc
+echo "using gcc : arm : /home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot/bin/arm-linux-gnueabihf-g++ ;" >> project-config.jam
+./b2 toolset=gcc-arm architecture=arm target-os=linux link=static      --with-filesystem --with-locale      cxxflags="-std=c++11 -march=armv7-a -mfpu=neon -mfloat-abi=hard --sysroot=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot"      stage
+./b2 headers
+./b2 toolset=gcc-arm architecture=arm target-os=linux link=static,shared --with-filesystem --with-locale cxxflags="-std=c++11 --sysroot=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot" --prefix=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot/usr install
