@@ -22,7 +22,9 @@ sudo apt-get -y install \
 	tree \
 	unzip \
 	wget \
-	pkg-config
+	pkg-config \
+	flex \
+	bison
 
 ## extract linaro to toolchain
 rm -rf sysroot

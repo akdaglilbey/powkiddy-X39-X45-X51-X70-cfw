@@ -1,0 +1,101 @@
+#!/bin/sh
+
+source_dir="/mnt/SDCARD/Saves/RA_saves/TGB Dual/.netplay"
+destination_dir="/mnt/SDCARD/Saves/RA_saves/TGB Dual"
+tgb_dual_config="/mnt/SDCARD/RetroArch/.retroarch/config/TGB Dual/TGB Dual.opt"
+tgb_dual_config_p2="/mnt/SDCARD/RetroArch/.retroarch/config/TGB Dual/TGB Dual.p2"
+backup_config="/mnt/SDCARD/RetroArch/.retroarch/config/TGB Dual/TGB Dual.backup"
+gambatte_dir="/mnt/SDCARD/Saves/RA_saves/Gambatte"
+
+if [ ! -f "$backup_config" ]; then
+    cp "$tgb_dual_config" "$backup_config"
+	cp "$tgb_dual_config_p2" "$tgb_dual_config"
+	sync
+fi
+
+game_name=$(basename "$1" | sed 's/\.[^.]*$//')
+
+if [ -f "$gambatte_dir"/"$game_name".srm ]; then
+	cp "$gambatte_dir"/"$game_name".srm "$destination_dir"/"$game_name".srm
+	sync
+fi
+
+if [ -f "$gambatte_dir"/"$game_name".rtc ]; then
+	cp "$gambatte_dir"/"$game_name".rtc "$destination_dir"/"$game_name".rtc
+	sync
+fi
+
+if [ -d "$source_dir" ]; then
+    cp "$destination_dir"/* "$source_dir"
+	sync
+else
+    mkdir -p "$source_dir"
+	cp "$destination_dir"/* "$source_dir"
+	sync
+fi
+
+for file in "$destination_dir"/*; do
+        if [ -f "$file" ]; then
+            filename=$(basename "$file")
+            cp "$file" "$source_dir/client-$filename"
+			sync
+        fi
+    done
+
+file_name=$(basename "$1")
+
+client_file="/mnt/SDCARD/Roms/GB/client-$file_name"
+
+cp "$1" "$client_file"
+sync
+
+runsvr=`/customer/app/jsonval audiofix`
+cd /mnt/SDCARD/RetroArch/
+HOME=/mnt/SDCARD/RetroArch/
+RA_CONFIG=/mnt/SDCARD/RetroArch/.retroarch/retroarch.cfg
+
+if [ "$runsvr" != "0" ]; then
+    sed -i 's/^video_vsync = "false"/video_vsync = "true"/' "$RA_CONFIG"
+else
+    sed -i 's/^video_vsync = "true"/video_vsync = "false"/' "$RA_CONFIG"
+fi
+
+if [ "$runsvr" != "0" ] ; then
+LD_PRELOAD=/mnt/SDCARD/Koriki/lib/libpadsp.so nice -n -20  /mnt/SDCARD/RetroArch/retroarch -v -L /mnt/SDCARD/RetroArch/.retroarch/cores/tgbdual_libretro.so --subsystem "gb_link_2p" "$1" "$client_file"
+else
+nice -n -20  /mnt/SDCARD/RetroArch/retroarch -v -L /mnt/SDCARD/RetroArch/.retroarch/cores/tgbdual_libretro.so --subsystem "gb_link_2p" "$1" "$client_file"
+fi
+
+if [ -d "$source_dir" ]; then
+    for file in "$source_dir"/client-*.srm; do
+        if [ -f "$file" ]; then
+            filename=$(basename "$file")
+            destination_file="$source_dir/${filename/client-/}"
+            source_mtime=$(stat -c %Y "$file")
+            if [ -f "$destination_file" ]; then
+                destination_mtime=$(stat -c %Y "$destination_file")
+            else
+                destination_mtime=0
+            fi
+            if [ "$source_mtime" -gt "$destination_mtime" ]; then
+                mv "$file" "$destination_file"
+            fi
+        fi
+    done
+    rm -f "$source_dir"/client-*
+    cp "$source_dir"/* "$destination_dir"
+    rm -f "$destination_dir"/client-*
+    rm -rf "$source_dir"
+    sync
+fi
+
+cp "$backup_config" "$tgb_dual_config"
+rm "$backup_config"
+sync
+
+rm -f "$client_file"
+sync
+
+cp "$destination_dir"/"$game_name".srm "$gambatte_dir"/"$game_name".srm
+cp "$destination_dir"/"$game_name".rtc "$gambatte_dir"/"$game_name".rtc
+sync

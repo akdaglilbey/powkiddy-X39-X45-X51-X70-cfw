@@ -3,32 +3,56 @@
 set -e
 export NUM_THREAD=8
 
-rm -rf $(pwd)/../../output/opt 
-mkdir $(pwd)/../../output/opt
-
 cd $(pwd)/project
 source set_env.sh
 
 cd RetroArch
 make -j$NUM_THREAD -f Makefile.powkiddy
-cp retroarch $(pwd)/../../output/opt
+cp retroarch $(pwd)/../../output/usr/bin
 cd ..
 
 cd DinguxCommander
 make -j$NUM_THREAD
-cp output/DinguxCommander $(pwd)/../../output/opt
+cp output/DinguxCommander $(pwd)/../../output/usr/bin
 cd ..
 
-cd simplemenu/simplemenu
-make TARGET=MIYOO
-cp simplemenu $(pwd)/../../output/opt
-cd ..
+cd simplermenu_plus
+make -j$NUM_THREAD -f Makefile.powkiddy
+cp output/simplermenu_plus $(pwd)/../../output/usr/bin
 cd ..
 
 cd st-sdl
 make
-cp st $(pwd)/../../output/opt
+cp st $(pwd)/../../output/usr/bin
 cd ..
+
+cd dac-analyser
+$CC -o dac_decoder reg_dac_analysis.c
+cp dac_decoder $(pwd)/../../output/usr/bin
+cd ..
+
+cd fbset
+make clean
+make -j$NUM_THREAD
+cp fbset $(pwd)/../../output/usr/bin
+cp modeline2fb $(pwd)/../../output/usr/bin
+cd ..
+
+cd power_volume_handler
+$CC -o power_volume_handler power_volume_handler.c
+cp power_volume_handler $(pwd)/../../output/usr/bin
+cd ..
+
+cd watchdog_feeder
+$CC -o watchdog_feeder watchdog_feeder.c
+cp watchdog_feeder $(pwd)/../../output/usr/bin
+cd ..
+
+rm -rf tinyalsa
+git clone -b v1.0.0 --depth 1 https://github.com/tinyalsa/tinyalsa.git
+cd tinyalsa
+make CROSS_COMPILE=$ARMABI-
+make install DESTDIR=$(pwd)/../../output/
 
 rm -rf busybox
 git clone -b 1_36_1 --depth 1 https://github.com/mirror/busybox.git
@@ -46,4 +70,5 @@ cd strace
 ./bootstrap
 ./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine) 
 make -j$NUM_THREAD
-cp st $(pwd)/../../output/opt
+cp st $(pwd)/../../output/usr/bin
+

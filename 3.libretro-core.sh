@@ -1,0 +1,71 @@
+#/bin/sh
+
+set -e
+export NUM_THREAD=8
+
+cd $(pwd)/project
+source set_env.sh
+
+git clone https://github.com/libretro/libretro-super.git
+cd libretro-super
+./libretro-fetch.sh 2048
+platform=classic_armv7_a7 ./libretro-build.sh 2048
+./libretro-fetch.sh mrboom
+platform=classic_armv7_a7 ./libretro-build.sh mrboom
+./libretro-fetch.sh prboom
+platform=classic_armv7_a7 ./libretro-build.sh prboom
+./libretro-fetch.sh gambatte
+platform=classic_armv7_a7 ./libretro-build.sh gambatte
+./libretro-fetch.sh gearboy
+platform=classic_armv7_a7 ./libretro-build.sh gearboy
+./libretro-fetch.sh gpsp
+platform=classic_armv7_a7 ./libretro-build.sh gpsp
+./libretro-fetch.sh mgba
+platform=classic_armv7_a7 ./libretro-build.sh mgba
+./libretro-fetch.sh tgbdual
+platform=classic_armv7_a7 ./libretro-build.sh tgbdual
+./libretro-fetch.sh vbam
+platform=classic_armv7_a7 ./libretro-build.sh vbam
+./libretro-fetch.sh fceumm
+platform=classic_armv7_a7 ./libretro-build.sh fceumm
+./libretro-fetch.sh nestopia
+platform=classic_armv7_a7 ./libretro-build.sh nestopia
+./libretro-fetch.sh quicknes
+platform=classic_armv7_a7 ./libretro-build.sh quicknes
+./libretro-fetch.sh snes9x2002
+platform=classic_armv7_a7 ./libretro-build.sh snes9x2002
+./libretro-fetch.sh snes9x2005
+platform=classic_armv7_a7 ./libretro-build.sh snes9x2005
+./libretro-fetch.sh snes9x2010
+platform=classic_armv7_a7 ./libretro-build.sh snes9x2010
+./libretro-fetch.sh snes9x
+platform=classic_armv7_a7 ./libretro-build.sh snes9x
+./libretro-fetch.sh mednafen_supafaust
+platform=classic_armv7_a7 ./libretro-build.sh mednafen_supafaust
+./libretro-fetch.sh genesis_plus_gx
+platform=classic_armv7_a7 ./libretro-build.sh genesis_plus_gx
+./libretro-fetch.sh picodrive
+platform=classic_armv7_a7 ./libretro-build.sh picodrive
+./libretro-fetch.sh pcsx_rearmed
+platform=classic_armv7_a7 ./libretro-build.sh pcsx_rearmed
+./libretro-fetch.sh fbneo
+platform=classic_armv7_a7 ./libretro-build.sh fbneo
+./libretro-fetch.sh mame2000
+platform=classic_armv7_a7 ./libretro-build.sh mame2000
+./libretro-fetch.sh mame2003
+platform=classic_armv7_a7 ./libretro-build.sh mame2003
+./libretro-fetch.sh mame2003_plus
+platform=classic_armv7_a7 ./libretro-build.sh mame2003_plus
+./libretro-fetch.sh fbalpha2012
+platform=classic_armv7_a7 ./libretro-build.sh fbalpha2012
+./libretro-fetch.sh mednafen_ngp
+platform=classic_armv7_a7 ./libretro-build.sh mednafen_ngp
+./libretro-fetch.sh mednafen_vb
+platform=classic_armv7_a7 ./libretro-build.sh mednafen_vb
+./libretro-fetch.sh ffmpeg
+platform=classic_armv7_a7 ./libretro-build.sh ffmpeg
+
+
+
+# all cores are stored on SD Card
+cp -rf dist/unix/* $(pwd)/../../output-sd/cfw/.config/retroarch/cores/

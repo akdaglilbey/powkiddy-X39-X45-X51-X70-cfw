@@ -109,7 +109,7 @@ cd boost
 git submodule init
 git submodule update
 PATH=/usr/bin:/bin ./bootstrap.sh --with-libraries=filesystem,locale --with-toolset=gcc
-echo "using gcc : arm : /home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot/bin/arm-linux-gnueabihf-g++ ;" >> project-config.jam
+echo "using gcc : arm : /home/chris/powkiddy/sysroot/bin/arm-linux-gnueabihf-g++ ;" >> project-config.jam
 ./b2 toolset=gcc-arm architecture=arm target-os=linux link=static      --with-filesystem --with-locale      cxxflags="-std=c++11 -march=armv7-a -mfpu=neon -mfloat-abi=hard --sysroot=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot"      stage
 ./b2 headers
 ./b2 toolset=gcc-arm architecture=arm target-os=linux link=static,shared --with-filesystem --with-locale cxxflags="-std=c++11 --sysroot=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot" --prefix=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot/usr install
