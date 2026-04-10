@@ -85,8 +85,6 @@ Use:
       -  update.zip contains original Powkiddy firmware with startup script updated
       -  **Verify the update.zip CRC once copied on SD is correct !**  
  - Reboot the console and perform the update when asked by the console. If the update is not detected, remove and insert the SD card when builtin frontend is started.
-
-## In case of CFW update and unless specified, the update.zip process is not required, only extract the cfw to the SD.
  
 # Uninstall:
  - Remove run.sh
