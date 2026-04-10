@@ -38,6 +38,8 @@ rm -rf output/usr/lib/gconv
 
 find $OUT -name "*.a" -type f -delete
 find $OUT -name "*.la" -type f -delete
+
+find $OUT -name ".gitkeep" -type f -delete
 echo "=== cleaning done ==="
 arm-linux-gnueabihf-strip --strip-unneeded output/lib/*.so*
 arm-linux-gnueabihf-strip --strip-unneeded output/usr/lib/*.so*
