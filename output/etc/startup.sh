@@ -1,6 +1,7 @@
 #!/bin/sh
 #start watchdog
 export PATH=$PATH:/usr/local/bin
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/mnt/card/cfw/libs
 watchdog_feeder 5 30 &
 
 # unload and reload adcjoystick to get the controls
