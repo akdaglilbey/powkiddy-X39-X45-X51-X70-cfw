@@ -1,4 +1,4 @@
-# SuperX CFW for Powkiddy x39pro / x45 / x51 / x70 #
+# SuperX CFW for Powkiddy X39 Pro / X45 / X51 / X70 #
 
 ![image](IMG_0052.jpg)
 
@@ -6,6 +6,7 @@ Enjoy real memory card for multicd PSX games and ability to change the screen-sc
 
 This CFW is basically a collection of softwares and emulators to replace the stock frontend !
 
+Discord: https://discord.gg/ygsaNNsG
 
 # Disclaimer:
 This custom firmware is provided "as is" without any warranties, express or implied.
