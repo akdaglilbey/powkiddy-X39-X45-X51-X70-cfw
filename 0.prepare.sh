@@ -7,8 +7,8 @@ git submodule update
 sudo apt-get -y update
 sudo apt-get -y install \
 	bc \
-    	build-essential \
-    	bzip2 \
+    build-essential \
+    bzip2 \
 	bzr \
 	cmake \
 	cmake-curses-gui \
@@ -24,7 +24,10 @@ sudo apt-get -y install \
 	wget \
 	pkg-config \
 	flex \
-	bison
+	bison \
+	autoconf \
+	automake \
+	libtool
 
 ## extract linaro to toolchain
 rm -rf sysroot

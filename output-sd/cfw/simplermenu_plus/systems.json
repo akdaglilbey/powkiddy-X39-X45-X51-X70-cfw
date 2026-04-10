@@ -1,4 +1,18 @@
 {
+ "APPS": {
+        "enabled": true,
+        "category": "arcade",
+        "selectedExec": "generic",
+        "execs": [
+            "generic"
+        ],
+        "romDirs": [
+            "../apps"
+        ],
+        "romExts": [
+            ".sh"
+        ]
+    },
     "AMIGA": {
         "enabled": true,
         "category": "computer",
@@ -171,7 +185,7 @@
 	"SNES": {
         "enabled": true,
         "category": "arcade",
-        "selectedExec": "snes9x2002_libretro",
+        "selectedExec": "snes9x2005_libretro",
         "execs": [
             "snes9x2002_libretro",
             "snes9x2005_libretro",
@@ -222,12 +236,13 @@
         ],
         "aliasFile": "/userdata/system/alias.txt"
     },
-	"MEGADRIVE": {
+	"SEGA GENESIS": {
         "enabled": true,
         "category": "arcade",
-        "selectedExec": "genesis_plus_gx_libretro",
+        "selectedExec": "picodrive_libretro",
         "execs": [
-            "genesis_plus_gx_libretro"
+            "genesis_plus_gx_libretro",
+            "picodrive_libretro"
         ],
         "romDirs": [
             "md"
@@ -381,7 +396,7 @@
             ".zip",
             ".7z"
         ],
-        "selectedExec": "mgba_libretro"
+        "selectedExec": "gpsp_libretro"
     },
     "GAME BOY COLOR": {
         "enabled": true,

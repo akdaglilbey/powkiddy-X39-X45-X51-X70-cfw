@@ -2,9 +2,8 @@
 unset SDL_VIDEO_FBCON_ROTATION
 RA_CONFIG=/mnt/card/cfw/retroarch/retroarch.cfg
 
-nice -n -20  retroarch -v -c $RA_CONFIG -L /mnt/card/cfw/retroarch/cores/picodrive_libretro.so "$1"
+nice -n -20  retroarch -v -c $RA_CONFIG
 export SDL_VIDEO_FBCON_ROTATION=CCW
 # reset fb
 echo "0,1" > /sys/class/graphics/fb0/pan
 echo "0,0" > /sys/class/graphics/fb0/pan
-

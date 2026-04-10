@@ -42,7 +42,7 @@
 #define USB_SH                  "/usr/bin/usb.sh"
 
 /* Tinymix PA controls */
-#define TINYMIX_PATH            "/bin/tinymix"
+#define TINYMIX_PATH            "tinymix"
 #define PA_SWITCH_CTL           "35"    /* speaker on off switch */
 
 /* Power button */

@@ -11,82 +11,35 @@ mkdir -p $OUT/tmp
 mkdir -p $OUT/dev
 mkdir -p $OUT/sys
 
-
-# fichiers déjà traités
-declare -A SEEN
-
-# trouver une lib dans le sysroot
-find_lib() {
-    local name=$1
-    find $SYSROOT/lib $SYSROOT/usr/lib $SYSROOT/usr/local/lib -name "$name" 2>/dev/null | head -n 1
-}
-
-# copier une lib
-copy_lib() {
-    local src=$1
-    local name=$(basename "$src")
-
-    if [[ "$src" == *"/usr/lib/"* ]] || [[ "$src" == *"/usr/local/lib/"* ]]; then
-        dest=$OUT/usr/lib
-    else
-        dest=$OUT/lib
-    fi
-
-    if [ ! -f "$dest/$name" ]; then
-        echo "  -> copy $name"
-        cp -L "$src" "$dest/"
-    fi
-}
-
-# analyser un fichier ELF
-process_file() {
-    local file=$1
-
-    # éviter boucle
-    if [[ -n "${SEEN[$file]}" ]]; then
-        return
-    fi
-    SEEN[$file]=1
-
-    # vérifier ELF ARM
-    if ! file "$file" | grep -q "ARM"; then
-        return
-    fi
-
-    echo "Processing $file"
-
-    # lire les dépendances
-    arm-linux-gnueabihf-readelf -d "$file" 2>/dev/null | grep NEEDED | awk -F'[][]' '{print $2}' | while read lib; do
-
-        # éviter re-traitement
-        if [[ -n "${SEEN[$lib]}" ]]; then
-            continue
-        fi
-
-        found=$(find_lib "$lib")
-
-        if [ -n "$found" ]; then
-            copy_lib "$found"
-            SEEN[$lib]=1
-
-            # recursion sur la lib trouvée
-            process_file "$found"
-        else
-            echo "  !! MISSING: $lib"
-        fi
-
-    done
-}
-
-echo "=== Scan des binaires ==="
-
-# scan initial (binaires + .so déjà présents)
-find $OUT -type f | while read f; do
-    process_file "$f"
-done
+cp -a $SYSROOT/lib/* $OUT/lib
 
 cp -a $SYSROOT/usr/local/bin/* $OUT/usr/bin/
 cp -a $SYSROOT/usr/local/lib/* $OUT/usr/lib/
-cp -a $OUT/usr/local/bin/* $OUT/usr/bin/
-cp -a $OUT/usr/local/lib/* $OUT/usr/lib/
-echo "=== Terminé ==="
+cp -a $SYSROOT/usr/lib/* $OUT/usr/lib/
+echo "=== all files copied ==="
+rm -rf output/lib/debug
+rm -rf output/lib/gcc
+rm -rf output/lib/ldscripts
+rm -rf output/usr/include
+rm -rf output/usr/lib/cmake
+rm -rf output/usr/lib/pkgconfig
+
+rm -rf output/lib/libasan*
+rm -rf output/lib/libubsan*
+rm -rf output/lib/libtsan*
+rm -rf output/lib/liblsan*
+rm -rf output/lib/libitm*
+rm -rf output/lib/libcilkrts*
+rm -rf output/lib/libstdc++.so.6.0.24-gdb.py
+rm -rf output/lib/libmemusage.so
+rm -rf output/lib/libpcprofile.so
+rm -rf output/lib/libSegFault.so
+rm -rf output/usr/lib/gconv
+
+find $OUT -name "*.a" -type f -delete
+find $OUT -name "*.la" -type f -delete
+echo "=== cleaning done ==="
+arm-linux-gnueabihf-strip --strip-unneeded output/lib/*.so*
+arm-linux-gnueabihf-strip --strip-unneeded output/usr/lib/*.so*
+arm-linux-gnueabihf-strip output/usr/bin/*
+echo "=== finished ==="

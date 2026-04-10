@@ -113,3 +113,49 @@ echo "using gcc : arm : /home/chris/powkiddy/sysroot/bin/arm-linux-gnueabihf-g++
 ./b2 toolset=gcc-arm architecture=arm target-os=linux link=static      --with-filesystem --with-locale      cxxflags="-std=c++11 -march=armv7-a -mfpu=neon -mfloat-abi=hard --sysroot=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot"      stage
 ./b2 headers
 ./b2 toolset=gcc-arm architecture=arm target-os=linux link=static,shared --with-filesystem --with-locale cxxflags="-std=c++11 --sysroot=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot" --prefix=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot/usr install
+
+cd ..
+rm -rf tiff-4.6.0
+wget https://download.osgeo.org/libtiff/tiff-4.6.0.tar.gz
+tar xf tiff-4.6.0.tar.gz
+cd tiff-4.6.0
+./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine)
+make -j$NUM_THREAD
+make install DESTDIR=$SYSROOT
+cd ..
+
+cd ..
+rm -rf tiff-4.6.0
+wget https://download.osgeo.org/libtiff/tiff-4.0.10.tar.gz
+tar xf tiff-4.0.10.tar.gz
+cd tiff-4.0.10
+./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine)
+make -j$NUM_THREAD
+make install DESTDIR=$SYSROOT
+cd ..
+
+rm -rf libwebp-1.2.4
+wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.4.tar.gz
+tar xf libwebp-1.2.4.tar.gz
+cd libwebp-1.2.4
+./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine) --enable-neon
+make -j$NUM_THREAD
+make install DESTDIR=$SYSROOT
+cd ..
+
+rm -rf tslib
+git clone https://github.com/libts/tslib.git
+cd tslib
+./autogen.sh
+./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine)
+make -j$NUM_THREAD
+make install DESTDIR=$SYSROOT
+cd ..
+
+rm -rf libmad-0.15.1b
+wget https://downloads.sourceforge.net/mad/libmad-0.15.1b.tar.gz
+tar xf libmad-0.15.1b.tar.gz
+cd libmad-0.15.1b
+./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine)
+make -j$NUM_THREAD
+make install DESTDIR=$SYSROOT

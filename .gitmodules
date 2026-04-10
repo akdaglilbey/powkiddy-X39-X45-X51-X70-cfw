@@ -4,3 +4,7 @@
 [submodule "project/RetroArch"]
 	path = project/RetroArch
 	url = https://github.com/scooper540/RetroArch-powkiddy.git
+[submodule "project/simplermenu_plus"]
+	path = project/simplermenu_plus
+	url = https://github.com/scooper540/simplermenu_plus.git
+	branch = powkiddy

@@ -13,7 +13,8 @@ cd ..
 
 cd DinguxCommander
 make -j$NUM_THREAD
-cp output/DinguxCommander $(pwd)/../../output/usr/bin
+cp output/DinguxCommander $(pwd)/../../output-sd/cfw/apps/DinguxCommander
+cp res $(pwd)/../../output-sd/cfw/apps/DinguxCommander -rf
 cd ..
 
 cd simplermenu_plus
@@ -23,7 +24,7 @@ cd ..
 
 cd st-sdl
 make
-cp st $(pwd)/../../output/usr/bin
+cp st $(pwd)/../../output-sd/cfw/apps/st
 cd ..
 
 cd dac-analyser
