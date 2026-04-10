@@ -78,7 +78,9 @@ Use:
 # Installation:
  - Copy zip content on SD-card. run.sh must be at the root of the sdcard
  - You can copy your bios in CFW/retroarch/system, stock SD card contains some bios in game/.bios folder
+
  **Only in case of first installation:**
+ 
  - Put update.zip on SD Card 
       -  update.zip contains original Powkiddy firmware with startup script updated
       -  **Verify the update.zip CRC once copied on SD is correct !**  
