@@ -125,7 +125,7 @@ make install DESTDIR=$SYSROOT
 cd ..
 
 cd ..
-rm -rf tiff-4.6.0
+rm -rf tiff-4.0.10
 wget https://download.osgeo.org/libtiff/tiff-4.0.10.tar.gz
 tar xf tiff-4.0.10.tar.gz
 cd tiff-4.0.10
