@@ -21,7 +21,7 @@ export DESTDIR=$SYSROOT
 export LD_LIBRARY_PATH="$SYSROOT/usr/lib"
 
 #export CPP_FLAGS="-O3 -mfpu=neon -mcpu=cortex-a9 -mfloat-abi=hard -pipe -ffast-math -funsafe-math-optimizations -fomit-frame-pointer --sysroot=$SYSROOT -I$SYSROOT/usr/include"
-export CPP_FLAGS="-Os -pipe -ffast-math  -mfpu=neon -mcpu=cortex-a9 -mfloat-abi=hard -funsafe-math-optimizations -fomit-frame-pointer --sysroot=$SYSROOT  -I$SYSROOT/usr/include"
+export CPP_FLAGS="-Os -pipe -ffast-math -mfpu=neon -mcpu=cortex-a9 -mfloat-abi=hard -funsafe-math-optimizations -fomit-frame-pointer --sysroot=$SYSROOT  -I$SYSROOT/usr/include"
 
 export LD_FLAGS="--sysroot=$SYSROOT -L$SYSROOT -L$SYSROOT/lib -L$SYSROOT/usr/lib -L$SYSROOT/usr/local/lib -L$SYSROOT/usr/include/sound"
 

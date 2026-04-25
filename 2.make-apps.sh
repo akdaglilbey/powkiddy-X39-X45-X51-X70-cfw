@@ -9,6 +9,7 @@ source set_env.sh
 cd RetroArch
 make -j$NUM_THREAD -f Makefile.powkiddy
 cp retroarch $(pwd)/../../output/usr/bin
+cp gfx/video_filters/*.filt $(pwd)/../../output-sd/cfw/retroarch/filters/video/
 cd ..
 
 cd DinguxCommander
@@ -71,5 +72,14 @@ cd strace
 ./bootstrap
 ./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine) 
 make -j$NUM_THREAD
-cp st $(pwd)/../../output/usr/bin
+cp strace $(pwd)/../../output/usr/bin
+cd ..
+
+
+#git clone --branch r24 https://github.com/notaz/pcsx_rearmed.git
+#cd pcsx_rearmed
+#git submodule init
+#git submodule update
+#SDL_CONFIG=$SYSROOT/usr/local/bin/sdl-config ./configure --enable-neon --enable-threads --sound-drivers=sdl
+
 
