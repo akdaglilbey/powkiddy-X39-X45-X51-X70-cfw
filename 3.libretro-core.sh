@@ -62,10 +62,45 @@ platform=classic_armv7_a7 ./libretro-build.sh fbalpha2012
 platform=classic_armv7_a7 ./libretro-build.sh mednafen_ngp
 ./libretro-fetch.sh mednafen_vb
 platform=classic_armv7_a7 ./libretro-build.sh mednafen_vb
-./libretro-fetch.sh ffmpeg
-platform=classic_armv7_a7 ./libretro-build.sh ffmpeg
 
+./libretro-fetch.sh freeintv
+platform=classic_armv7_a7 ./libretro-build.sh freeintv
 
+./libretro-fetch.sh mednafen_lynx
+platform=classic_armv7_a7 ./libretro-build.sh mednafen_lynx
 
+./libretro-fetch.sh retro8
+CFLAGS+=" -DUSE_RGB565" platform=classic_armv7_a7 ./libretro-build.sh retro8
+
+./libretro-fetch.sh vice_xvic
+platform=classic_armv7_a7 ./libretro-build.sh vice_xvic -j4
+./libretro-fetch.sh vice_x64
+platform=classic_armv7_a7 ./libretro-build.sh vice_x64 -j4
+
+#download cores from buildbot
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/atari800_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/bluemsx_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/cap32_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/freechaf_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/fuse_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/gw_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/handy_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/mednafen_pce_fast_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/mednafen_pce_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/mednafen_supergrafx_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/mednafen_wswan_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/o2em_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/pokemini_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/prosystem_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/puae_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/scummvm_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/tic80_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
+wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/vecx_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
 # all cores are stored on SD Card
-cp -rf dist/unix/* $(pwd)/../../output-sd/cfw/.config/retroarch/cores/
+cp -rf dist/unix/* $(pwd)/../../output-sd/cfw/retroarch/cores/
+
+cd ..
+git clone https://github.com/schellingb/dosbox-pure.git
+cd dosbox-pure
+platform=classic_armv7_a7 make -j4
+cp  dosbox_pure_libretro.so $(pwd)/../../output-sd/cfw/retroarch/cores/
