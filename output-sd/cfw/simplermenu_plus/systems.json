@@ -13,6 +13,20 @@
         ],
         "selectedExec": "generic"
     },
+    "PORTS": {
+        "enabled": true,
+        "category": "arcade",
+        "romExts": [
+            ".sh"
+        ],
+        "execs": [
+            "generic"
+        ],
+        "romDirs": [
+            "ports"
+        ],
+        "selectedExec": "generic"
+    },
     "AMIGA": {
         "enabled": true,
         "category": "computer",
@@ -26,9 +40,26 @@
         ],
         "romExts": [
             ".adf",
+            ".adz",
+            ".dms",
+            ".fdi",
+            ".ipf",
+            ".raw",
+            ".hdf",
+            ".hdz",
             ".lha",
+            ".slave",
+            ".info",
             ".iso",
-            ".cue"
+            ".ccd",
+            ".chd",
+            ".nrg",
+            ".mds",
+            ".cue",
+            ".uae",
+            ".m3u",
+            ".zip",
+            ".7z"
         ]
     },
     "ARCADE": {
@@ -46,7 +77,8 @@
             "ARCADE"
         ],
         "romExts": [
-            ".zip"
+            ".zip",
+            ".7z"
         ]
     },
     "FINALBURN ALPHA": {
@@ -64,26 +96,24 @@
             "FBA"
         ],
         "romExts": [
-            ".zip"
+            ".zip",
+            ".7z"
         ]
     },
     "ATARI 2600": {
         "enabled": true,
         "category": "console",
-        "selectedExec": "atari800_libretro",
+        "selectedExec": "stella2014_libretro",
         "execs": [
-            "atari800_libretro",
-            "prosystem_libretro",
-            "stella2014_libretro",
-            "handy_libretro"
+            "stella2014_libretro"
         ],
         "romDirs": [
             "ATARI"
         ],
         "romExts": [
             ".a26",
-            ".atr",
-            ".rom"
+            ".bin",
+            ".zip"
         ]
     },
     "ATARI 5200": {
@@ -91,10 +121,7 @@
         "category": "console",
         "selectedExec": "atari800_libretro",
         "execs": [
-            "atari800_libretro",
-            "prosystem_libretro",
-            "stella2014_libretro",
-            "handy_libretro"
+            "atari800_libretro"
         ],
         "romDirs": [
             "FIFTYTWOHUNDRED"
@@ -102,32 +129,73 @@
         "romExts": [
             ".a52",
             ".atr",
-            ".rom"
+            ".atx",
+            ".xfd",
+            ".cdm",
+            ".cas",
+            ".bin",
+            ".xex",
+            ".zip"
         ]
     },
     "ATARI 7800": {
         "enabled": true,
         "category": "console",
-        "selectedExec": "atari800_libretro",
+        "selectedExec": "prosystem_libretro",
         "execs": [
-            "atari800_libretro",
-            "prosystem_libretro",
-            "stella2014_libretro",
-            "handy_libretro"
+            "prosystem_libretro"
         ],
         "romDirs": [
             "SEVENTYEIGHTHUNDRED"
         ],
         "romExts": [
             ".a78",
-            ".atr",
-            ".rom"
+            ".bin"
         ]
     },
     "COMMODORE 64": {
         "enabled": true,
         "category": "computer",
-        "selectedExec": "vice_x64_libretro",
+        "romExts": [
+            ".d64",
+            ".d6z",
+            ".d71",
+            ".d7z",
+            ".d80",
+            ".d81",
+            ".d82",
+            ".d8z",
+            ".g64",
+            ".g6z",
+            ".g41",
+            ".g4z",
+            ".x64",
+            ".x6z",
+            ".nib",
+            ".nbz",
+            ".d2m",
+            ".d4m",
+            ".t64",
+            ".tap",
+            ".tcrt",
+            ".prg",
+            ".p00",
+            ".crt",
+            ".bin",
+            ".cmd",
+            ".m3u",
+            ".vfl",
+            ".vsf",
+            ".zip",
+            ".7z",
+            ".gz",
+            ".20",
+            ".40",
+            ".60",
+            ".a0",
+            ".b0",
+            ".rom"
+        ],
         "execs": [
             "vice_x64_libretro",
             "vice_xvic_libretro"
@@ -136,11 +204,7 @@
             "COMMODORE",
             "VIC20"
         ],
-        "romExts": [
-            ".d64",
-            ".prg",
-            ".t64"
-        ]
+        "selectedExec": "vice_x64_libretro"
     },
     "AMSTRAD CPC": {
         "enabled": true,
@@ -154,6 +218,12 @@
         ],
         "romExts": [
             ".dsk",
+            ".sna",
+            ".tap",
+            ".cdt",
+            ".voc",
+            ".m3u",
+            ".cpr",
             ".zip"
         ]
     },
@@ -232,10 +302,9 @@
     "DOS": {
         "enabled": true,
         "category": "computer",
-        "selectedExec": "dosbox_svn_libretro",
+        "selectedExec": "dosbox_pure_libretro",
         "execs": [
-            "dosbox_svn_libretro",
-            "dosbox_svn_ce_libretro"
+            "dosbox_pure_libretro"
         ],
         "romDirs": [
             "DOS"
@@ -244,7 +313,19 @@
             ".exe",
             ".com",
             ".bat",
-            ".conf"
+            ".conf",
+            ".zip",
+            ".dosz",
+            ".iso",
+            ".cue",
+            ".ins",
+            ".img",
+            ".ima",
+            ".vhd",
+            ".jrc",
+            ".tc",
+            ".m3u",
+            ".m3u8"
         ]
     },
     "FAIRCHILD": {
@@ -258,8 +339,11 @@
             "FAIRCHILD"
         ],
         "romExts": [
+            ".bin",
+            ".rom",
             ".chf",
-            ".bin"
+            ".zip",
+            ".7z"
         ]
     },
     "NES": {
@@ -278,7 +362,9 @@
         "romExts": [
             ".nes",
             ".fds",
-            ".zip"
+            ".zip",
+            ".unif",
+            ".uni"
         ]
     },
     "GAME BOY": {
@@ -297,7 +383,8 @@
         "romExts": [
             ".gb",
             ".gbc",
-            ".zip"
+            ".zip",
+            ".dmg"
         ]
     },
     "GAME BOY COLOR": {
@@ -333,7 +420,8 @@
         ],
         "romExts": [
             ".gba",
-            ".zip"
+            ".zip",
+            ".bin"
         ]
     },
     "GAME GEAR": {
@@ -342,7 +430,6 @@
         "selectedExec": "picodrive_libretro",
         "execs": [
             "genesis_plus_gx_libretro",
-            "gearsystem_libretro",
             "picodrive_libretro"
         ],
         "romDirs": [
@@ -351,10 +438,21 @@
             "SEGASGONE"
         ],
         "romExts": [
+            ".m3u",
+            ".mdx",
+            ".md",
+            ".smd",
+            ".gen",
+            ".bin",
+            ".cue",
+            ".iso",
+            ".chd",
+            ".bms",
             ".sms",
             ".gg",
             ".sg",
-            ".bin"
+            ".68k",
+            ".sgd"
         ]
     },
     "GAME & WATCH": {
@@ -368,7 +466,9 @@
             "GW"
         ],
         "romExts": [
-            ".mgw"
+            ".mgw",
+            ".zip",
+            ".7z"
         ]
     },
     "INTELLIVISION": {
@@ -383,36 +483,27 @@
         ],
         "romExts": [
             ".int",
-            ".bin"
-        ]
-    },
-    "JAVA ME": {
-        "enabled": true,
-        "category": "handheld",
-        "selectedExec": "squirreljme_libretro",
-        "execs": [
-            "squirreljme_libretro"
-        ],
-        "romDirs": [
-            "J2ME"
-        ],
-        "romExts": [
-            ".jar"
+            ".bin",
+            ".rom",
+            ".zip",
+            ".7z"
         ]
     },
     "ATARI LYNX": {
         "enabled": true,
         "category": "handheld",
-        "selectedExec": "mednafen_lynx_libretro",
+        "selectedExec": "handy_libretro",
         "execs": [
-            "mednafen_lynx_libretro",
             "handy_libretro"
         ],
         "romDirs": [
             "LYNX"
         ],
         "romExts": [
-            ".lnx"
+            ".lnx",
+            ".o",
+            ".zip",
+            ".7z"
         ]
     },
     "SEGA GENESIS": {
@@ -429,10 +520,21 @@
             "THIRTYTWOX"
         ],
         "romExts": [
+            ".m3u",
+            ".mdx",
             ".md",
+            ".smd",
+            ".gen",
             ".bin",
             ".cue",
-            ".chd"
+            ".iso",
+            ".chd",
+            ".bms",
+            ".sms",
+            ".gg",
+            ".sg",
+            ".68k",
+            ".sgd"
         ]
     },
     "MSX": {
@@ -446,22 +548,13 @@
             "MSX"
         ],
         "romExts": [
+            ".cas",
+            ".dsk",
+            ".m3u",
+            ".mx1",
             ".rom",
-            ".dsk"
-        ]
-    },
-    "NINTENDO DS": {
-        "enabled": true,
-        "category": "handheld",
-        "selectedExec": "desmume2015_libretro",
-        "execs": [
-            "desmume2015_libretro"
-        ],
-        "romDirs": [
-            "NDS"
-        ],
-        "romExts": [
-            ".nds"
+            ".zip",
+            ".7z"
         ]
     },
     "NEO GEO": {
@@ -470,7 +563,6 @@
         "selectedExec": "fbneo_libretro",
         "execs": [
             "fbneo_libretro",
-            "neocd_libretro",
             "fbalpha2012_libretro"
         ],
         "romDirs": [
@@ -495,7 +587,8 @@
         "romExts": [
             ".ngp",
             ".ngpc",
-			".zip"
+            ".zip",
+            ".7z"
         ]
     },
     "ODYSSEY / VIDEOPAC": {
@@ -511,7 +604,8 @@
         ],
         "romExts": [
             ".bin",
-            ".zip"
+            ".zip",
+            ".7z"
         ]
     },
     "PC ENGINE": {
@@ -532,11 +626,17 @@
             ".pce",
             ".sgx",
             ".cue",
+            ".bin",
             ".chd",
-			".zip"
+            ".ccd",
+            ".bin",
+            ".zip",
+            ".7z",
+            ".m3u",
+            ".toc"
         ]
     },
-    "PICO-8": {
+    "TIC-80": {
         "enabled": true,
         "category": "computer",
         "selectedExec": "tic80_libretro",
@@ -544,13 +644,17 @@
             "tic80_libretro"
         ],
         "romDirs": [
-            "PICO",
             "TIC"
         ],
         "romExts": [
-            ".tic",
-            ".p8",
-            ".png"
+            ".fd",
+            ".sap",
+            ".k7",
+            ".m7",
+            ".rom",
+            ".zip",
+            ".7z",
+            ".tic"
         ]
     },
     "POKEMON MINI": {
@@ -564,7 +668,8 @@
             "POKE"
         ],
         "romExts": [
-            ".min"
+            ".min",
+            ".zip"
         ]
     },
     "PLAYSTATION": {
@@ -578,10 +683,20 @@
             "PS"
         ],
         "romExts": [
-            ".cue",
             ".bin",
+            ".cue",
+            ".toc",
+            ".cbn",
             ".chd",
-            ".img"
+            ".exe",
+            ".img",
+            ".ccd",
+            ".sub",
+            ".iso",
+            ".m3u",
+            ".mdf",
+            ".mts",
+            ".pbp"
         ]
     },
     "SCUMMVM": {
@@ -614,9 +729,13 @@
             "SATELLAVIEW"
         ],
         "romExts": [
+            ".fig",
+            ".gd3",
             ".sfc",
             ".smc",
-            ".zip"
+            ".swc",
+            ".zip",
+            ".7z"
         ]
     },
     "DOOM": {
@@ -637,7 +756,10 @@
         "enabled": true,
         "category": "handheld",
         "romExts": [
-            ".vb"
+            ".vb",
+            ".bin",
+            ".zip",
+            ".7z"
         ],
         "execs": [
             "mednafen_vb_libretro"
@@ -658,7 +780,10 @@
             "VECTREX"
         ],
         "romExts": [
-            ".vec"
+            ".vec",
+            ".bin",
+            ".zip",
+            ".7z"
         ]
     },
     "WONDERSWAN": {
@@ -691,9 +816,18 @@
             "ZXS"
         ],
         "romExts": [
-            ".tzx",
+            ".csw",
+            ".dsk",
+            ".rzx",
+            ".scl",
+            ".sct",
+            ".szx",
             ".tap",
-            ".z80"
+            ".trd",
+            ".tzx",
+            ".z80",
+            ".zip",
+            ".7z"
         ]
     }
 }
