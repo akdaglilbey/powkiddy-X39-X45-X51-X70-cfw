@@ -7,7 +7,7 @@ Unlock full capability of your Powkiddy X series !
 
 This CFW is basically a collection of softwares and emulators to replace the stock frontend !
 
-Join on Discord: https://discord.gg/ygsaNNsG
+Join on Discord: https://discord.gg/t48fC9ESnJ
 
 # Disclaimer:
 This custom firmware is provided "as is" without any warranties, express or implied.
