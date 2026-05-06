@@ -1,12 +1,13 @@
 # SuperX CFW for Powkiddy X39 Pro / X45 / X51 / X70 #
 
-![image](IMG_0052.jpg)
+![image](img-v1.png)
 
-Enjoy real memory card for multicd PSX games and ability to change the screen-scaling !
+**SuperX CFW**
+Unlock full capability of your Powkiddy X series !
 
 This CFW is basically a collection of softwares and emulators to replace the stock frontend !
 
-Discord: https://discord.gg/ygsaNNsG
+Join on Discord: https://discord.gg/ygsaNNsG
 
 # Disclaimer:
 This custom firmware is provided "as is" without any warranties, express or implied.
@@ -24,56 +25,108 @@ We need testers to support:
 - X51
 - X70 
 
+# Launcher: Simplermenu_plus (SMP)
+Button mapping:
+- A : enter or launch a rom
+- B : return / go back
+- Y : Add/remove ROM from Favorite list
+- L1/R1 : previous/next page in Rom List
+- Select : Can override the default core for a system OR for a specific ROM (change selection with LEFT/RIGHT)
+- Start : SMP options
+
+In case of adding roms in the folders, you have to Update Caches from SMP Options.
+
+Backlight is switched off after 1 minute of inactivity.
+
 # Retroarch
 Use:
 - **SDL_POWKIDDY** for video
-    - You can upscale with Keep aspect ratio and Integer scaling options (Settings -> Video -> Scaling)
-    - You can change screen orientation (Settings -> Video -> Output)
+    - 4 Scaling mode:
+      - integer_scaling && !keep_aspect : fill full physical height
+      - !integer_scaling && keep_aspect: core output resolution
+      - integer_scaling && keep_aspect: max scaling rounded to integer (x2,x3,x4)
+      - !integer_scaling && !keep_aspect: full screen stretch
+    - Threaded Video: Enabled (provide more performance, can be disabled in case of issue)
+    - Image Interpolation:
+      - Bicubic, Bilinear, Nearest neighbor, Catmull-Rom, Sharp Bilinear and Lanczos : All are using Hardware upscaler and apply video filtering without performance costs.
+      - Software Nearest : Perform upscaling in software, can affect performances.
+    - Video Filters:
+      - You can apply video filters from RetroArch. This can affect performances.
 - **ALSA (prefered)** or **SDL** for audio
     - Use resampler CC or nearest to 48000
     - Delay to 160ms
 - **LINUXRAW** for input
-- **LINUXRAW (prefered)** or **SDL** for Gamepad
+- **SDL** for Gamepad
 
 **L1 + R1** or **MENU** button to get menu in game
+**L2 + R2** to exit RetroArch
 
 **You can copy your bios in cfw/retroarch/system, stock SD card contains some bios in game/.bios folder**
 
 # Retroarch cores included
-- Standalone:
-  - 2048
-  - mrboom
-  - prboom
-- GB/GBC/GBA:
-  - gambatte
-  - gearboy
-  - gpsp
-  - mgba
-  - tgbdual
-  - vbam
-- NES:
-  - fceumm
-  - nestopia
-  - quicknes
-- SNES:
-  - snes9x2002
-  - snes9x2005
-  - snes9x2010
-  - snes9x
-- Megadrive:
-  - genesis_plus_gx
-  - picodrive
-- PSX:
-  - pcsx_rearmed
-- Neogeo/CPS/Arcade
-  - fbalpha2012
-  - fbneo
-  - mame2000
-  - mame2003
-  - mame2003_plus
-- Others:
-  - mednafen_ngp
-  - mednafen_vb
+
+Some cores requires BIOS to be copied in **cfw/retroarch/system** you can find related BIOS requirements in the dedicated link of each cores
+
+You can see retroarch logs by using DinguxCommander and going to /tmp folder.
+
+**Retroarch logs are not persistant across console restart**
+
+
+| Core | System | Folder | Libretro |
+|------|--------|--------|----------|
+| o2em | ODYSSEY / VIDEOPAC | odyssey, videopac | https://docs.libretro.com/library/o2em/ |
+| freeintv | intellivision | intellivision | https://docs.libretro.com/library/freeintv/ |
+| bluemsx | msx | msx | https://docs.libretro.com/library/bluemsx/ |
+| puae | amiga / amigacd | amiga | https://docs.libretro.com/library/puae/ |
+| cap32 | amstrad cpc | cpc | https://docs.libretro.com/library/cap32/ |
+| mame2000 | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2000/ |
+| mame2003 | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003/ |
+| mame2003_plus | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003_plus/ |
+| fbalpha2012 | arcade / neo geo | arcade, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbalpha2012/ |
+| fbneo | arcade / neo geo | arcade, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbneo/ |
+| atari800 | atari 5200 | fiftytwohundred | https://docs.libretro.com/library/atari800/ |
+| prosystem | atari 7800 | seventytwohunder | https://docs.libretro.com/library/prosystem/ |
+| stella2014 | atari 2600 | atari | https://docs.libretro.com/library/stella2014/ |
+| handy | atari lynx | lynx | https://docs.libretro.com/library/handy/ |
+| prboom | doom | doom | https://docs.libretro.com/library/prboom/ |
+| dosbox_pure | dos | dos | https://docs.libretro.com/library/dosbox_pure/ |
+| freechaf | fairchild | fairchild | https://docs.libretro.com/library/freechaf/ |
+| gw | game & watch | gw | https://docs.libretro.com/library/gw/ |
+| gpsp | game boy advance | gba | https://docs.libretro.com/library/gpsp/ |
+| mgba | game boy advance | gba | https://docs.libretro.com/library/mgba/ |
+| vbam | game boy advance | gba | https://docs.libretro.com/library/vbam/ |
+| gambatte | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/gambatte/ |
+| gearboy | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/gearboy/ |
+| tgbdual | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/tgbdual/ |
+| genesis_plus_gx | sega (gg, md, cd, 32x) | ms, gg, md, segacd, thirtytwox | https://docs.libretro.com/library/genesis_plus_gx/ |
+| picodrive | sega (gg, md, cd, 32x) | ms, gg, md, segacd, thirtytwox | https://docs.libretro.com/library/picodrive/ |
+| mednafen_ngp | neo geo pocket | ngp, ngpc | https://docs.libretro.com/library/mednafen_ngp/ |
+| fceumm | nes | fc, fds | https://docs.libretro.com/library/fceumm/ |
+| nestopia | nes | fc, fds | https://docs.libretro.com/library/nestopia/ |
+| quicknes | nes | fc, fds | https://docs.libretro.com/library/quicknes/ |
+| mednafen_pce | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_pce/ |
+| mednafen_pce_fast | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_pce_fast/ |
+| mednafen_supergafx | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_supergrafx/ |
+| tic80 | tic-80 | tic | https://docs.libretro.com/library/tic80/ |
+| pcsx_rearmed | playstation | ps | https://docs.libretro.com/library/pcsx_rearmed/ |
+| pokemini | pokemon mini | poke | https://docs.libretro.com/library/pokemini/ |
+| scummvm | scummvm | scummvm | https://docs.libretro.com/library/scummvm/ |
+| snes9x | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x/ |
+| snes9x2002 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2002/ |
+| snes9x2005 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2005/ |
+| snes9x2010 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2010/ |
+| vecx | vectrex | vectrex | https://docs.libretro.com/library/vecx/ |
+| mednafen_vb | virtual boy | vb | https://docs.libretro.com/library/mednafen_vb/ |
+| mednafen_wswan | wonderswan | ws, wsc | https://docs.libretro.com/library/mednafen_wswan/ |
+| fuse | zx spectrum | zxs | https://docs.libretro.com/library/fuse/ |
+| 2048 | - | - | https://docs.libretro.com/library/2048/ |
+| mrboom | - | - | https://docs.libretro.com/library/mrboom/ |
+
+Data files for ScummVM can be found in https://github.com/scummvm/scummvm/tree/v2.1.1/dists/engine-data
+
+# Known issues:
+ - First time a Favorite is added in SMP, the GUI is changing to another System/Rom selection
+ - Using 2x Video filter with PCSX-Rearmed core is creating graphical glitches
 
 # Installation:
  - Copy zip content on SD-card. run.sh must be at the root of the sdcard
@@ -90,8 +143,9 @@ Use:
  - Remove run.sh
 
 # Changelog
-## V0.5:
+## V1:
 - Major update with launcher Simplermenu_Plus integration and faster starting
+- New system folder structures and lot of cores added
 - Some apps included (DinguxCommander and Terminal)
 - ADB shell startup at beginning
   
