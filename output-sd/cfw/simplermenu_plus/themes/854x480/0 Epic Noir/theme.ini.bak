@@ -245,6 +245,10 @@ logo = resources/pcenginecd/logo.png
 name = Pico-8
 logo = resources/PICO8/logo.png
 
+[PICO-8]
+name = Pico-8
+logo = resources/PICO8/logo.png
+
 [PLAYSTATION]
 name = Sony Playstation
 logo = resources/psx/logo.png
@@ -287,7 +291,7 @@ logo = resources/SUPERVISION/logo.png
 
 [TIC-80]
 name = TIC-80
-logo = resources/tic80/logo.png
+logo = resources/TIC/logo.png
 
 [VIRTUAL BOY]
 name = Virtual Boy
@@ -309,11 +313,9 @@ logo = resources/zxspectrum/logo.png
 name = DOOM
 logo = resources/doom/logo.png
 
-
 [FAIRCHILD]
 name = Fairchild
 logo = resources/channelf/logo.png
-
 
 [ODYSSEY / VIDEOPAC]
 name = Odyssey / Videopac
@@ -322,9 +324,4 @@ logo = resources/odyssey2/logo.png
 [VECTREX]
 name = Vectrex
 logo = resources/vectrex/logo.png
-
-[PORTS]
-name = Ports
-logo = resources/ports/logo.png
-
 
