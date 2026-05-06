@@ -127,6 +127,8 @@ Data files for ScummVM can be found in https://github.com/scummvm/scummvm/tree/v
 # Known issues:
  - First time a Favorite is added in SMP, the GUI is changing to another System/Rom selection
  - Using 2x Video filter with PCSX-Rearmed core is creating graphical glitches
+ - FPS overlay is upscaled with the core output when using Hardware upscaler.
+   - You can disable the overlay in RetroArch Settings->On-Screen Display->On-Screen Notifications->Notification Visibility-> Enable Menu-only notifications
 
 # Installation:
  - Copy zip content on SD-card. run.sh must be at the root of the sdcard
