@@ -182,7 +182,7 @@ Data files for ScummVM can be found in https://github.com/scummvm/scummvm/tree/v
  - run the scripts 0.prepare.sh, 1.make-libs.sh, etc....
 
 # Credits:
-- @dmolina007 [https://github.com/dmolina007] for theme developments, ideas, support and testing
+- @dmolina007 [https://github.com/dmolina007] for theme developments, ideas, support, testing and discord maintenance
 - @acmeplus [https://github.com/acmeplus] for his help and simplermenu_plus launcher ([https://github.com/rg35xx-cfw/simplermenu_plus](https://github.com/rg35xx-cfw/simplermenu_plus))
 - @FoxExe [https://github.com/FoxExe] for the firmware extractor/generator to update stock firmware ([https://github.com/FoxExe/PowKiddy_fw](https://github.com/FoxExe/PowKiddy_fw))
 - Retroarch/Libretro teams and all cores creators 
