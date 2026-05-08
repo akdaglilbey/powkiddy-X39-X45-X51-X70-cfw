@@ -1,82 +1,159 @@
-# Powkiddy x39pro/x45/x51/x70 Custom firmware with RetroArch
+# SuperX CFW for Powkiddy X39 Pro / X45 / X51 / X70 #
 
-![image](IMG_0052.jpg)
+![image](img-v1.png)
 
-Enjoy real memory card for multicd PSX games and ability to change the screen-scaling !
+**SuperX CFW**
+Unlock full capability of your Powkiddy X series !
+
+This CFW is basically a collection of softwares and emulators to replace the stock frontend !
+
+Join on Discord: https://discord.gg/t48fC9ESnJ
 
 # Disclaimer:
 This custom firmware is provided "as is" without any warranties, express or implied.
+
 I shall not be held responsible for any damage, loss of data, malfunction, bricking of the device, voided warranty, or any other issues resulting from the installation or use of this firmware.
+
 By installing this firmware, you agree that you do so entirely at your own risk and assume full responsibility for any consequences.
+
+# Supported devices:
+- Powkiddy X39 Pro
+
+# Unsupported:
+We need testers to support:
+- X45
+- X51
+- X70 
+
+# Launcher: Simplermenu_plus (SMP)
+Button mapping:
+- A : enter or launch a rom
+- B : return / go back
+- Y : Add/remove ROM from Favorite list
+- L1/R1 : previous/next page in Rom List
+- Select : Can override the default core for a system OR for a specific ROM (change selection with LEFT/RIGHT)
+- Start : SMP options
+
+In case of adding roms in the folders, you have to Update Caches from SMP Options.
+
+Backlight is switched off after 1 minute of inactivity.
 
 # Retroarch
 Use:
 - **SDL_POWKIDDY** for video
-    - You can upscale with Keep aspect ratio and Integer scaling options (Settings -> Video -> Scaling)
-    - You can change screen orientation (Settings -> Video -> Output)
+    - 4 Scaling mode:
+      - integer_scaling && !keep_aspect : fill full physical height
+      - !integer_scaling && keep_aspect: core output resolution
+      - integer_scaling && keep_aspect: max scaling rounded to integer (x2,x3,x4)
+      - !integer_scaling && !keep_aspect: full screen stretch
+    - Threaded Video: Enabled (provide more performance, can be disabled in case of issue)
+    - Image Interpolation:
+      - Bicubic, Bilinear, Nearest neighbor, Catmull-Rom, Sharp Bilinear and Lanczos : All are using Hardware upscaler and apply video filtering without performance costs.
+      - Software Nearest : Perform upscaling in software, can affect performances.
+    - Video Filters:
+      - You can apply video filters from RetroArch. This can affect performances.
 - **ALSA (prefered)** or **SDL** for audio
     - Use resampler CC or nearest to 48000
     - Delay to 160ms
 - **LINUXRAW** for input
-- **LINUXRAW (prefered)** or **SDL** for Gamepad
+- **SDL** for Gamepad
 
 **L1 + R1** or **MENU** button to get menu in game
+**L2 + R2** to exit RetroArch
 
-**You can copy your bios in cfw/.config/retroarch/system, stock SD card contains some bios in game/.bios**
+**You can copy your bios in cfw/retroarch/system, stock SD card contains some bios in game/.bios folder**
 
 # Retroarch cores included
-- Standalone:
-  - 2048
-  - mrboom
-  - prboom
-- GB/GBC/GBA:
-  - gambatte
-  - gearboy
-  - gpsp
-  - mgba
-  - tgbdual
-  - vbam
-- NES:
-  - fceumm
-  - nestopia
-  - quicknes
-- SNES:
-  - snes9x2002
-  - snes9x2005
-  - snes9x2010
-  - snes9x
-  - mednafen_supafaust
-- Megadrive:
-  - genesis_plus_gx
-  - picodrive
-- PSX:
-  - pcsx_rearmed
-- Neogeo/CPS/Arcade
-  - fbneo
-  - mame2000
-  - mame2003
-  - mame2003_plus
-  - fbalpha2012
-- Others:
-  - mednafen_ngp
-  - mednafen_vb
-  - ffmpeg
+
+Some cores requires BIOS to be copied in **cfw/retroarch/system** you can find related BIOS requirements in the dedicated link of each cores
+
+You can see retroarch logs by using DinguxCommander and going to /tmp folder.
+
+**Retroarch logs are not persistant across console restart**
+
+
+| Core | System | Folder | Libretro |
+|------|--------|--------|----------|
+| o2em | ODYSSEY / VIDEOPAC | odyssey, videopac | https://docs.libretro.com/library/o2em/ |
+| freeintv | intellivision | intellivision | https://docs.libretro.com/library/freeintv/ |
+| bluemsx | msx | msx | https://docs.libretro.com/library/bluemsx/ |
+| puae | amiga / amigacd | amiga | https://docs.libretro.com/library/puae/ |
+| cap32 | amstrad cpc | cpc | https://docs.libretro.com/library/cap32/ |
+| mame2000 | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2000/ |
+| mame2003 | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003/ |
+| mame2003_plus | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003_plus/ |
+| fbalpha2012 | arcade / neo geo | arcade, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbalpha2012/ |
+| fbneo | arcade / neo geo | arcade, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbneo/ |
+| atari800 | atari 5200 | fiftytwohundred | https://docs.libretro.com/library/atari800/ |
+| prosystem | atari 7800 | seventytwohunder | https://docs.libretro.com/library/prosystem/ |
+| stella2014 | atari 2600 | atari | https://docs.libretro.com/library/stella2014/ |
+| handy | atari lynx | lynx | https://docs.libretro.com/library/handy/ |
+| prboom | doom | doom | https://docs.libretro.com/library/prboom/ |
+| dosbox_pure | dos | dos | https://docs.libretro.com/library/dosbox_pure/ |
+| freechaf | fairchild | fairchild | https://docs.libretro.com/library/freechaf/ |
+| gw | game & watch | gw | https://docs.libretro.com/library/gw/ |
+| gpsp | game boy advance | gba | https://docs.libretro.com/library/gpsp/ |
+| mgba | game boy advance | gba | https://docs.libretro.com/library/mgba/ |
+| vbam | game boy advance | gba | https://docs.libretro.com/library/vbam/ |
+| gambatte | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/gambatte/ |
+| gearboy | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/gearboy/ |
+| tgbdual | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/tgbdual/ |
+| genesis_plus_gx | sega (gg, md, cd, 32x) | ms, gg, md, segacd, thirtytwox | https://docs.libretro.com/library/genesis_plus_gx/ |
+| picodrive | sega (gg, md, cd, 32x) | ms, gg, md, segacd, thirtytwox | https://docs.libretro.com/library/picodrive/ |
+| mednafen_ngp | neo geo pocket | ngp, ngpc | https://docs.libretro.com/library/mednafen_ngp/ |
+| fceumm | nes | fc, fds | https://docs.libretro.com/library/fceumm/ |
+| nestopia | nes | fc, fds | https://docs.libretro.com/library/nestopia/ |
+| quicknes | nes | fc, fds | https://docs.libretro.com/library/quicknes/ |
+| mednafen_pce | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_pce/ |
+| mednafen_pce_fast | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_pce_fast/ |
+| mednafen_supergafx | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_supergrafx/ |
+| tic80 | tic-80 | tic | https://docs.libretro.com/library/tic80/ |
+| pcsx_rearmed | playstation | ps | https://docs.libretro.com/library/pcsx_rearmed/ |
+| pokemini | pokemon mini | poke | https://docs.libretro.com/library/pokemini/ |
+| scummvm | scummvm | scummvm | https://docs.libretro.com/library/scummvm/ |
+| snes9x | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x/ |
+| snes9x2002 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2002/ |
+| snes9x2005 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2005/ |
+| snes9x2010 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2010/ |
+| vecx | vectrex | vectrex | https://docs.libretro.com/library/vecx/ |
+| mednafen_vb | virtual boy | vb | https://docs.libretro.com/library/mednafen_vb/ |
+| mednafen_wswan | wonderswan | ws, wsc | https://docs.libretro.com/library/mednafen_wswan/ |
+| fuse | zx spectrum | zxs | https://docs.libretro.com/library/fuse/ |
+| 2048 | - | - | https://docs.libretro.com/library/2048/ |
+| mrboom | - | - | https://docs.libretro.com/library/mrboom/ |
+
+Data files for ScummVM can be found in https://github.com/scummvm/scummvm/tree/v2.1.1/dists/engine-data
+
+# Known issues:
+ - First time a Favorite is added in SMP, the GUI is changing to another System/Rom selection
+ - Using 2x Video filter with PCSX-Rearmed core is creating graphical glitches
+ - FPS overlay is upscaled with the core output when using Hardware upscaler.
+   - You can disable the overlay in RetroArch Settings->On-Screen Display->On-Screen Notifications->Notification Visibility-> Enable Menu-only notifications
+   - If you open at least once the Menu, FPS will stay but won't be updated (known issue)
+ - FPS counter is flickering in Software Nearest mode
+ - DOSBOX Pure screen inverted in Software Nearest mode 
 
 # Installation:
- - Copy run.sh and CFW folder on SD-card
- - Put update.zip on SD Card
+ - Copy zip content on SD-card. run.sh must be at the root of the sdcard
+ - You can copy your bios in CFW/retroarch/system, stock SD card contains some bios in game/.bios folder
+
+ **Only in case of first installation:**
+ 
+ - Put update.zip on SD Card 
       -  update.zip contains original Powkiddy firmware with startup script updated
       -  **Verify the update.zip CRC once copied on SD is correct !**  
  - Reboot the console and perform the update when asked by the console. If the update is not detected, remove and insert the SD card when builtin frontend is started.
- - When the system is now booting, after few seconds the menu is killed and retroarch is started.
- - Console is powered off when exiting retroarch
-
-## In case of CFW update and unless specified, the update.zip process is not required, only extract the cfw to the SD.
  
 # Uninstall:
- - Remove run.sh from SD Card
+ - Remove run.sh
 
 # Changelog
+## V1:
+- Major update with launcher Simplermenu_Plus integration and faster starting
+- New system folder structures and lot of cores added
+- Some apps included (DinguxCommander and Terminal)
+- ADB shell startup at beginning
+  
 ## V0.3:
 **Many thanks to @dmolina007 [https://github.com/dmolina007] for the tests and suggestions !**
 
@@ -100,23 +177,21 @@ Use:
 - Upscaling nearest (fast) and bilinear (slow unless we use HW scaler)
 - Better sound parameters and usage of ATC2603 registers
 
-# How to compile:
- - Install ubuntu 16.04 64 bits
+# Build from source:
+ - Install Ubuntu or WSL2
  - Get this repository
- - git submodules init
- - git submodules update
- - build the toolchain (buildroot.2015.02 -> make toolchain and check the _compile file
- - In order to compile something with the toolchain, apply the environments variables defined "source project/set_env.sh" and read how-to file
- - SDL1-2 has been modified to set the audio to correct buffer_size/period_size and do joypad remapping
- - Retroarch has been heavily modified to
-   - GFX (SDL_POWKIDDY) : framebuffer specs + resize/stretch screen
-   - Alsa driver (ALSA) to use 32_LE format with correct buffer/period size and integration of Bass filter (high pass) to have better sound especially in SNES games
-   - Gamepad driver (LINUXRAW) : match the non-standards event code of powkiddy for gamepad input
- - Firmware directory contains the scripts to extract the various partitions of the FW, a repack for update.zip to flash the consoles is possible as well (thanks [fox_exe](https://github.com/FoxExe/PowKiddy_fw) )
+ - git submodule init
+ - git submodule update
+ - run the scripts 0.prepare.sh, 1.make-libs.sh, etc....
 
-# Improvements:
- - Add a menu like gmenu2x to be able to start ports or programs
-
+# Credits:
+- @dmolina007 [https://github.com/dmolina007] for theme developments, ideas, support, testing and discord maintenance
+- @acmeplus [https://github.com/acmeplus] for his help and simplermenu_plus launcher ([https://github.com/rg35xx-cfw/simplermenu_plus](https://github.com/rg35xx-cfw/simplermenu_plus))
+- @FoxExe [https://github.com/FoxExe] for the firmware extractor/generator to update stock firmware ([https://github.com/FoxExe/PowKiddy_fw](https://github.com/FoxExe/PowKiddy_fw))
+- Retroarch/Libretro teams and all cores creators 
+- DinguxCommander creator (https://tardigrade-nx.github.io/2011/dinguxcommander/)
+- st-sdl creator (https://github.com/benob/rs97_st-sdl)
+  
 # Notes:
 
 ## Updated /etc/init.d/rcS script to start retroarch on boot:
@@ -131,85 +206,10 @@ This is running run.sh script on the SD Card
                         manager &
 ```
 
-**run.sh on sdcard:**
-The script is doing the following:
-- Starting the watchdog BEFORE manager so we have ownership on the watchdog
-- Kill the powkiddy softwares
-- Starting retroarch with various environments variables
-- Setting CPU to 900mhz in perf mode
-- Reset the framebuffer
-- Activate speaker + volume set to 40
+## ADB
+ADB is running on native FS, this CFW is mounting a new FS and chroot to it.
 
-When retroarch exit, the console is powered off
-
-```
-#!/bin/sh
-export LD_LIBRARY_PATH=/mnt/card/cfw/libs:$LD_LIBRARY_PATH
-cd /mnt/card/cfw
-/mnt/card/cfw/tools/watchdog_feeder 5 30 &
-sleep 15
-while ps w | grep "[p]oweron" > /dev/null
-do
-    sleep 5
-done
-echo 1 >  /sys/devices/system/cpu/cpu1/online
-echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-echo performance > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-echo 900000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-echo 900000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-
-killall -9 manager
-killall -9 launcher
-killall -9 audio_service
-killall -9 msg_server
-killall -9 adbd
-sleep 1
-/etc/backlight.sh open &
-export HOME=/mnt/card/cfw
-export SDL_VIDEODRIVER=fbcon
-export SDL_NOMOUSE=1
-export SDL_MOUSEDEV=/dev/null
-#export SDL_VIDEO_FBCON_ROTATION=CCW
-export SDL_AUDIODRIVER=alsa
-export SDL_AUDIO_ALSA_DEBUG=0
-export SDL_AUDIO_ALLOW_FREQUENCY_CHANGE=0
-echo "0,0" > /sys/class/graphics/fb0/pan
-# Reset virtual position
-echo 0 > /sys/class/graphics/fb0/virtual_size
-/bin/tinymix 35 1 &
-/bin/tinymix 30 1 &
-/bin/tinymix 15 40 &
-echo 1 >  /sys/devices/system/cpu/cpu1/online
-echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-echo performance > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-echo 900000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-echo 900000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-killall -9 manager
-killall -9 launcher
-killall -9 audio_service
-killall -9 msg_server
-killall -9 adbd
-echo "2 0x0223" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
-echo "0 0x0022" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
-echo "3 0xbebe" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
-echo "5 0x0468"  > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
-echo "7 0x26BF"  > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
-
-/mnt/card/cfw/tools/power_volume_daemon &
-sleep 1
-/mnt/card/cfw/retroarch
-sync &
-poweroff &
-
-```
-
-## Infos
-To connect to the console, you must have the USB-C (charger) connected and USB-A cable ton USB1 port.
-
-Switch ON the console (press 3s the poweron button) until you see on the display an image with computer and console! if you are on ADB shell on charging screen, the framebuffer and the buttons are not working correctly!
-
-mount the sdcard : 
-```mount /dev/mmcblk0p1 /mnt/card/```
+Once in adb shell, you can check content of run.sh to mount the newfs and chroot to it
 
 ## ALSA SOUND
 Driver source: https://github.com/LeMaker/linux-actions/tree/linux-3.10.y/sound/soc/atc260x
@@ -268,76 +268,3 @@ ctl.!default {
 ## Watchdog
 
 link to driver: https://github.com/LeMaker/linux-actions/blob/linux-3.10.y/drivers/watchdog/owl_wdt.c
-
-## Hardware video scaler
-
-https://github.com/LeMaker/linux-actions/tree/linux-3.10.y/drivers/video/owl/dss
-fb0 = LCD principal (854×480)
-fb1 = HDMI (pas utilisé)
-video0 = Display Engine layer 0 (background)
-video1 = Display Engine layer 1 (overlay avec scaling)
-
-echo $((fb0_phys_start + 1639680)) > /sys/kernel/debug/de/video1/addr0
-echo 256 > /sys/kernel/debug/de/video1/width
-echo 224 > /sys/kernel/debug/de/video1/height
-echo 854 > /sys/kernel/debug/de/video1/out_width
-echo 480 > /sys/kernel/debug/de/video1/out_height
-echo 1 > /sys/kernel/debug/de/video1/apply
-
-```
-#!/bin/sh
-# Test Actions OWL Display Engine Hardware Scaler
-# This tests video1 layer with hardware scaling
-
-DE_VIDEO1="/sys/kernel/debug/de/video1"
-
-echo "=== Current video1 configuration ==="
-for f in width height out_width out_height pos_x pos_y color_mode addr0 pitch0; do
-    echo "$f: $(cat $DE_VIDEO1/$f 2>/dev/null)"
-done
-
-echo ""
-echo "=== Testing hardware scaler: 256x224 ? 854x480 ==="
-
-# Configure video1 layer for SNES scaling
-# Source: 256x224 (SNES resolution)
-# Output: 854x480 (fullscreen)
-
-echo 256 > $DE_VIDEO1/width
-echo 224 > $DE_VIDEO1/height
-
-echo 854 > $DE_VIDEO1/out_width
-echo 480 > $DE_VIDEO1/out_height
-
-# Position at (0,0)
-echo 0 > $DE_VIDEO1/pos_x
-echo 0 > $DE_VIDEO1/pos_y
-
-# Color mode: RGB565 = 1
-echo 1 > $DE_VIDEO1/color_mode
-
-# Pitch (stride): 256 pixels * 2 bytes = 512
-echo 512 > $DE_VIDEO1/pitch0
-
-# Get framebuffer physical address (we'll need this)
-# For now, just show current config
-echo ""
-echo "=== New configuration ==="
-for f in width height out_width out_height; do
-    echo "$f: $(cat $DE_VIDEO1/$f)"
-done
-
-echo ""
-echo "Hardware scaler configured!"
-echo "Now we need to:"
-echo "1. Allocate a buffer for 256x224 pixels"
-echo "2. Write pixels to that buffer"  
-echo "3. Set addr0 to physical address of buffer"
-echo "4. Echo 1 > apply to activate"
-
-```
-
-
-
-
-

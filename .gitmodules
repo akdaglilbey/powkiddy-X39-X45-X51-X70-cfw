@@ -1,9 +1,10 @@
 [submodule "project/SDL-1.2"]
 	path = project/SDL-1.2
 	url = https://github.com/scooper540/SDL-1.2-powkiddy.git
-[submodule "buildroot-2015.02"]
-	path = buildroot-2015.02
-	url = https://github.com/scooper540/buildroot-2015.02-powkiddy.git
 [submodule "project/RetroArch"]
 	path = project/RetroArch
 	url = https://github.com/scooper540/RetroArch-powkiddy.git
+[submodule "project/simplermenu_plus"]
+	path = project/simplermenu_plus
+	url = https://github.com/scooper540/simplermenu_plus.git
+	branch = powkiddy
