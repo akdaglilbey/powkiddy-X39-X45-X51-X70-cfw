@@ -129,6 +129,8 @@ Data files for ScummVM can be found in https://github.com/scummvm/scummvm/tree/v
  - Using 2x Video filter with PCSX-Rearmed core is creating graphical glitches
  - FPS overlay is upscaled with the core output when using Hardware upscaler.
    - You can disable the overlay in RetroArch Settings->On-Screen Display->On-Screen Notifications->Notification Visibility-> Enable Menu-only notifications
+ - FPS counter is flickering in Software Nearest mode
+ - DOSBOX Pure screen inverted in Software Nearest mode 
 
 # Installation:
  - Copy zip content on SD-card. run.sh must be at the root of the sdcard
