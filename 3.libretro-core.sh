@@ -1,7 +1,7 @@
 #/bin/sh
 
 set -e
-export NUM_THREAD=8
+export NUM_THREAD="$(nproc)"
 
 cd $(pwd)/project
 source set_env.sh
@@ -73,9 +73,9 @@ platform=classic_armv7_a7 ./libretro-build.sh mednafen_lynx
 CFLAGS+=" -DUSE_RGB565" platform=classic_armv7_a7 ./libretro-build.sh retro8
 
 ./libretro-fetch.sh vice_xvic
-platform=classic_armv7_a7 ./libretro-build.sh vice_xvic -j4
+platform=classic_armv7_a7 ./libretro-build.sh vice_xvic -j"$NUM_THREAD"
 ./libretro-fetch.sh vice_x64
-platform=classic_armv7_a7 ./libretro-build.sh vice_x64 -j4
+platform=classic_armv7_a7 ./libretro-build.sh vice_x64 -j"$NUM_THREAD"
 
 #download cores from buildbot
 wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/atari800_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
@@ -102,5 +102,5 @@ cp -rf dist/unix/* $(pwd)/../../output-sd/cfw/retroarch/cores/
 cd ..
 git clone https://github.com/schellingb/dosbox-pure.git
 cd dosbox-pure
-platform=classic_armv7_a7 make -j4
+platform=classic_armv7_a7 make -j"$NUM_THREAD"
 cp  dosbox_pure_libretro.so $(pwd)/../../output-sd/cfw/retroarch/cores/
