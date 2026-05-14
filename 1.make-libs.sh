@@ -48,7 +48,7 @@ cd ..
 
 cd SDL-1.2
 chmod +x configure
-./configure --host=arm-linux-gnueabihf --disable-video-opengl --disable-video-x11 --enable-video-fbcon --disable-input-tslib --enable-joystick --enable-audio --enable-arm-simd --enable-arm-neon --build=$(gcc -dumpmachine) --enable-rpath=no
+./configure --host=arm-linux-gnueabihf --disable-video-opengl --disable-video-x11 --enable-video-fbcon --enable-joystick --enable-audio --enable-arm-simd --enable-arm-neon --build=$(gcc -dumpmachine) --enable-rpath=no
 make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 #update pkg-config sdl because it's searching in rpath host libs...
