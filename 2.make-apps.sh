@@ -19,6 +19,7 @@ cp res $(pwd)/../../output-sd/cfw/apps/DinguxCommander -rf
 cd ..
 
 cd simplermenu_plus
+sed -i 's|-Iinclude/ -DPOWKIDDY=1|-Iinclude/ -I$(SYSROOT)/usr/local/include/SDL -I$(SYSROOT)/usr/local/include -DPOWKIDDY=1|' Makefile.powkiddy
 make -j$NUM_THREAD -f Makefile.powkiddy
 cp output/simplermenu_plus $(pwd)/../../output/usr/bin
 cd ..
@@ -81,5 +82,8 @@ cd ..
 #git submodule init
 #git submodule update
 #SDL_CONFIG=$SYSROOT/usr/local/bin/sdl-config ./configure --enable-neon --enable-threads --sound-drivers=sdl
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
