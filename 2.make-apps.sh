@@ -82,8 +82,3 @@ cd ..
 #git submodule init
 #git submodule update
 #SDL_CONFIG=$SYSROOT/usr/local/bin/sdl-config ./configure --enable-neon --enable-threads --sound-drivers=sdl
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
