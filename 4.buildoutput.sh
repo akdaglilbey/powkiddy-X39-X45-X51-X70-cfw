@@ -1,8 +1,21 @@
 #/bin/sh
 
-SYSROOT=$(pwd)/sysroot
-OUT=$(pwd)/output/
-TOOLCHAIN=$(pwd)/sysroot
+SYSROOT="$(pwd)/sysroot"
+OUT="$(pwd)/output/"
+TOOLCHAIN="$(pwd)/sysroot"
+STRIP_BIN="${TOOLCHAIN}/bin/arm-linux-gnueabihf-strip"
+READELF_BIN="${TOOLCHAIN}/bin/arm-linux-gnueabihf-readelf"
+
+strip_arm_elf_files() {
+	dir="$1"
+	shift
+
+	find "$dir" -type f | while IFS= read -r file; do
+		if "$READELF_BIN" -h "$file" 2>/dev/null | grep -q "Machine:.*ARM"; then
+			"$STRIP_BIN" "$@" "$file"
+		fi
+	done
+}
 
 mkdir -p $OUT/lib
 mkdir -p $OUT/usr/lib
@@ -41,7 +54,7 @@ find $OUT -name "*.la" -type f -delete
 
 find $OUT -name ".gitkeep" -type f -delete
 echo "=== cleaning done ==="
-arm-linux-gnueabihf-strip --strip-unneeded output/lib/*.so*
-arm-linux-gnueabihf-strip --strip-unneeded output/usr/lib/*.so*
-arm-linux-gnueabihf-strip output/usr/bin/*
+strip_arm_elf_files output/lib --strip-unneeded
+strip_arm_elf_files output/usr/lib --strip-unneeded
+strip_arm_elf_files output/usr/bin
 echo "=== finished ==="
