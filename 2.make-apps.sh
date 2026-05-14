@@ -3,58 +3,58 @@
 set -e
 export NUM_THREAD=$(nproc)
 
-cd $(pwd)/project
+cd "$(pwd)/project"
 source set_env.sh
 
 cd RetroArch
 make -j$NUM_THREAD -f Makefile.powkiddy
-cp retroarch $(pwd)/../../output/usr/bin
-cp gfx/video_filters/*.filt $(pwd)/../../output-sd/cfw/retroarch/filters/video/
+cp retroarch "$(pwd)/../../output/usr/bin"
+cp gfx/video_filters/*.filt "$(pwd)/../../output-sd/cfw/retroarch/filters/video/"
 cd ..
 
 cd DinguxCommander
 make -j$NUM_THREAD
-cp output/DinguxCommander $(pwd)/../../output-sd/cfw/apps/DinguxCommander
-cp res $(pwd)/../../output-sd/cfw/apps/DinguxCommander -rf
+cp output/DinguxCommander "$(pwd)/../../output-sd/cfw/apps/DinguxCommander"
+cp -rf res "$(pwd)/../../output-sd/cfw/apps/DinguxCommander"
 cd ..
 
 cd simplermenu_plus
 make -j$NUM_THREAD -f Makefile.powkiddy
-cp output/simplermenu_plus $(pwd)/../../output/usr/bin
+cp output/simplermenu_plus "$(pwd)/../../output/usr/bin"
 cd ..
 
 cd st-sdl
 make
-cp st $(pwd)/../../output-sd/cfw/apps/st
+cp st "$(pwd)/../../output-sd/cfw/apps/st"
 cd ..
 
 cd dac-analyser
 $CC -o dac_decoder reg_dac_analysis.c
-cp dac_decoder $(pwd)/../../output/usr/bin
+cp dac_decoder "$(pwd)/../../output/usr/bin"
 cd ..
 
 cd fbset
 make clean
 make -j$NUM_THREAD
-cp fbset $(pwd)/../../output/usr/bin
-cp modeline2fb $(pwd)/../../output/usr/bin
+cp fbset "$(pwd)/../../output/usr/bin"
+cp modeline2fb "$(pwd)/../../output/usr/bin"
 cd ..
 
 cd power_volume_handler
 $CC -o power_volume_handler power_volume_handler.c
-cp power_volume_handler $(pwd)/../../output/usr/bin
+cp power_volume_handler "$(pwd)/../../output/usr/bin"
 cd ..
 
 cd watchdog_feeder
 $CC -o watchdog_feeder watchdog_feeder.c
-cp watchdog_feeder $(pwd)/../../output/usr/bin
+cp watchdog_feeder "$(pwd)/../../output/usr/bin"
 cd ..
 
 rm -rf tinyalsa
 git clone -b v1.0.0 --depth 1 https://github.com/tinyalsa/tinyalsa.git
 cd tinyalsa
 make CROSS_COMPILE=$ARMABI-
-make install DESTDIR=$(pwd)/../../output/
+make install DESTDIR="$(pwd)/../../output/"
 
 rm -rf busybox
 git clone -b 1_36_1 --depth 1 https://github.com/mirror/busybox.git
@@ -72,7 +72,7 @@ cd strace
 ./bootstrap
 ./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine) 
 make -j$NUM_THREAD
-cp strace $(pwd)/../../output/usr/bin
+cp strace "$(pwd)/../../output/usr/bin"
 cd ..
 
 
@@ -81,5 +81,4 @@ cd ..
 #git submodule init
 #git submodule update
 #SDL_CONFIG=$SYSROOT/usr/local/bin/sdl-config ./configure --enable-neon --enable-threads --sound-drivers=sdl
-
 
