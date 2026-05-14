@@ -13,6 +13,7 @@ sudo apt-get -y install \
 	cmake \
 	cmake-curses-gui \
 	cpio \
+	doxygen \
 	git \
 	libncurses5-dev \
 	locales \
