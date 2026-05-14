@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export SYSROOT=$(pwd)/../sysroot
+export SYSROOT="$(pwd)/../sysroot"
 export CC="arm-linux-gnueabihf-gcc --sysroot=$SYSROOT"
 export CXX="arm-linux-gnueabihf-g++ --sysroot=$SYSROOT"
 export AR=arm-linux-gnueabihf-ar
