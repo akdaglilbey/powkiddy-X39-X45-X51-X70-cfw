@@ -3,7 +3,7 @@
 set -e
 export NUM_THREAD=8
 
-cd $(pwd)/project
+cd "$(pwd)/project"
 source set_env.sh
 
 git clone https://github.com/libretro/libretro-super.git
@@ -97,10 +97,10 @@ wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf
 wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/tic80_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
 wget -O /tmp/file.zip "https://buildbot.libretro.com/nightly/linux/armv7-neon-hf/latest/vecx_libretro.so.zip" && unzip /tmp/file.zip -d dist/unix
 # all cores are stored on SD Card
-cp -rf dist/unix/* $(pwd)/../../output-sd/cfw/retroarch/cores/
+cp -rf dist/unix/* "$(pwd)/../../output-sd/cfw/retroarch/cores/"
 
 cd ..
 git clone https://github.com/schellingb/dosbox-pure.git
 cd dosbox-pure
 platform=classic_armv7_a7 make -j4
-cp  dosbox_pure_libretro.so $(pwd)/../../output-sd/cfw/retroarch/cores/
+cp dosbox_pure_libretro.so "$(pwd)/../../output-sd/cfw/retroarch/cores/"

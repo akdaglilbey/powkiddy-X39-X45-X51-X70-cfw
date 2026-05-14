@@ -3,7 +3,7 @@
 set -e
 export NUM_THREAD=8
 
-cd $(pwd)/project
+cd "$(pwd)/project"
 source set_env.sh
 
 rm -rf zlib-1.2.8
