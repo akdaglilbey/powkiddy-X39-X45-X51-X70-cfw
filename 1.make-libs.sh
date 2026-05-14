@@ -38,6 +38,15 @@ make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 cd ..
 
+rm -rf tslib
+git clone https://github.com/libts/tslib.git
+cd tslib
+./autogen.sh
+./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine)
+make -j$NUM_THREAD
+make install DESTDIR=$SYSROOT
+cd ..
+
 rm -rf alsa-lib-1.2.9
 tar xvjf alsa-lib-1.2.9.tar.bz2
 cd alsa-lib-1.2.9
@@ -53,6 +62,9 @@ make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 #update pkg-config sdl because it's searching in rpath host libs...
 sed -i 's|-Wl,-rpath,[^ ]*||; s|-lpthread|-lpthread -lasound|' $SYSROOT/usr/local/lib/pkgconfig/sdl.pc
+# Drop libtool archives before SDL_image links against SDL to avoid absolute
+# dependency paths like /usr/local/lib/libts.la leaking out of DESTDIR installs.
+find "$SYSROOT" -name "*.la" -delete
 cd ..
 
 rm -rf SDL_image-release-1.2.12
@@ -62,8 +74,6 @@ cd SDL_image-release-1.2.12
 make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 cd ..
-
-find $SYSROOT -name "*.la" -delete
 
 rm -rf SDL_ttf
 git clone -b SDL-1.2 --depth 1 https://github.com/libsdl-org/SDL_ttf.git
@@ -153,15 +163,6 @@ wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libw
 tar xf libwebp-1.2.4.tar.gz
 cd libwebp-1.2.4
 ./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine) --enable-neon
-make -j$NUM_THREAD
-make install DESTDIR=$SYSROOT
-cd ..
-
-rm -rf tslib
-git clone https://github.com/libts/tslib.git
-cd tslib
-./autogen.sh
-./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine)
 make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 cd ..
