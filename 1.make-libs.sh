@@ -38,6 +38,15 @@ make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 cd ..
 
+rm -rf tslib
+git clone https://github.com/libts/tslib.git
+cd tslib
+./autogen.sh
+./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine)
+make -j$NUM_THREAD
+make install DESTDIR=$SYSROOT
+cd ..
+
 rm -rf alsa-lib-1.2.9
 tar xvjf alsa-lib-1.2.9.tar.bz2
 cd alsa-lib-1.2.9
@@ -53,6 +62,9 @@ make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 #update pkg-config sdl because it's searching in rpath host libs...
 sed -i 's|-Wl,-rpath,[^ ]*||; s|-lpthread|-lpthread -lasound|' $SYSROOT/usr/local/lib/pkgconfig/sdl.pc
+# Drop libtool archives before SDL_image links against SDL to avoid absolute
+# dependency paths like /usr/local/lib/libts.la leaking out of DESTDIR installs.
+find "$SYSROOT" -name "*.la" -delete
 cd ..
 
 rm -rf SDL_image-release-1.2.12
@@ -62,8 +74,6 @@ cd SDL_image-release-1.2.12
 make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 cd ..
-
-find $SYSROOT -name "*.la" -delete
 
 rm -rf SDL_ttf
 git clone -b SDL-1.2 --depth 1 https://github.com/libsdl-org/SDL_ttf.git
@@ -108,11 +118,25 @@ git clone -b boost-1.87.0 --depth 1 https://github.com/boostorg/boost.git
 cd boost
 git submodule init
 git submodule update
-PATH=/usr/bin:/bin ./bootstrap.sh --with-libraries=filesystem,locale --with-toolset=gcc
-echo "using gcc : arm : /home/chris/powkiddy/sysroot/bin/arm-linux-gnueabihf-g++ ;" >> project-config.jam
-./b2 toolset=gcc-arm architecture=arm target-os=linux link=static      --with-filesystem --with-locale      cxxflags="-std=c++11 -march=armv7-a -mfpu=neon -mfloat-abi=hard --sysroot=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot"      stage
-./b2 headers
-./b2 toolset=gcc-arm architecture=arm target-os=linux link=static,shared --with-filesystem --with-locale cxxflags="-std=c++11 --sysroot=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot" --prefix=/home/chris/powkiddy-X39-X45-X51-X70-cfw/sysroot/usr install
+PATH=/usr/bin:/bin ./bootstrap.sh
+cat > project-config.jam <<EOF
+using gcc : arm : ${SYSROOT}/bin/arm-linux-gnueabihf-g++ ;
+EOF
+./b2 -j"$NUM_THREAD" \
+    toolset=gcc-arm \
+    install \
+    --prefix="${SYSROOT}/usr" \
+    architecture=arm \
+    target-os=linux \
+    link=static,shared \
+    --with-system \
+    --with-filesystem \
+    --with-date_time \
+    --with-locale \
+    cxxflags="-std=c++11 -march=armv7-a -mfpu=neon -mfloat-abi=hard --sysroot=${SYSROOT}" \
+    linkflags="--sysroot=${SYSROOT}" \
+    variant=release
+rsync -aL boost/ "${SYSROOT}/usr/include/boost/"
 
 cd ..
 rm -rf tiff-4.6.0
@@ -143,19 +167,10 @@ make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 cd ..
 
-rm -rf tslib
-git clone https://github.com/libts/tslib.git
-cd tslib
-./autogen.sh
-./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine)
-make -j$NUM_THREAD
-make install DESTDIR=$SYSROOT
-cd ..
-
 rm -rf libmad-0.15.1b
 wget https://downloads.sourceforge.net/mad/libmad-0.15.1b.tar.gz
 tar xf libmad-0.15.1b.tar.gz
 cd libmad-0.15.1b
-./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine)
-make -j$NUM_THREAD
+CFLAGS="${CFLAGS} -marm" ./configure --host=arm-linux-gnueabihf --build=$(gcc -dumpmachine)
+make -j$NUM_THREAD CFLAGS="${CFLAGS} -marm"
 make install DESTDIR=$SYSROOT

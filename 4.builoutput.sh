@@ -1,8 +1,8 @@
 #/bin/sh
 
-SYSROOT=$(pwd)/sysroot
-OUT=$(pwd)/output/
-TOOLCHAIN=$(pwd)/sysroot
+SYSROOT="$(pwd)/sysroot"
+OUT="$(pwd)/output/"
+TOOLCHAIN="$(pwd)/sysroot"
 
 mkdir -p $OUT/lib
 mkdir -p $OUT/usr/lib
