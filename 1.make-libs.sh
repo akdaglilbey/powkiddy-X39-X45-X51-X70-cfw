@@ -1,9 +1,9 @@
 #/bin/sh
 
 set -e
-export NUM_THREAD=8
+export NUM_THREAD="$(nproc)"
 
-cd $(pwd)/project
+cd "$(pwd)/project"
 source set_env.sh
 
 rm -rf zlib-1.2.8
