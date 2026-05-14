@@ -6,7 +6,7 @@ watchdog_feeder 5 30 &
 
 # unload and reload adcjoystick to get the controls
 rmmod owl_gpio_matrix_adcjoystick 2>/dev/null
-insmod /lib/modules/3.10.0/owl_gpio_matrix_adcjoystick.ko tiny_mode=0
+insmod /mnt/original/lib/modules/3.10.0/owl_gpio_matrix_adcjoystick.ko tiny_mode=0
 
 #activate cpu1 and set to performance the cpu, maybe only cpu0 is needed
 echo 1 >  /sys/devices/system/cpu/cpu1/online
@@ -35,12 +35,29 @@ export SMP_STATEFILE=/tmp/.state
 export RA_CONFIG=/mnt/card/cfw/retroarch/retroarch.cfg
 export SDL_NOMOUSE=1
 export SDL_MOUSEDEV=/dev/null
-export SDL_VIDEO_FBCON_ROTATION=CCW
+#export SDL_VIDEO_FBCON_ROTATION=CCW
 export SDL_AUDIODRIVER=alsa
 export SDL_AUDIO_ALSA_DEBUG=0
 export SDL_AUDIO_ALLOW_FREQUENCY_CHANGE=0
 echo "0,1" > /sys/class/graphics/fb0/pan
 echo "0,0" > /sys/class/graphics/fb0/pan
+
+#get current resolution and fill the variables
+geom=$(fbset | awk '/geometry/ {print $2, $3}')
+set -- $geom
+WIDTH=$1
+HEIGHT=$2
+export SCREEN_WIDTH="$WIDTH"
+export SCREEN_HEIGHT="$HEIGHT"
+
+if [ "$HEIGHT" -gt "$WIDTH" ]; then
+    export SDL_VIDEO_FBCON_ROTATION=CCW
+    sed -i 's/video_rotation[[:space:]]*=[[:space:]]*"[0-3]"/video_rotation = "3"/' "/mnt/card/cfw/retroarch/retroarch.cfg"
+else
+    unset SDL_VIDEO_FBCON_ROTATION
+    sed -i 's/video_rotation[[:space:]]*=[[:space:]]*"[0-3]"/video_rotation = "0"/' "/mnt/card/cfw/retroarch/retroarch.cfg"
+fi
+
 simplermenu_plus
 #sync
 #poweroff

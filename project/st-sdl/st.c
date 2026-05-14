@@ -2417,7 +2417,7 @@ void sdlinit(void) {
 	if(!(screen = SDL_SetVideoMode(320, 480, 16, SDL_SWSURFACE | SDL_DOUBLEBUF))) {
 #elif defined(POWKIDDY)
 	fprintf(stderr, "POWKIDDY\r\n");
-	if(!(screen = SDL_SetVideoMode(854, 480, 16, SDL_SWSURFACE))) {
+	if(!(screen = SDL_SetVideoMode(vi->current_w, vi->current_h, 16, SDL_SWSURFACE))) {
 	xw.w = initial_width;
 	xw.h = initial_height;
 #else
@@ -2834,7 +2834,10 @@ cresize(int width, int height)
 #elif defined(RS97_SCREEN_480)
 	if(!(screen = SDL_SetVideoMode(320, 480, 16, SDL_SWSURFACE | SDL_DOUBLEBUF))) {
 #elif defined(POWKIDDY)
-	if(!(screen = SDL_SetVideoMode(854, 480, 16, SDL_HWSURFACE | SDL_FULLSCREEN))) {
+	const SDL_VideoInfo *vi;
+ 	vi = SDL_GetVideoInfo();
+
+	if(!(screen = SDL_SetVideoMode(vi->current_w, vi->current_h, 16, SDL_HWSURFACE | SDL_FULLSCREEN))) {
 #else
 	if(!(screen = SDL_SetVideoMode(320, 240, 16, SDL_HWSURFACE | SDL_DOUBLEBUF))) {
 #endif
