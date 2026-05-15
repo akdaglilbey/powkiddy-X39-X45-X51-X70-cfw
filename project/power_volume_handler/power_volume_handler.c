@@ -23,7 +23,10 @@
 #include <sys/select.h>
 #include <sys/reboot.h>
 #include <linux/input.h>
-
+#include <stdint.h>
+#include <sys/mman.h>
+#include <sys/ioctl.h>
+#include <linux/fb.h>
 /* ─── Configuration ─────────────────────────────────────────────────────── */
 
 #define POLL_INTERVAL_MS        500
@@ -214,15 +217,11 @@ static int adb_load(void)
 }
 */
 /* ─── Power button ───────────────────────────────────────────────────────── */
-
 static void trigger_poweroff(void)
 {
+
     log_msg("Power button held %dms -> shutdown", POWER_HOLD_MS);
-    system("killall retroarch 2>/dev/null");
-    system("killall simplermenu_plus 2>/dev/null");
-	sync();
-    sleep(1);
-    system("poweroff");
+    system("shutdown.sh");
     running = 0;
 }
 
