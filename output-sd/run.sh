@@ -4,7 +4,7 @@
 sleep 1
 /usr/bin/usb.sh ADD_FUNCTIONS mass_adb
 #spawn script to kill manager immediately
-/mnt/card/kill_manager.sh &
+#/mnt/card/kill_manager.sh &
 
 # mount
 mount -t ext3 -o loop /mnt/card/rootfs.ext3 /mnt/card/cfw/fs
