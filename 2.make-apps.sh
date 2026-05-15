@@ -56,6 +56,7 @@ git clone -b v1.0.0 --depth 1 https://github.com/tinyalsa/tinyalsa.git
 cd tinyalsa
 make CROSS_COMPILE=$ARMABI-
 make install DESTDIR="$(pwd)/../../output/"
+cd ..
 
 rm -rf busybox
 git clone -b 1_36_1 --depth 1 https://github.com/mirror/busybox.git
