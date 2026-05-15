@@ -16,7 +16,8 @@ echo 900000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 echo 900000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
 
 /etc/backlight.sh open &
-tinymix 35 1 &
+#tinymix 35 1 &
+export SOUND_PROCESS_LIST=retroarch
 tinymix 30 1 &
 tinymix 15 40 &
 
