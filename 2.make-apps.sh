@@ -47,7 +47,7 @@ cp power_volume_handler "$(pwd)/../../output/usr/bin"
 cd ..
 
 cd display_image
-$CC -o display_image display_image.c
+$CC -o display_image display_image.c -lm
 cp display_image "$(pwd)/../../output/usr/bin"
 cd ..
 

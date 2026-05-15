@@ -27,7 +27,6 @@ echo "0 0x0022" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
 echo "3 0xbebe" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
 echo "5 0x0468"  > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
 echo "7 0x26BF"  > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
-power_volume_handler &
 mount /dev/mmcblk0p1 /mnt/card/
 export HOME=/mnt/card
 export SDL_VIDEODRIVER=fbcon
@@ -59,6 +58,7 @@ else
     sed -i 's/video_rotation[[:space:]]*=[[:space:]]*"[0-3]"/video_rotation = "0"/' "/mnt/card/cfw/retroarch/retroarch.cfg"
 fi
 
+power_volume_handler &
 simplermenu_plus
 #sync
 #poweroff

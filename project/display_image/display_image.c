@@ -1,48 +1,15 @@
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <signal.h>
-#include <time.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/select.h>
-#include <sys/reboot.h>
-#include <linux/input.h>
 #include <stdint.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
 #include <linux/fb.h>
-
-
-#pragma pack(push,1)
-
-typedef struct {
-    uint16_t type;
-    uint32_t size;
-    uint16_t reserved1;
-    uint16_t reserved2;
-    uint32_t offset;
-} BMPHeader;
-
-typedef struct {
-    uint32_t size;
-    int32_t width;
-    int32_t height;
-    uint16_t planes;
-    uint16_t bits;
-    uint32_t compression;
-    uint32_t imageSize;
-    int32_t xppm;
-    int32_t yppm;
-    uint32_t colorsUsed;
-    uint32_t importantColors;
-} BMPInfoHeader;
-
-#pragma pack(pop)
 
 static inline uint16_t rgb888_to_rgb565(
     uint8_t r,
@@ -54,29 +21,39 @@ static inline uint16_t rgb888_to_rgb565(
            (b >> 3);
 }
 
-void main(int argc, char* argv[])
+static int display_image(const char *path)
 {
-    if(argc != 2)
-    {
-        printf("error you must provide image bmp to be displayed\r\n");
-        return;
-    }
+    /*
+     * Open framebuffer
+     */
+
     int fb = open("/dev/fb0", O_RDWR);
+
     if (fb < 0)
     {
-        perror("open fb");
-        return;
+        perror("open fb0");
+        return -1;
     }
 
-    struct fb_var_screeninfo vinfo;
     struct fb_fix_screeninfo finfo;
+    struct fb_var_screeninfo vinfo;
 
-    ioctl(fb, FBIOGET_VSCREENINFO, &vinfo);
     ioctl(fb, FBIOGET_FSCREENINFO, &finfo);
+    ioctl(fb, FBIOGET_VSCREENINFO, &vinfo);
+
+    int screen_width  = vinfo.xres;
+    int screen_height = vinfo.yres;
+
+    size_t screensize =
+        finfo.line_length * screen_height;
+
+    /*
+     * mmap framebuffer
+     */
 
     uint8_t *fbp = mmap(
-        0,
-        finfo.smem_len,
+        NULL,
+        screensize,
         PROT_READ | PROT_WRITE,
         MAP_SHARED,
         fb,
@@ -86,89 +63,138 @@ void main(int argc, char* argv[])
     {
         perror("mmap");
         close(fb);
-        return;
+        return -1;
     }
 
-    FILE *f = fopen(argv[1], "rb");
-    if (!f)
+    /*
+     * Load image
+     */
+
+    int width;
+    int height;
+    int channels;
+
+    uint8_t *img = stbi_load(
+        path,
+        &width,
+        &height,
+        &channels,
+        3);
+
+    if (!img)
     {
-        perror("fopen bmp");
-        munmap(fbp, finfo.smem_len);
+        printf("stbi_load failed: %s\n",
+               stbi_failure_reason());
+
+        munmap(fbp, screensize);
         close(fb);
-        return;
+
+        return -1;
     }
 
-    BMPHeader header;
-    BMPInfoHeader info;
+    /*
+     * Check resolution
+     */
 
-    fread(&header, sizeof(header), 1, f);
-    fread(&info, sizeof(info), 1, f);
-
-    if (header.type != 0x4D42)
+    if (width != screen_width ||
+        height != screen_height)
     {
-        printf("Not a BMP\n");
-        fclose(f);
-        munmap(fbp, finfo.smem_len);
+        printf("Image resolution mismatch\n");
+        printf("Image: %dx%d\n", width, height);
+        printf("Screen: %dx%d\n",
+               screen_width,
+               screen_height);
+
+        stbi_image_free(img);
+
+        munmap(fbp, screensize);
         close(fb);
-        return;
+
+        return -1;
     }
 
-    if (info.bits != 24)
+    /*
+     * Convert to RGB565 buffer
+     */
+
+    uint16_t *buffer565 =
+        malloc(width * height * 2);
+
+    if (!buffer565)
     {
-        printf("Only 24-bit BMP supported\n");
-        fclose(f);
-        munmap(fbp, finfo.smem_len);
+        perror("malloc");
+
+        stbi_image_free(img);
+
+        munmap(fbp, screensize);
         close(fb);
-        return;
+
+        return -1;
     }
 
-    int src_w = info.width;
-    int src_h = info.height;
-
-    int dst_w = vinfo.xres;
-    int dst_h = vinfo.yres;
-
-    // BMP rows padded to 4 bytes
-    int bmp_stride = (src_w * 3 + 3) & ~3;
-
-    uint8_t *bmp_data = malloc(bmp_stride * src_h);
-
-    fseek(f, header.offset, SEEK_SET);
-    fread(bmp_data, 1, bmp_stride * src_h, f);
-
-    fclose(f);
-
-    for (int y = 0; y < dst_h; y++)
+    for (int i = 0; i < width * height; i++)
     {
-        for (int x = 0; x < dst_w; x++)
+        uint8_t r = img[i * 3 + 0];
+        uint8_t g = img[i * 3 + 1];
+        uint8_t b = img[i * 3 + 2];
+
+        buffer565[i] =
+            rgb888_to_rgb565(r, g, b);
+    }
+
+    /*
+     * Copy to framebuffer
+     */
+
+    if (finfo.line_length == width * 2)
+    {
+        /*
+         * Fast path
+         */
+
+        memcpy(fbp,
+               buffer565,
+               width * height * 2);
+    }
+    else
+    {
+        /*
+         * Stride mismatch
+         */
+
+        for (int y = 0; y < height; y++)
         {
-            int sx, sy;
-
-            sx = x * src_w / dst_w;
-            sy = y * src_h / dst_h;
-
-            uint8_t *p;
-            p = bmp_data + (src_h - 1 - sy) * bmp_stride + sx * 3;
-
-            uint8_t b = p[0];
-            uint8_t g = p[1];
-            uint8_t r = p[2];
-
-            uint16_t color = rgb888_to_rgb565(r, g, b);
-
-            int dx = x;
-            int dy = y;
-
-            long location =
-                dy * finfo.line_length +
-                dx * 2;
-
-            *((uint16_t*)(fbp + location)) = color;
+            memcpy(
+                fbp + y * finfo.line_length,
+                buffer565 + y * width,
+                width * 2);
         }
     }
 
-    free(bmp_data);
+    /*
+     * Cleanup
+     */
 
-    munmap(fbp, finfo.smem_len);
+    free(buffer565);
+
+    stbi_image_free(img);
+
+    munmap(fbp, screensize);
+
     close(fb);
+
+    return 0;
+}
+
+int main(int argc, char **argv)
+{
+    if (argc != 2)
+    {
+        printf("Usage: %s image\n",
+               argv[0]);
+
+        return 1;
+    }
+
+    return display_image(argv[1]);
 }
