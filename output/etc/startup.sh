@@ -51,8 +51,13 @@ export SCREEN_WIDTH="$WIDTH"
 export SCREEN_HEIGHT="$HEIGHT"
 
 if [ "$HEIGHT" -gt "$WIDTH" ]; then
-    export SDL_VIDEO_FBCON_ROTATION=CCW
-    sed -i 's/video_rotation[[:space:]]*=[[:space:]]*"[0-3]"/video_rotation = "3"/' "/mnt/card/cfw/retroarch/retroarch.cfg"
+    if [ "$HEIGHT" -eq "854" ]; then
+	export SDL_VIDEO_FBCON_ROTATION=CCW
+ 	sed -i 's/video_rotation[[:space:]]*=[[:space:]]*"[0-3]"/video_rotation = "3"/' "/mnt/card/cfw/retroarch/retroarch.cfg"
+    else
+	export SDL_VIDEO_FBCON_ROTATION=CW
+        sed -i 's/video_rotation[[:space:]]*=[[:space:]]*"[0-3]"/video_rotation = "1"/' "/mnt/card/cfw/retroarch/retroarch.cfg"
+    fi
 else
     unset SDL_VIDEO_FBCON_ROTATION
     sed -i 's/video_rotation[[:space:]]*=[[:space:]]*"[0-3]"/video_rotation = "0"/' "/mnt/card/cfw/retroarch/retroarch.cfg"
