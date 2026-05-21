@@ -2,7 +2,6 @@
 # Linux Frame Buffer Device Configuration
 #
 
-CC =		arm-linux-gnueabihf-gcc -Wall -O2 -I.
 BISON =		bison -d
 FLEX =		flex
 INSTALL =	ginstall
