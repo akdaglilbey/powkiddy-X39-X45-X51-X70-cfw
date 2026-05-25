@@ -23,19 +23,42 @@ mkdir build
 cd build
 cmake -DCMAKE_SYSROOT=$SYSROOT -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=arm -DCMAKE_C_COMPILER=$PATHGCC/$ARMABI-gcc -DCMAKE_CXX_COMPILER=$PATHGCC/$ARMABI-g++ -DCMAKE_FIND_ROOT_PATH=$SYSROOT -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=ONLY -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="$CFLAGS" -DPNG_ARM_NEON=off ..
 make -j$NUM_THREAD
-find . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
-cd ..
+ind . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
+cd ../..
+
+### JAVA for free2jme and free2jme-plus
+wget https://cdn.azul.com/zulu-embedded/bin/zulu11.70.15-ca-jre11.0.22-linux_aarch32hf.tar.gz
+tar xvzf zulu11.70.15-ca-jre11.0.22-linux_aarch32hf.tar.gz
+rm -rf $(pwd)/../output-sd/cfw/java
+mv zulu11.70.15-ca-jre11.0.22-linux_aarch32hf $(pwd)/../output-sd/cfw/java
+rm -rf zulu11.70.15-ca-jre11.0.22-linux_aarch32hf.tar.gz
 
 rm -rf freej2me-plus
-git clone https://github.com/TASEmulators/freej2me-plus.git
+git clone -b v1.52 --depth 1 https://github.com/TASEmulators/freej2me-plus.git
 cd freej2me-plus
-wget https://nightly.link/TASEmulators/freej2me-plus/workflows/ant/devel/freej2me-4e9822d.zip
-unzip freej2me-4e9822d.zip
-find . -type f \( -name "*.jar" -o -name "*.jar" \) -exec cp -t $OUTPUT_CORES../system/ {} +
+sed -i 's/value="1.6"/value="8"/g;' build.xml
+ant
+rm -rf $OUTPUT_CORES/../../resources/freej2me-plus
+mkdir $OUTPUT_CORES/../../resources/freej2me-plus
+cp build/*.jar $OUTPUT_CORES/../../resources/freej2me-plus
 cd src/libretro
 make
 find . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
-cd ..
+cd ../../..
+
+rm -rf freej2me
+git clone https://github.com/hex007/freej2me.git
+cd freej2me
+sed -i 's/<javac/<javac source="11" target="11" release="11"/g;' build.xml
+ant
+rm -rf $OUTPUT_CORES/../../resources/freej2me
+mkdir $OUTPUT_CORES/../../resources/freej2me
+cp build/*.jar $OUTPUT_CORES/../../resources/freej2me
+cd src/libretro
+sed -i 's/{ port_1, 16 }/{ port_1, 2 }/' freej2me_libretro.h
+make
+find . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
+cd ../../..
 
 build_core_custom() {
 	core_name="$1"
@@ -151,6 +174,9 @@ build_core_custom puae2021 Makefile . "-ldl -lrt -lm -lpthread"
 build_core_simple dosbox_pure
 build_core_custom scummvm Makefile backends/platform/libretro
 build_core_custom_platform vecx Makefile.libretro . classic_armv7_a7 "HAS_GPU=0"
+build_core_custom fbneo Makefile src/burner/libretro "-pthread -lrt"
+mv libretro-fbneo/src/burner/libretro/fbneo_libretro.so libretro-fbneo/src/burner/libretro/fbneo_new_libretro.so
+
 
 ./libretro-fetch.sh genesis_plus_gx
 ./libretro-build.sh genesis_plus_gx
@@ -169,7 +195,6 @@ CPPFLAGS="-Os $TARGET_ARCH_FLAGS --sysroot=$SYSROOT -I$SYSROOT/usr/include" ./li
 find . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
 
 ### not working or bad performances or old stuff
-#build_core_custom fbneo Makefile src/burner/libretro "-pthread -lrt"
 
 #git clone https://github.com/schellingb/dosbox-pure.git
 #cd dosbox-pure

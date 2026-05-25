@@ -54,7 +54,7 @@
 #define INPUT_EVENT0            "/dev/input/event0"
 #define INPUT_EVENT1            "/dev/input/event1"
 #define EVDEV_BTN_POWER         116
-#define POWER_HOLD_MS           3000
+#define POWER_HOLD_MS           1500
 
 /* Log */
 #define LOG_PATH                "/tmp/powkiddy_daemon.log"

@@ -32,7 +32,7 @@
         "category": "computer",
         "selectedExec": "puae_libretro",
         "execs": [
-            "puae_libretro"
+            "puae_libretro", "puae2021_libretro", "uae4arm_libretro"
         ],
         "romDirs": [
             "AMIGA",

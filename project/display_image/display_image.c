@@ -146,6 +146,9 @@ static int display_image(const char *path)
      * Copy to framebuffer
      */
 
+    while(1)
+    {
+
     if (finfo.line_length == width * 2)
     {
         /*
@@ -170,7 +173,7 @@ static int display_image(const char *path)
                 width * 2);
         }
     }
-
+    }
     /*
      * Cleanup
      */

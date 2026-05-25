@@ -28,7 +28,9 @@ sudo apt-get -y install \
 	bison \
 	autoconf \
 	automake \
-	libtool
+	libtool \
+	ant \
+	openjdk-21-jdk-headless
 
 ## extract linaro to toolchain
 rm -rf sysroot

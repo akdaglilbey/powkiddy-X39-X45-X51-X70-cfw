@@ -1,6 +1,7 @@
 #!/bin/sh
 #start watchdog
-export PATH=$PATH:/usr/local/bin
+mount /dev/mmcblk0p1 /mnt/card/
+export PATH=$PATH:/usr/local/bin:/mnt/card/cfw/java/bin
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/mnt/card/cfw/libs
 watchdog_feeder 5 30 &
 
@@ -19,7 +20,8 @@ echo 900000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
 #tinymix 35 1 &
 export SOUND_PROCESS_LIST=retroarch
 tinymix 30 1 &
-tinymix 15 40 &
+tinymix 35 1 &
+tinymix 15 20 &
 
 #set correct values for good sound
 echo "2 0x0223" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
@@ -27,7 +29,8 @@ echo "0 0x0022" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
 echo "3 0xbebe" > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
 echo "5 0x0468"  > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
 echo "7 0x26BF"  > /sys/kernel/debug/asoc/s900_link/atc260x-audio/codec_reg
-mount /dev/mmcblk0p1 /mnt/card/
+tinyplay /mnt/card/cfw/resources/welcome.wav &
+
 export HOME=/mnt/card
 export SDL_VIDEODRIVER=fbcon
 export SMP_BASEPATH=/mnt/card/cfw/simplermenu_plus
@@ -63,7 +66,10 @@ else
     sed -i 's/video_rotation[[:space:]]*=[[:space:]]*"[0-3]"/video_rotation = "0"/' "/mnt/card/cfw/retroarch/retroarch.cfg"
 fi
 
+simplermenu_plus &
+sleep 5
 power_volume_handler &
-simplermenu_plus
+tinymix 15 40 &
+
 #sync
 #poweroff
