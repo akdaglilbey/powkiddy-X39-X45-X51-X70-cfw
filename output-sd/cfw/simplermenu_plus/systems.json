@@ -633,7 +633,7 @@
         "selectedExec": "fbneo_libretro",
         "execs": [
             "fbneo_libretro",
-, "fbneo_new_libretro",
+	    "fbneo_new_libretro",
             "fbalpha2012_libretro"
         ],
         "romDirs": [
