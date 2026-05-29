@@ -175,6 +175,7 @@ build_core_custom puae2021 Makefile . "-ldl -lrt -lm -lpthread"
 build_core_simple dosbox_pure
 build_core_custom scummvm Makefile backends/platform/libretro
 build_core_custom_platform vecx Makefile.libretro . classic_armv7_a7 "HAS_GPU=0"
+build_core_simple stella2014
 build_core_custom fbneo Makefile src/burner/libretro "-pthread -lrt"
 mv libretro-fbneo/src/burner/libretro/fbneo_libretro.so libretro-fbneo/src/burner/libretro/fbneo_new_libretro.so
 

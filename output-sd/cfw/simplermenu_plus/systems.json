@@ -111,7 +111,7 @@
         "category": "arcade",
         "selectedExec": "fbalpha2012_libretro",
         "execs": [
-            "fbneo_libretro",
+            "fbneo_libretro", "fbneo_new_libretro", 
             "mame2003_plus_libretro",
             "mame2003_libretro",
             "mame2000_libretro",
@@ -215,7 +215,7 @@
         "category": "arcade",
         "selectedExec": "fbalpha2012_libretro",
         "execs": [
-            "fbneo_libretro",
+            "fbneo_libretro", "fbneo_new_libretro",
             "mame2003_plus_libretro",
             "mame2003_libretro",
             "mame2000_libretro",
@@ -285,7 +285,7 @@
         "category": "arcade",
         "selectedExec": "fbalpha2012_libretro",
         "execs": [
-            "fbneo_libretro",
+            "fbneo_libretro", "fbneo_new_libretro",
             "mame2003_plus_libretro",
             "mame2003_libretro",
             "mame2000_libretro",
@@ -304,7 +304,7 @@
         "category": "arcade",
         "selectedExec": "fbalpha2012_libretro",
         "execs": [
-            "fbneo_libretro",
+            "fbneo_libretro", "fbneo_new_libretro",
             "mame2003_plus_libretro",
             "mame2003_libretro",
             "mame2000_libretro",
@@ -322,7 +322,7 @@
         "category": "arcade",
         "selectedExec": "fbalpha2012_libretro",
         "execs": [
-            "fbneo_libretro",
+            "fbneo_libretro", "fbneo_new_libretro",
             "mame2003_plus_libretro",
             "mame2003_libretro",
             "mame2000_libretro",
@@ -340,7 +340,7 @@
         "category": "arcade",
         "selectedExec": "fbalpha2012_libretro",
         "execs": [
-            "fbneo_libretro",
+            "fbneo_libretro", "fbneo_new_libretro",
             "mame2003_plus_libretro",
             "mame2003_libretro",
             "mame2000_libretro",
@@ -438,7 +438,7 @@
         "category": "arcade",
         "selectedExec": "fbalpha2012_libretro",
         "execs": [
-            "fbneo_libretro",
+            "fbneo_libretro", "fbneo_new_libretro",
             "mame2003_plus_libretro",
             "mame2003_libretro",
             "mame2000_libretro",
@@ -617,6 +617,7 @@
         "selectedExec": "fbneo_libretro",
         "execs": [
             "fbneo_libretro",
+, "fbneo_new_libretro",
             "fbalpha2012_libretro"
         ],
         "romDirs": [
@@ -632,6 +633,7 @@
         "selectedExec": "fbneo_libretro",
         "execs": [
             "fbneo_libretro",
+, "fbneo_new_libretro",
             "fbalpha2012_libretro"
         ],
         "romDirs": [
@@ -850,7 +852,7 @@
             ".smc",
             ".swc",
             ".zip",
-            ".7z"
+            ".7z", ".bs"
         ]
     },
     "SCUMMVM": {
@@ -895,7 +897,7 @@
             ".gg",
             ".sg",
             ".68k",
-            ".sgd"
+            ".sgd", ".32x"
         ]
     },
     "SEGA CD": {
@@ -1051,7 +1053,7 @@
     "SUPER GRAFX": {
         "enabled": true,
         "category": "console",
-        "selectedExec": "mednafen_pce_fast_libretro",
+        "selectedExec": "mednafen_supergrafx_libretro",
         "execs": [
             "mednafen_pce_fast_libretro",
             "mednafen_pce_libretro",
