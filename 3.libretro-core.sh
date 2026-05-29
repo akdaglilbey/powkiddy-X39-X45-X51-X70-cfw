@@ -43,6 +43,7 @@ mkdir $OUTPUT_CORES/../../resources/freej2me-plus
 cp build/*.jar $OUTPUT_CORES/../../resources/freej2me-plus
 cd src/libretro
 make
+mv freej2me_libretro.so freej2me-plus_libretro.so
 find . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
 cd ../../..
 
