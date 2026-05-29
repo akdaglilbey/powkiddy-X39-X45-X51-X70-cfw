@@ -23,7 +23,7 @@ mkdir build
 cd build
 cmake -DCMAKE_SYSROOT=$SYSROOT -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_PROCESSOR=arm -DCMAKE_C_COMPILER=$PATHGCC/$ARMABI-gcc -DCMAKE_CXX_COMPILER=$PATHGCC/$ARMABI-g++ -DCMAKE_FIND_ROOT_PATH=$SYSROOT -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=ONLY -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="$CFLAGS" -DPNG_ARM_NEON=off ..
 make -j$NUM_THREAD
-ind . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
+find . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
 cd ../..
 
 ### JAVA for free2jme and free2jme-plus
@@ -49,7 +49,7 @@ cd ../../..
 rm -rf freej2me
 git clone https://github.com/hex007/freej2me.git
 cd freej2me
-sed -i 's/<javac/<javac source="11" target="11" release="11"/g;' build.xml
+sed -i 's/<javac/<javac source="8" target="8"/g;' build.xml
 ant
 rm -rf $OUTPUT_CORES/../../resources/freej2me
 mkdir $OUTPUT_CORES/../../resources/freej2me
