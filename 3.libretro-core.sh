@@ -196,6 +196,12 @@ CPPFLAGS="-Os $TARGET_ARCH_FLAGS --sysroot=$SYSROOT -I$SYSROOT/usr/include" ./li
 
 find . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
 
+# copy bluemsx and scummvm data files to output-sd
+cp libretro-bluemsx/system/bluemsx/* $OUTPUT_CORES/../system/ -rf
+mkdir $OUTPUT_CORES/../system/scummvm
+cp libretro-scummvm/dists/engine-data/* $OUTPUT_CORES/../system/scummvm -rf
+
+
 ### not working or bad performances or old stuff
 
 #git clone https://github.com/schellingb/dosbox-pure.git
