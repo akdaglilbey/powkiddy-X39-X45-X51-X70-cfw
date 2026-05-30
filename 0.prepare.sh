@@ -1,8 +1,5 @@
 #/bin/sh
 
-git submodule init
-git submodule update
-
 ## install needed
 sudo apt-get -y update
 sudo apt-get -y install \
@@ -30,7 +27,11 @@ sudo apt-get -y install \
 	automake \
 	libtool \
 	ant \
-	openjdk-21-jdk-headless
+	openjdk-21-jdk-headless \
+	7zip
+
+git submodule init
+git submodule update
 
 ## extract linaro to toolchain
 rm -rf sysroot

@@ -9,3 +9,6 @@ set -e
 ./4.buildoutput.sh
 ./5.buildext3.sh
 ./6.strip-cores.sh
+
+cd output-sd
+7z a ../SuperX-v1.1.7z *
