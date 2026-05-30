@@ -31,6 +31,13 @@ wget https://cdn.azul.com/zulu-embedded/bin/zulu11.70.15-ca-jre11.0.22-linux_aar
 tar xvzf zulu11.70.15-ca-jre11.0.22-linux_aarch32hf.tar.gz
 rm -rf $(pwd)/../output-sd/cfw/java
 mv zulu11.70.15-ca-jre11.0.22-linux_aarch32hf $(pwd)/../output-sd/cfw/java
+
+cat > $(pwd)/../output-sd/cfw/java/lib/fontconfig.properties << 'EOF'
+version=1
+sequence.allfonts=default
+fonts.default=DejaVu Sans
+EOF
+
 rm -rf zulu11.70.15-ca-jre11.0.22-linux_aarch32hf.tar.gz
 
 rm -rf freej2me-plus
@@ -43,8 +50,8 @@ mkdir $OUTPUT_CORES/../../resources/freej2me-plus
 cp build/*.jar $OUTPUT_CORES/../../resources/freej2me-plus
 cd src/libretro
 make
-mv freej2me_libretro.so freej2me-plus_libretro.so
-find . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
+mv freej2me_libretro.so $OUTPUT_CORES/../../resources/freej2me-plus
+
 cd ../../..
 
 rm -rf freej2me
@@ -58,7 +65,8 @@ cp build/*.jar $OUTPUT_CORES/../../resources/freej2me
 cd src/libretro
 sed -i 's/{ port_1, 16 }/{ port_1, 2 }/' freej2me_libretro.h
 make
-find . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
+mv freej2me_libretro.so $OUTPUT_CORES/../../resources/freej2me
+
 cd ../../..
 
 build_core_custom() {
