@@ -43,7 +43,7 @@ rm -rf zulu11.70.15-ca-jre11.0.22-linux_aarch32hf.tar.gz
 rm -rf freej2me-plus
 git clone -b v1.52 --depth 1 https://github.com/TASEmulators/freej2me-plus.git
 cd freej2me-plus
-sed -i 's/value="1.6"/value="8"/g;' build.xml
+git apply ../freej2me-plus_fix_java8_settings_default_options.patch
 ant
 rm -rf $OUTPUT_CORES/../../resources/freej2me-plus
 mkdir $OUTPUT_CORES/../../resources/freej2me-plus
