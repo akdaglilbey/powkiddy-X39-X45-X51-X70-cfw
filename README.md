@@ -207,7 +207,7 @@ SMP Launcher:
 
 # Credits:
 - @dmolina007 [https://github.com/dmolina007] for theme developments, ideas, support, testing and discord maintenance
-- @dajoho [https://github.com/dajoho] for the custom and generic update.zip working on all consoles models.
+- @dajoho [https://github.com/dajoho] for the help in adjusting building process and the custom and generic update.zip working on all consoles models.
 - @acmeplus [https://github.com/acmeplus] for his help and simplermenu_plus launcher ([https://github.com/rg35xx-cfw/simplermenu_plus](https://github.com/rg35xx-cfw/simplermenu_plus))
 - @FoxExe [https://github.com/FoxExe] for the firmware extractor/generator to update stock firmware ([https://github.com/FoxExe/PowKiddy_fw](https://github.com/FoxExe/PowKiddy_fw))
 - Retroarch/Libretro teams and all cores creators 
