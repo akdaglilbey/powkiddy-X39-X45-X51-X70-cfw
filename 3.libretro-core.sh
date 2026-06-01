@@ -202,13 +202,16 @@ unset CCFLAGS
 unset CXXFLAGS
 CPPFLAGS="-Os $TARGET_ARCH_FLAGS --sysroot=$SYSROOT -I$SYSROOT/usr/include" ./libretro-build.sh mednafen_pce
 
-find . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
+# delete cores from output to avoid error during copy at the end of the script
+rm -rf dist/unix/mednafen_pce_libretro.so
+rm -rf dist/unix/genesis_plus_gx_libretro.so
 
 # copy bluemsx and scummvm data files to output-sd
 cp libretro-bluemsx/system/bluemsx/* $OUTPUT_CORES/../system/ -rf
 mkdir $OUTPUT_CORES/../system/scummvm
 cp libretro-scummvm/dists/engine-data/* $OUTPUT_CORES/../system/scummvm -rf
 
+find . -type f \( -name "*.so" -o -name "*.so" \) -exec cp -t $OUTPUT_CORES {} +
 
 ### not working or bad performances or old stuff
 

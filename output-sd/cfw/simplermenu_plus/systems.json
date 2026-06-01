@@ -89,7 +89,7 @@
             ".voc",
             ".m3u",
             ".cpr",
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "APPS": {
@@ -139,7 +139,7 @@
         "romExts": [
             ".a26",
             ".bin",
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "ATARI 5200": {
@@ -161,7 +161,7 @@
             ".cas",
             ".bin",
             ".xex",
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "ATARI 7800": {
@@ -176,7 +176,7 @@
         ],
         "romExts": [
             ".a78",
-            ".bin"
+            ".bin", ".zip", ".7z"
         ]
     },
     "ATARI LYNX": {
@@ -225,7 +225,7 @@
             "CAVE"
         ],
         "romExts": [
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "COMMODORE 64": {
@@ -269,7 +269,7 @@
             ".60",
             ".a0",
             ".b0",
-            ".rom"
+            ".rom", ".zip", ".7z"
         ],
         "execs": [
             "vice_x64_libretro",
@@ -314,7 +314,7 @@
             "CPS1"
         ],
         "romExts": [
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "CPS2": {
@@ -332,7 +332,7 @@
             "CPS2"
         ],
         "romExts": [
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "CPS3": {
@@ -350,7 +350,7 @@
             "CPS3"
         ],
         "romExts": [
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "DOOM": {
@@ -364,7 +364,7 @@
             "DOOM"
         ],
         "romExts": [
-            ".wad"
+            ".wad", ".zip", ".7z"
         ]
     },
     "DOS": {
@@ -393,7 +393,7 @@
             ".jrc",
             ".tc",
             ".m3u",
-            ".m3u8"
+            ".m3u8", ".7z"
         ]
     },
     "FAIRCHILD": {
@@ -430,7 +430,7 @@
             ".fds",
             ".zip",
             ".unif",
-            ".uni"
+            ".uni", ".7z"
         ]
     },
     "FINALBURN ALPHA": {
@@ -484,7 +484,7 @@
             ".gb",
             ".gbc",
             ".zip",
-            ".dmg"
+            ".dmg", ".7z"
         ]
     },
     "GAME BOY ADVANCE": {
@@ -502,7 +502,7 @@
         "romExts": [
             ".gba",
             ".zip",
-            ".bin"
+            ".bin", ".7z"
         ]
     },
     "GAME BOY COLOR": {
@@ -519,7 +519,7 @@
         ],
         "romExts": [
             ".gbc",
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "GAME GEAR": {
@@ -536,7 +536,7 @@
         "romExts": [
             ".gg",
             ".zip",
-            ".7zip"
+            ".7zip", ".7z"
         ]
     },
     "INTELLIVISION": {
@@ -569,7 +569,7 @@
             "J2ME"
         ],
         "romExts": [
-            ".jar"
+            ".jar", ".zip", ".7z"
         ]
     },
     "MEGADUCK": {
@@ -588,7 +588,7 @@
             ".gb",
             ".gbc",
             ".zip",
-            ".dmg"
+            ".dmg", ".7z"
         ]
     },
     "MSX": {
@@ -624,7 +624,7 @@
             "NEOGEO"
         ],
         "romExts": [
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "NEO GEO CD": {
@@ -643,7 +643,7 @@
             ".bin",
             ".cue",
             ".iso",
-            ".chd"
+            ".chd", ".zip", ".7z"
         ]
     },
     "NEO GEO POCKET": {
@@ -696,7 +696,7 @@
             ".fds",
             ".zip",
             ".unif",
-            ".uni"
+            ".uni", ".7z"
         ]
     },
     "ODYSSEY / VIDEOPAC": {
@@ -771,7 +771,7 @@
         ],
         "romExts": [
             ".p8",
-            ".png"
+            ".png", ".zip", ".7z"
         ]
     },
     "PLAYSTATION": {
@@ -815,7 +815,7 @@
         ],
         "romExts": [
             ".min",
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "PORTS": {
@@ -868,7 +868,7 @@
         "romExts": [
             ".scummvm",
             ".zip",
-            ".7zip"
+            ".7zip", ".7z"
         ]
     },
     "SEGA 32X": {
@@ -897,7 +897,7 @@
             ".gg",
             ".sg",
             ".68k",
-            ".sgd", ".32x"
+            ".sgd", ".32x", ".zip", ".7z"
         ]
     },
     "SEGA CD": {
@@ -918,7 +918,7 @@
             ".iso",
             ".chd",
             ".68k",
-            ".sgd"
+            ".sgd", ".zip", ".7z"
         ]
     },
     "SEGA GENESIS": {
@@ -947,7 +947,7 @@
             ".gg",
             ".sg",
             ".68k",
-            ".sgd"
+            ".sgd", ".zip", ".7z"
         ]
     },
     "SEGA MASTER SYSTEM": {
@@ -963,7 +963,7 @@
         ],
         "romExts": [
             ".sms",
-            ".sgd"
+            ".sgd", ".zip", ".7z"
         ]
     },
     "SEGA SG-1000": {
@@ -983,7 +983,7 @@
             ".sg",
             ".mv",
             ".bin",
-            ".rom"
+            ".rom", ".zip", ".7z"
         ]
     },
     "SNES": {
@@ -1047,7 +1047,7 @@
         "romExts": [
             ".gbc",
             ".sfc",
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "SUPER GRAFX": {
