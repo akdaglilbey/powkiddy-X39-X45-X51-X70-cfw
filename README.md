@@ -1,4 +1,4 @@
-# SuperX CFW for Powkiddy X39 Pro / X45 / X51 / X70 #
+# SuperX CFW for Powkiddy X39 / X39 Pro / X45 / X51 / X70 #
 
 ![image](img-v1.png)
 
@@ -17,13 +17,11 @@ I shall not be held responsible for any damage, loss of data, malfunction, brick
 By installing this firmware, you agree that you do so entirely at your own risk and assume full responsibility for any consequences.
 
 # Supported devices:
+- Powkiddy X39
 - Powkiddy X39 Pro
-
-# Unsupported:
-We need testers to support:
-- X45
-- X51
-- X70 
+- Powkiddy X45
+- Powkiddy X51
+- Powkiddy X70
 
 # Launcher: Simplermenu_plus (SMP)
 Button mapping:
@@ -77,13 +75,16 @@ You can see retroarch logs by using DinguxCommander and going to /tmp folder.
 | o2em | ODYSSEY / VIDEOPAC | odyssey, videopac | https://docs.libretro.com/library/o2em/ |
 | freeintv | intellivision | intellivision | https://docs.libretro.com/library/freeintv/ |
 | bluemsx | msx | msx | https://docs.libretro.com/library/bluemsx/ |
-| puae | amiga / amigacd | amiga | https://docs.libretro.com/library/puae/ |
+| puae (from 2021) | amiga / amigacd | amiga / amigacd | https://docs.libretro.com/library/puae/ |
+| puae2021 | amiga / amigacd | amiga / amigacd | https://docs.libretro.com/library/puae/ |
+| uae4arm | amiga / amigacd | amiga / amigacd | https://github.com/libretro/uae4arm-libretro |
 | cap32 | amstrad cpc | cpc | https://docs.libretro.com/library/cap32/ |
-| mame2000 | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2000/ |
-| mame2003 | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003/ |
-| mame2003_plus | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003_plus/ |
-| fbalpha2012 | arcade / neo geo | arcade, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbalpha2012/ |
-| fbneo | arcade / neo geo | arcade, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbneo/ |
+| mame2000 | arcade | arcade, cave, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2000/ |
+| mame2003 | arcade | arcade, cave, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003/ |
+| mame2003_plus | arcade | arcade, cave, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003_plus/ |
+| fbalpha2012 | arcade / neo geo | arcade, cave, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbalpha2012/ |
+| fbneo (from 2021) | arcade / neo geo | arcade, cave, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbneo/ |
+| fbneo_new | arcade / neo geo | arcade, cave, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbneo/ |
 | atari800 | atari 5200 | fiftytwohundred | https://docs.libretro.com/library/atari800/ |
 | prosystem | atari 7800 | seventytwohunder | https://docs.libretro.com/library/prosystem/ |
 | stella2014 | atari 2600 | atari | https://docs.libretro.com/library/stella2014/ |
@@ -119,35 +120,56 @@ You can see retroarch logs by using DinguxCommander and going to /tmp folder.
 | mednafen_vb | virtual boy | vb | https://docs.libretro.com/library/mednafen_vb/ |
 | mednafen_wswan | wonderswan | ws, wsc | https://docs.libretro.com/library/mednafen_wswan/ |
 | fuse | zx spectrum | zxs | https://docs.libretro.com/library/fuse/ |
+| bennugd | bennugd | bennugd | https://github.com/diekleinekuh/BennuGD_libretro |
+| fake08 | pico8 | pico8 | https://github.com/jtothebell/fake-08 |
+| freej2me | j2me | j2me | https://github.com/hex007/freej2me |
+| freej2me-plus | j2me | j2me | https://github.com/TASEmulators/freej2me-plus.git |
 | 2048 | - | - | https://docs.libretro.com/library/2048/ |
 | mrboom | - | - | https://docs.libretro.com/library/mrboom/ |
 
-Data files for ScummVM can be found in https://github.com/scummvm/scummvm/tree/v2.1.1/dists/engine-data
-
 # Known issues:
- - First time a Favorite is added in SMP, the GUI is changing to another System/Rom selection
  - Using 2x Video filter with PCSX-Rearmed core is creating graphical glitches
  - FPS overlay is upscaled with the core output when using Hardware upscaler.
    - You can disable the overlay in RetroArch Settings->On-Screen Display->On-Screen Notifications->Notification Visibility-> Enable Menu-only notifications
-   - If you open at least once the Menu, FPS will stay but won't be updated (known issue)
- - FPS counter is flickering in Software Nearest mode
- - DOSBOX Pure screen inverted in Software Nearest mode 
+ - No sounds for J2ME core
 
 # Installation:
  - Copy zip content on SD-card. run.sh must be at the root of the sdcard
  - You can copy your bios in CFW/retroarch/system, stock SD card contains some bios in game/.bios folder
-
+ - 
  **Only in case of first installation:**
- 
- - Put update.zip on SD Card 
-      -  update.zip contains original Powkiddy firmware with startup script updated
-      -  **Verify the update.zip CRC once copied on SD is correct !**  
  - Reboot the console and perform the update when asked by the console. If the update is not detected, remove and insert the SD card when builtin frontend is started.
  
 # Uninstall:
  - Remove run.sh
 
 # Changelog
+## V1.1:
+General:
+- Support of all Powkiddy ATM7051: x39, x39pro, x45, x51 and x70
+- Disable/enable loudpspeaker depending on which app is started
+- Create welcome and poweroff screen image. In APPS you can find Activate_bootlogo and Restore_bootlogo
+- Play a welcome and poweroff sound
+- Enhancement of the building process and flag optimization (increased performance)
+
+Retroarch:
+- Add uae4arm, bennugd, fake08, freej2me and freej2me-plus cores
+- Puae2021 and fbneo-new are most up-to-date but seems to be slower, use puae and fbneo (version from libretro buildbot 2021)
+- Bump all cores to last recent version
+- X51 variant : Rotate 90° screen in SMP and Retroarch
+- Fix FPS counter display
+- Fix Integer Scale only scaling when no rotation is applied (fill screen height)
+- Fix Software nearest invalid rotation when core output in 32bpp
+
+SMP Launcher:
+- Unifying of all resolutions in one single theme.ini and adapt all resolutions placements (854x480,816x480,800x480,1024x600,480x272)
+- Refactoring of systems.json
+- Add CAVE, Bennugd, j2me and Pico8 systems
+- Add multiple translation language
+- Add progress during rom list generation
+- Fix issue when adding first favorite
+- Fix issue with non-ascii characters
+
 ## V1:
 - Major update with launcher Simplermenu_Plus integration and faster starting
 - New system folder structures and lot of cores added
@@ -186,6 +208,7 @@ Data files for ScummVM can be found in https://github.com/scummvm/scummvm/tree/v
 
 # Credits:
 - @dmolina007 [https://github.com/dmolina007] for theme developments, ideas, support, testing and discord maintenance
+- @dajoho [https://github.com/dajoho] for the custom and generic update.zip working on all consoles models.
 - @acmeplus [https://github.com/acmeplus] for his help and simplermenu_plus launcher ([https://github.com/rg35xx-cfw/simplermenu_plus](https://github.com/rg35xx-cfw/simplermenu_plus))
 - @FoxExe [https://github.com/FoxExe] for the firmware extractor/generator to update stock firmware ([https://github.com/FoxExe/PowKiddy_fw](https://github.com/FoxExe/PowKiddy_fw))
 - Retroarch/Libretro teams and all cores creators 
@@ -193,18 +216,6 @@ Data files for ScummVM can be found in https://github.com/scummvm/scummvm/tree/v
 - st-sdl creator (https://github.com/benob/rs97_st-sdl)
   
 # Notes:
-
-## Updated /etc/init.d/rcS script to start retroarch on boot:
-
-This is running run.sh script on the SD Card
-```
-                        echo "run nomal mode"
-                        mount /dev/mmcblk0p1 /mnt/card/
-                        sleep 5
-                        /mnt/card/run.sh &
-                        sleep 5
-                        manager &
-```
 
 ## ADB
 ADB is running on native FS, this CFW is mounting a new FS and chroot to it.
