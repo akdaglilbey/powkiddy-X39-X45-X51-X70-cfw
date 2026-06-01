@@ -201,10 +201,9 @@ SMP Launcher:
 
 # Build from source:
  - Install Ubuntu or WSL2
- - Get this repository
- - git submodule init
- - git submodule update
- - run the scripts 0.prepare.sh, 1.make-libs.sh, etc....
+ - Get this repository (git clone ...)
+ - cd powkiddy....
+ - ./build-all.sh
 
 # Credits:
 - @dmolina007 [https://github.com/dmolina007] for theme developments, ideas, support, testing and discord maintenance
