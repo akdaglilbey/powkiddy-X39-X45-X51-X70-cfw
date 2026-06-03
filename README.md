@@ -141,7 +141,8 @@ You can see retroarch logs by using DinguxCommander and going to /tmp folder.
 | dosbox_pure | https://docs.libretro.com/library/dosbox_pure/ |
 | fake08 | https://github.com/jtothebell/fake-08 |
 | fbalpha2012 | https://docs.libretro.com/library/fbalpha2012/ |
-| fbneo | https://docs.libretro.com/library/fbneo/ |
+| fbneo (from 2021 available on buildbot-libretro) | https://docs.libretro.com/library/fbneo/ |
+| fbneo_new (most up-to-date, slower) | https://docs.libretro.com/library/fbneo/ |
 | fceumm | https://docs.libretro.com/library/fceumm/ |
 | freechaf | https://docs.libretro.com/library/freechaf/ |
 | freeintv | https://docs.libretro.com/library/freeintv/ |
@@ -173,8 +174,8 @@ You can see retroarch logs by using DinguxCommander and going to /tmp folder.
 | pokemini | https://docs.libretro.com/library/pokemini/ |
 | prboom | https://docs.libretro.com/library/prboom/ |
 | prosystem | https://docs.libretro.com/library/prosystem/ |
-| puae | https://docs.libretro.com/library/puae/ |
-| puae2021 | https://docs.libretro.com/library/puae/ |
+| puae (from 2021 available on buildbot-libretro) | https://docs.libretro.com/library/puae/ |
+| puae2021 (most up-to-date, slower) | https://docs.libretro.com/library/puae/ |
 | quicknes | https://docs.libretro.com/library/quicknes/ |
 | scummvm | https://docs.libretro.com/library/scummvm/ |
 | snes9x | https://docs.libretro.com/library/snes9x/ |
@@ -183,12 +184,12 @@ You can see retroarch logs by using DinguxCommander and going to /tmp folder.
 | snes9x2010 | https://docs.libretro.com/library/snes9x_2010/ |
 | stella2014 | https://docs.libretro.com/library/stella2014/ |
 | tgbdual | https://docs.libretro.com/library/tgbdual/ |
-| tic80 | https://docs.libretro.com/library/tic80/ |
+| tic80 (from 2021 available on buildbot-libretro) | https://docs.libretro.com/library/tic80/ |
 | uae4arm | https://github.com/libretro/uae4arm-libretro |
 | vbam | https://docs.libretro.com/library/vbam/ |
 | vecx | https://docs.libretro.com/library/vecx/ |
-| vice_x64 | https://github.com/libretro/vice-libretro |
-| vice_xvic | https://github.com/libretro/vice-libretro |
+| vice_x64 | https://docs.libretro.com/library/vice/ |
+| vice_xvic | https://docs.libretro.com/library/vice/ |
 
 # Known issues:
  - Using 2x Video filter with PCSX-Rearmed core is creating graphical glitches
