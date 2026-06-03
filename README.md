@@ -69,63 +69,126 @@ You can see retroarch logs by using DinguxCommander and going to /tmp folder.
 
 **Retroarch logs are not persistant across console restart**
 
+| System | Folder(s) | Core(s) |
+|----------|----------|----------|
+| Amiga | amiga | puae, puae2021, uae4arm |
+| Amiga CD | amigacd | puae, puae2021, uae4arm |
+| Amstrad CPC | cpc | cap32 |
+| Arcade | arcade | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| Atari 2600 | atari | stella2014 |
+| Atari 5200 | fiftytwohundred | atari800 |
+| Atari 7800 | seventytwohundred | prosystem |
+| Atari Lynx | lynx | handy, mednafen_lynx |
+| BennuGD | bennugd | bennugd |
+| Cave | cave | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| CPS | cps | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| CPS1 | cps1 | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| CPS2 | cps2 | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| CPS3 | cps3 | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| Commodore 64 | commodore | vice_x64, vice_xvic |
+| DOS | dos | dosbox_pure |
+| Doom | doom | prboom |
+| Fairchild Channel F | fairchild | freechaf |
+| Famicom Disk System | fds | fceumm, nestopia, quicknes |
+| Final Burn Alpha | fba | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| Game & Watch | gw | gw |
+| Game Boy | gb | gambatte, gearboy, tgbdual |
+| Game Boy Advance | gba | gpsp, mgba, vbam |
+| Game Boy Color | gbc | gambatte, gearboy, tgbdual |
+| Intellivision | intellivision | freeintv |
+| J2ME | j2me | freej2me, freej2me-plus |
+| Master System | ms | genesis_plus_gx, picodrive |
+| Mega Drive / Genesis | md | genesis_plus_gx, picodrive |
+| Mega Duck | megaduck | gambatte, gearboy, tgbdual |
+| MSX | msx | bluemsx |
+| Neo Geo | neogeo | fbalpha2012, fbneo, fbneo_new |
+| Neo Geo CD | neocd | fbalpha2012, fbneo, fbneo_new |
+| Neo Geo Pocket | ngp | mednafen_ngp |
+| Neo Geo Pocket Color | ngpc | mednafen_ngp |
+| NES / Famicom | fc, nes | fceumm, nestopia, quicknes |
+| Odyssey² / Videopac | odyssey, videopac | o2em |
+| PC Engine | pce | mednafen_pce, mednafen_pce_fast, mednafen_supergrafx |
+| PC Engine CD | pcecd | mednafen_pce, mednafen_pce_fast, mednafen_supergrafx |
+| Pico-8 | pico | fake08 |
+| PlayStation | ps | pcsx_rearmed |
+| Pokémon Mini | poke | pokemini |
+| ScummVM | scummvm | scummvm |
+| Sega Game Gear | gg | genesis_plus_gx, picodrive |
+| Sega Master System | ms | genesis_plus_gx, picodrive |
+| Sega 32X | thirtytwox | genesis_plus_gx, picodrive |
+| Sega SG-1000 | segasgone | genesis_plus_gx, picodrive |
+| Sega CD / Mega-CD | segacd | genesis_plus_gx, picodrive |
+| Satellaview | satellaview | snes9x, snes9x2002, snes9x2005, snes9x2010 |
+| SNES | sfc | snes9x, snes9x2002, snes9x2005, snes9x2010 |
+| Sufami Turbo | sufami | snes9x, snes9x2002, snes9x2005, snes9x2010 |
+| Super Game Boy | sgb | gambatte, gearboy, tgbdual |
+| SuperGrafx | sgfx | mednafen_pce, mednafen_pce_fast, mednafen_supergrafx |
+| TIC-80 | tic | tic80 |
+| Vectrex | vectrex | vecx |
+| VIC-20 | vic20 | vice_x64, vice_xvic |
+| Virtual Boy | vb | mednafen_vb |
+| WonderSwan | ws | mednafen_wswan |
+| WonderSwan Color | wsc | mednafen_wswan |
+| ZX Spectrum | zxs | fuse |
 
-| Core | System | Folder | Libretro |
-|------|--------|--------|----------|
-| o2em | ODYSSEY / VIDEOPAC | odyssey, videopac | https://docs.libretro.com/library/o2em/ |
-| freeintv | intellivision | intellivision | https://docs.libretro.com/library/freeintv/ |
-| bluemsx | msx | msx | https://docs.libretro.com/library/bluemsx/ |
-| puae (from 2021) | amiga / amigacd | amiga / amigacd | https://docs.libretro.com/library/puae/ |
-| puae2021 | amiga / amigacd | amiga / amigacd | https://docs.libretro.com/library/puae/ |
-| uae4arm | amiga / amigacd | amiga / amigacd | https://github.com/libretro/uae4arm-libretro |
-| cap32 | amstrad cpc | cpc | https://docs.libretro.com/library/cap32/ |
-| mame2000 | arcade | arcade, cave, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2000/ |
-| mame2003 | arcade | arcade, cave, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003/ |
-| mame2003_plus | arcade | arcade, cave, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003_plus/ |
-| fbalpha2012 | arcade / neo geo | arcade, cave, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbalpha2012/ |
-| fbneo (from 2021) | arcade / neo geo | arcade, cave, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbneo/ |
-| fbneo_new | arcade / neo geo | arcade, cave, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbneo/ |
-| atari800 | atari 5200 | fiftytwohundred | https://docs.libretro.com/library/atari800/ |
-| prosystem | atari 7800 | seventytwohunder | https://docs.libretro.com/library/prosystem/ |
-| stella2014 | atari 2600 | atari | https://docs.libretro.com/library/stella2014/ |
-| handy | atari lynx | lynx | https://docs.libretro.com/library/handy/ |
-| prboom | doom | doom | https://docs.libretro.com/library/prboom/ |
-| dosbox_pure | dos | dos | https://docs.libretro.com/library/dosbox_pure/ |
-| freechaf | fairchild | fairchild | https://docs.libretro.com/library/freechaf/ |
-| gw | game & watch | gw | https://docs.libretro.com/library/gw/ |
-| gpsp | game boy advance | gba | https://docs.libretro.com/library/gpsp/ |
-| mgba | game boy advance | gba | https://docs.libretro.com/library/mgba/ |
-| vbam | game boy advance | gba | https://docs.libretro.com/library/vbam/ |
-| gambatte | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/gambatte/ |
-| gearboy | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/gearboy/ |
-| tgbdual | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/tgbdual/ |
-| genesis_plus_gx | sega (gg, md, cd, 32x) | ms, gg, md, segacd, thirtytwox | https://docs.libretro.com/library/genesis_plus_gx/ |
-| picodrive | sega (gg, md, cd, 32x) | ms, gg, md, segacd, thirtytwox | https://docs.libretro.com/library/picodrive/ |
-| mednafen_ngp | neo geo pocket | ngp, ngpc | https://docs.libretro.com/library/mednafen_ngp/ |
-| fceumm | nes | fc, fds | https://docs.libretro.com/library/fceumm/ |
-| nestopia | nes | fc, fds | https://docs.libretro.com/library/nestopia/ |
-| quicknes | nes | fc, fds | https://docs.libretro.com/library/quicknes/ |
-| mednafen_pce | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_pce/ |
-| mednafen_pce_fast | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_pce_fast/ |
-| mednafen_supergafx | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_supergrafx/ |
-| tic80 | tic-80 | tic | https://docs.libretro.com/library/tic80/ |
-| pcsx_rearmed | playstation | ps | https://docs.libretro.com/library/pcsx_rearmed/ |
-| pokemini | pokemon mini | poke | https://docs.libretro.com/library/pokemini/ |
-| scummvm | scummvm | scummvm | https://docs.libretro.com/library/scummvm/ |
-| snes9x | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x/ |
-| snes9x2002 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2002/ |
-| snes9x2005 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2005/ |
-| snes9x2010 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2010/ |
-| vecx | vectrex | vectrex | https://docs.libretro.com/library/vecx/ |
-| mednafen_vb | virtual boy | vb | https://docs.libretro.com/library/mednafen_vb/ |
-| mednafen_wswan | wonderswan | ws, wsc | https://docs.libretro.com/library/mednafen_wswan/ |
-| fuse | zx spectrum | zxs | https://docs.libretro.com/library/fuse/ |
-| bennugd | bennugd | bennugd | https://github.com/diekleinekuh/BennuGD_libretro |
-| fake08 | pico8 | pico8 | https://github.com/jtothebell/fake-08 |
-| freej2me | j2me | j2me | https://github.com/hex007/freej2me |
-| freej2me-plus | j2me | j2me | https://github.com/TASEmulators/freej2me-plus.git |
-| 2048 | - | - | https://docs.libretro.com/library/2048/ |
-| mrboom | - | - | https://docs.libretro.com/library/mrboom/ |
+| Core | Link |
+|------|------|
+| 2048 | https://docs.libretro.com/library/2048/ |
+| atari800 | https://docs.libretro.com/library/atari800/ |
+| bennugd | https://github.com/diekleinekuh/BennuGD_libretro |
+| bluemsx | https://docs.libretro.com/library/bluemsx/ |
+| cap32 | https://docs.libretro.com/library/cap32/ |
+| dosbox_pure | https://docs.libretro.com/library/dosbox_pure/ |
+| fake08 | https://github.com/jtothebell/fake-08 |
+| fbalpha2012 | https://docs.libretro.com/library/fbalpha2012/ |
+| fbneo | https://docs.libretro.com/library/fbneo/ |
+| fceumm | https://docs.libretro.com/library/fceumm/ |
+| freechaf | https://docs.libretro.com/library/freechaf/ |
+| freeintv | https://docs.libretro.com/library/freeintv/ |
+| freej2me | https://github.com/hex007/freej2me |
+| freej2me-plus | https://github.com/TASEmulators/freej2me-plus |
+| fuse | https://docs.libretro.com/library/fuse/ |
+| gambatte | https://docs.libretro.com/library/gambatte/ |
+| gearboy | https://docs.libretro.com/library/gearboy/ |
+| genesis_plus_gx | https://docs.libretro.com/library/genesis_plus_gx/ |
+| gpsp | https://docs.libretro.com/library/gpsp/ |
+| gw | https://docs.libretro.com/library/gw/ |
+| handy | https://docs.libretro.com/library/handy/ |
+| mame2000 | https://docs.libretro.com/library/mame2000/ |
+| mame2003 | https://docs.libretro.com/library/mame2003/ |
+| mame2003_plus | https://docs.libretro.com/library/mame2003_plus/ |
+| mednafen_lynx | https://docs.libretro.com/library/beetle_lynx/ |
+| mednafen_ngp | https://docs.libretro.com/library/mednafen_ngp/ |
+| mednafen_pce | https://docs.libretro.com/library/beetle_pce_fast/ |
+| mednafen_pce_fast | https://docs.libretro.com/library/mednafen_pce_fast/ |
+| mednafen_supergrafx | https://docs.libretro.com/library/mednafen_supergrafx/ |
+| mednafen_vb | https://docs.libretro.com/library/mednafen_vb/ |
+| mednafen_wswan | https://docs.libretro.com/library/mednafen_wswan/ |
+| mgba | https://docs.libretro.com/library/mgba/ |
+| mrboom | https://docs.libretro.com/library/mrboom/ |
+| nestopia | https://docs.libretro.com/library/nestopia/ |
+| o2em | https://docs.libretro.com/library/o2em/ |
+| pcsx_rearmed | https://docs.libretro.com/library/pcsx_rearmed/ |
+| picodrive | https://docs.libretro.com/library/picodrive/ |
+| pokemini | https://docs.libretro.com/library/pokemini/ |
+| prboom | https://docs.libretro.com/library/prboom/ |
+| prosystem | https://docs.libretro.com/library/prosystem/ |
+| puae | https://docs.libretro.com/library/puae/ |
+| puae2021 | https://docs.libretro.com/library/puae/ |
+| quicknes | https://docs.libretro.com/library/quicknes/ |
+| scummvm | https://docs.libretro.com/library/scummvm/ |
+| snes9x | https://docs.libretro.com/library/snes9x/ |
+| snes9x2002 | https://docs.libretro.com/library/snes9x_2002/ |
+| snes9x2005 | https://docs.libretro.com/library/snes9x_2005/ |
+| snes9x2010 | https://docs.libretro.com/library/snes9x_2010/ |
+| stella2014 | https://docs.libretro.com/library/stella2014/ |
+| tgbdual | https://docs.libretro.com/library/tgbdual/ |
+| tic80 | https://docs.libretro.com/library/tic80/ |
+| uae4arm | https://github.com/libretro/uae4arm-libretro |
+| vbam | https://docs.libretro.com/library/vbam/ |
+| vecx | https://docs.libretro.com/library/vecx/ |
+| vice_x64 | https://github.com/libretro/vice-libretro |
+| vice_xvic | https://github.com/libretro/vice-libretro |
 
 # Known issues:
  - Using 2x Video filter with PCSX-Rearmed core is creating graphical glitches
