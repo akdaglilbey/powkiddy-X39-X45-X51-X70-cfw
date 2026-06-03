@@ -1,0 +1,95 @@
+diff --git a/build.xml b/build.xml
+index 5be40779..0a941c19 100644
+--- a/build.xml
++++ b/build.xml
+@@ -5,8 +5,8 @@
+ *    Class compilation
+ ****************************************************
+ -->
+-	<property name="source.version" value="1.6"/>
+-	<property name="target.version" value="1.6"/>
++	<property name="source.version" value="8"/>
++	<property name="target.version" value="8"/>
+ 
+ 	<mkdir dir="build/classes"/>
+ 	<mkdir dir="build/classes/org/objectweb"/>
+diff --git a/src/org/recompile/freej2me/Config.java b/src/org/recompile/freej2me/Config.java
+index 2e342e6a..08c0d245 100644
+--- a/src/org/recompile/freej2me/Config.java
++++ b/src/org/recompile/freej2me/Config.java
+@@ -126,6 +126,27 @@ public class Config
+ 			{
+ 				cFile.createNewFile();
+ 				settings.put("scrwidth", ""+width);
++				settings.put("scrheight", ""+height);
++				settings.put("sound", Mobile.sound ? "on" : "off");
++				settings.put("phone", "Standard");
++				settings.put("backlightcolor", "Disabled");
++				settings.put("rotate", ""+Mobile.rotateDisplay);
++				settings.put("fps", ""+Mobile.limitFPS);
++				settings.put("soundfont", "Default");
++				settings.put("textfont", Mobile.useCustomTextFont ? "Custom" : "Default");
++				settings.put("fontoffset", ""+Mobile.fontSizeOffset);
++				settings.put("spdhacknoalpha", Mobile.noAlphaOnBlankImages ? "on" : "off");
++				settings.put("compatfantasyzonefix", Mobile.compatFantasyZoneFix ? "on" : "off");
++				settings.put("compattranstooriginonreset", Mobile.compatTranslateToOriginOnReset ? "on" : "off");
++				settings.put("compatimmediaterepaints", Mobile.compatImmediateRepaints ? "on" : "off");
++				settings.put("compatoverrideplatchecks", Mobile.compatOverridePlatformChecks ? "on" : "off");
++				settings.put("compatsiemensfriendlydrawing", Mobile.compatSiemensFriendlyDrawing ? "on" : "off");
++				settings.put("compatignorevolumechanges", Mobile.compatIgnoreVolumeChanges ? "on" : "off");
++				settings.put("fpshack", "Disabled");
++				settings.put("spdhackm3ghalfres", Mobile.halfResM3GRaster ? "on" : "off");
++				settings.put("dojaversion", ""+Mobile.DoJaVersion);
++				saveConfig();
++/*				settings.put("scrwidth", ""+width);
+ 				settings.put("scrheight", ""+height);
+ 				settings.put("sound", "on");
+ 				settings.put("phone", "Standard");
+@@ -145,7 +166,7 @@ public class Config
+ 				settings.put("fpshack", "Disabled");
+ 				settings.put("spdhackm3ghalfres", "off");
+ 				settings.put("dojaversion", "200");
+-				saveConfig();
++				saveConfig();*/
+ 			}
+ 
+ 			sFile = new File(systemFile);
+@@ -201,24 +222,24 @@ public class Config
+ 			// Add any missing settings
+ 			if(!settings.containsKey("scrwidth")) { settings.put("scrwidth", ""+width); }
+ 			if(!settings.containsKey("scrheight")) { settings.put("scrheight", ""+height); }
+-			if(!settings.containsKey("sound")) { settings.put("sound", "on"); }
++			if(!settings.containsKey("sound")) { settings.put("sound", Mobile.sound ? "on" : "off"); }
+ 			if(!settings.containsKey("phone")) { settings.put("phone", "Standard"); }
+ 			if(!settings.containsKey("backlightcolor")) { settings.put("backlightcolor", "Disabled"); }
+-			if(!settings.containsKey("rotate")) { settings.put("rotate", "0"); }
+-			if(!settings.containsKey("fps")) { settings.put("fps", "0"); }
++			if(!settings.containsKey("rotate")) { settings.put("rotate", ""+Mobile.rotateDisplay); }
++			if(!settings.containsKey("fps")) { settings.put("fps", ""+Mobile.limitFPS); }
+ 			if(!settings.containsKey("soundfont")) { settings.put("soundfont", "Default"); }
+-			if(!settings.containsKey("textfont")) { settings.put("textfont", "Default"); }
+-			if(!settings.containsKey("fontoffset")) { settings.put("fontoffset", "0"); }
+-			if(!settings.containsKey("spdhacknoalpha")) { settings.put("spdhacknoalpha", "off"); }
+-			if(!settings.containsKey("compatfantasyzonefix")) { settings.put("compatfantasyzonefix", "off"); }
+-			if(!settings.containsKey("compattranstooriginonreset")) { settings.put("compattranstooriginonreset", "off"); }
+-			if(!settings.containsKey("compatimmediaterepaints")) { settings.put("compatimmediaterepaints", "off"); }
+-			if(!settings.containsKey("compatoverrideplatchecks")) { settings.put("compatoverrideplatchecks", "on"); }
+-			if(!settings.containsKey("compatsiemensfriendlydrawing")) { settings.put("compatsiemensfriendlydrawing", "off"); }
+-			if(!settings.containsKey("compatignorevolumechanges")) { settings.put("compatignorevolumechanges", "off"); }
++			if(!settings.containsKey("textfont")) { settings.put("textfont", Mobile.useCustomTextFont ? "Custom" : "Default"); }
++			if(!settings.containsKey("fontoffset")) { settings.put("fontoffset", ""+Mobile.fontSizeOffset); }
++			if(!settings.containsKey("spdhacknoalpha")) { settings.put("spdhacknoalpha", Mobile.noAlphaOnBlankImages ? "on" : "off"); }
++			if(!settings.containsKey("compatfantasyzonefix")) { settings.put("compatfantasyzonefix", Mobile.compatFantasyZoneFix ? "on" : "off"); }
++			if(!settings.containsKey("compattranstooriginonreset")) { settings.put("compattranstooriginonreset", Mobile.compatTranslateToOriginOnReset ? "on" : "off"); }
++			if(!settings.containsKey("compatimmediaterepaints")) { settings.put("compatimmediaterepaints", Mobile.compatImmediateRepaints ? "on" : "off"); }
++			if(!settings.containsKey("compatoverrideplatchecks")) { settings.put("compatoverrideplatchecks", Mobile.compatOverridePlatformChecks ? "on" : "off"); }
++			if(!settings.containsKey("compatsiemensfriendlydrawing")) { settings.put("compatsiemensfriendlydrawing", Mobile.compatSiemensFriendlyDrawing ? "on" : "off"); }
++			if(!settings.containsKey("compatignorevolumechanges")) { settings.put("compatignorevolumechanges", Mobile.compatIgnoreVolumeChanges ? "on" : "off"); }
+ 			if(!settings.containsKey("fpshack")) { settings.put("fpshack", "Disabled"); }
+-			if(!settings.containsKey("spdhackm3ghalfres")) { settings.put("spdhackm3ghalfres", "off"); }
+-			if(!settings.containsKey("dojaversion")) { settings.put("dojaversion", "200"); }
++			if(!settings.containsKey("spdhackm3ghalfres")) { settings.put("spdhackm3ghalfres", Mobile.halfResM3GRaster ? "on" : "off"); }
++			if(!settings.containsKey("dojaversion")) { settings.put("dojaversion", ""+Mobile.DoJaVersion); }
+ 
+ 			// System settings
+ 			reader = new BufferedReader(new FileReader(sFile));

@@ -1,41 +1,50 @@
 {
-    "APPS": {
-        "enabled": true,
-        "category": "arcade",
-        "romExts": [
-            ".sh"
-        ],
-        "execs": [
-            "generic"
-        ],
-        "romDirs": [
-            "../apps"
-        ],
-        "selectedExec": "generic"
-    },
-    "PORTS": {
-        "enabled": true,
-        "category": "arcade",
-        "romExts": [
-            ".sh"
-        ],
-        "execs": [
-            "generic"
-        ],
-        "romDirs": [
-            "ports"
-        ],
-        "selectedExec": "generic"
-    },
     "AMIGA": {
         "enabled": true,
         "category": "computer",
         "selectedExec": "puae_libretro",
         "execs": [
-            "puae_libretro"
+            "puae_libretro",
+            "puae2021_libretro",
+            "uae4arm_libretro"
         ],
         "romDirs": [
-            "AMIGA",
+            "AMIGA"
+        ],
+        "romExts": [
+            ".adf",
+            ".adz",
+            ".dms",
+            ".fdi",
+            ".ipf",
+            ".raw",
+            ".hdf",
+            ".hdz",
+            ".lha",
+            ".slave",
+            ".info",
+            ".iso",
+            ".ccd",
+            ".chd",
+            ".nrg",
+            ".mds",
+            ".cue",
+            ".uae",
+            ".m3u",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "AMIGA CD": {
+        "enabled": true,
+        "category": "computer",
+        "selectedExec": "puae_libretro",
+        "execs": [
+            "puae_libretro",
+            "puae2021_libretro",
+            "uae4arm_libretro"
+        ],
+        "romDirs": [
             "AMIGACD"
         ],
         "romExts": [
@@ -62,12 +71,47 @@
             ".7z"
         ]
     },
+    "AMSTRAD CPC": {
+        "enabled": true,
+        "category": "computer",
+        "selectedExec": "cap32_libretro",
+        "execs": [
+            "cap32_libretro"
+        ],
+        "romDirs": [
+            "CPC"
+        ],
+        "romExts": [
+            ".dsk",
+            ".sna",
+            ".tap",
+            ".cdt",
+            ".voc",
+            ".m3u",
+            ".cpr",
+            ".zip", ".7z"
+        ]
+    },
+    "APPS": {
+        "enabled": true,
+        "category": "arcade",
+        "romExts": [
+            ".sh"
+        ],
+        "execs": [
+            "generic"
+        ],
+        "romDirs": [
+            "../apps"
+        ],
+        "selectedExec": "generic"
+    },
     "ARCADE": {
         "enabled": true,
         "category": "arcade",
         "selectedExec": "fbalpha2012_libretro",
         "execs": [
-            "fbneo_libretro",
+            "fbneo_libretro", "fbneo_new_libretro", 
             "mame2003_plus_libretro",
             "mame2003_libretro",
             "mame2000_libretro",
@@ -78,26 +122,8 @@
         ],
         "romExts": [
             ".zip",
-            ".7z"
-        ]
-    },
-    "FINALBURN ALPHA": {
-        "enabled": true,
-        "category": "arcade",
-        "selectedExec": "fbalpha2012_libretro",
-        "execs": [
-            "fbneo_libretro",
-            "mame2003_plus_libretro",
-            "mame2003_libretro",
-            "mame2000_libretro",
-            "fbalpha2012_libretro"
-        ],
-        "romDirs": [
-            "FBA"
-        ],
-        "romExts": [
-            ".zip",
-            ".7z"
+            ".7z",
+            ".chd"
         ]
     },
     "ATARI 2600": {
@@ -113,7 +139,7 @@
         "romExts": [
             ".a26",
             ".bin",
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "ATARI 5200": {
@@ -135,7 +161,7 @@
             ".cas",
             ".bin",
             ".xex",
-            ".zip"
+            ".zip", ".7z"
         ]
     },
     "ATARI 7800": {
@@ -150,10 +176,945 @@
         ],
         "romExts": [
             ".a78",
-            ".bin"
+            ".bin", ".zip", ".7z"
+        ]
+    },
+    "ATARI LYNX": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "handy_libretro",
+        "execs": [
+            "handy_libretro", "mednafen_lynx_libretro"
+        ],
+        "romDirs": [
+            "LYNX"
+        ],
+        "romExts": [
+            ".lnx",
+            ".o",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "BENNUGD": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "bennugd_libretro",
+        "execs": [
+            "bennugd_libretro"
+        ],
+        "romDirs": [
+            "BENNUGD"
+        ],
+        "romExts": [
+            ".dat"
+        ]
+    },
+    "CAVE": {
+        "enabled": true,
+        "category": "arcade",
+        "selectedExec": "fbalpha2012_libretro",
+        "execs": [
+            "fbneo_libretro", "fbneo_new_libretro",
+            "mame2003_plus_libretro",
+            "mame2003_libretro",
+            "mame2000_libretro",
+            "fbalpha2012_libretro"
+        ],
+        "romDirs": [
+            "CAVE"
+        ],
+        "romExts": [
+            ".zip", ".7z"
         ]
     },
     "COMMODORE 64": {
+        "enabled": true,
+        "category": "computer",
+        "romExts": [
+            ".d64",
+            ".d6z",
+            ".d71",
+            ".d7z",
+            ".d80",
+            ".d81",
+            ".d82",
+            ".d8z",
+            ".g64",
+            ".g6z",
+            ".g41",
+            ".g4z",
+            ".x64",
+            ".x6z",
+            ".nib",
+            ".nbz",
+            ".d2m",
+            ".d4m",
+            ".t64",
+            ".tap",
+            ".tcrt",
+            ".prg",
+            ".p00",
+            ".crt",
+            ".bin",
+            ".cmd",
+            ".m3u",
+            ".vfl",
+            ".vsf",
+            ".zip",
+            ".7z",
+            ".gz",
+            ".20",
+            ".40",
+            ".60",
+            ".a0",
+            ".b0",
+            ".rom", ".zip", ".7z"
+        ],
+        "execs": [
+            "vice_x64_libretro",
+            "vice_xvic_libretro"
+        ],
+        "romDirs": [
+            "COMMODORE"
+        ],
+        "selectedExec": "vice_x64_libretro"
+    },
+    "CPS": {
+        "enabled": true,
+        "category": "arcade",
+        "selectedExec": "fbalpha2012_libretro",
+        "execs": [
+            "fbneo_libretro", "fbneo_new_libretro",
+            "mame2003_plus_libretro",
+            "mame2003_libretro",
+            "mame2000_libretro",
+            "fbalpha2012_libretro"
+        ],
+        "romDirs": [
+            "CPS"
+        ],
+        "romExts": [
+            ".zip",
+            ".7z"
+        ]
+    },
+    "CPS1": {
+        "enabled": true,
+        "category": "arcade",
+        "selectedExec": "fbalpha2012_libretro",
+        "execs": [
+            "fbneo_libretro", "fbneo_new_libretro",
+            "mame2003_plus_libretro",
+            "mame2003_libretro",
+            "mame2000_libretro",
+            "fbalpha2012_libretro"
+        ],
+        "romDirs": [
+            "CPS1"
+        ],
+        "romExts": [
+            ".zip", ".7z"
+        ]
+    },
+    "CPS2": {
+        "enabled": true,
+        "category": "arcade",
+        "selectedExec": "fbalpha2012_libretro",
+        "execs": [
+            "fbneo_libretro", "fbneo_new_libretro",
+            "mame2003_plus_libretro",
+            "mame2003_libretro",
+            "mame2000_libretro",
+            "fbalpha2012_libretro"
+        ],
+        "romDirs": [
+            "CPS2"
+        ],
+        "romExts": [
+            ".zip", ".7z"
+        ]
+    },
+    "CPS3": {
+        "enabled": true,
+        "category": "arcade",
+        "selectedExec": "fbalpha2012_libretro",
+        "execs": [
+            "fbneo_libretro", "fbneo_new_libretro",
+            "mame2003_plus_libretro",
+            "mame2003_libretro",
+            "mame2000_libretro",
+            "fbalpha2012_libretro"
+        ],
+        "romDirs": [
+            "CPS3"
+        ],
+        "romExts": [
+            ".zip", ".7z"
+        ]
+    },
+    "DOOM": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "prboom_libretro",
+        "execs": [
+            "prboom_libretro"
+        ],
+        "romDirs": [
+            "DOOM"
+        ],
+        "romExts": [
+            ".wad", ".zip", ".7z"
+        ]
+    },
+    "DOS": {
+        "enabled": true,
+        "category": "computer",
+        "selectedExec": "dosbox_pure_libretro",
+        "execs": [
+            "dosbox_pure_libretro"
+        ],
+        "romDirs": [
+            "DOS"
+        ],
+        "romExts": [
+            ".exe",
+            ".com",
+            ".bat",
+            ".conf",
+            ".zip",
+            ".dosz",
+            ".iso",
+            ".cue",
+            ".ins",
+            ".img",
+            ".ima",
+            ".vhd",
+            ".jrc",
+            ".tc",
+            ".m3u",
+            ".m3u8", ".7z"
+        ]
+    },
+    "FAIRCHILD": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "freechaf_libretro",
+        "execs": [
+            "freechaf_libretro"
+        ],
+        "romDirs": [
+            "FAIRCHILD"
+        ],
+        "romExts": [
+            ".bin",
+            ".rom",
+            ".chf",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "FAMICOM DISK SYSTEM": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "fceumm_libretro",
+        "execs": [
+            "fceumm_libretro",
+            "nestopia_libretro",
+            "quicknes_libretro"
+        ],
+        "romDirs": [
+            "FDS"
+        ],
+        "romExts": [
+            ".fds",
+            ".zip",
+            ".unif",
+            ".uni", ".7z"
+        ]
+    },
+    "FINALBURN ALPHA": {
+        "enabled": true,
+        "category": "arcade",
+        "selectedExec": "fbalpha2012_libretro",
+        "execs": [
+            "fbneo_libretro", "fbneo_new_libretro",
+            "mame2003_plus_libretro",
+            "mame2003_libretro",
+            "mame2000_libretro",
+            "fbalpha2012_libretro"
+        ],
+        "romDirs": [
+            "FBA"
+        ],
+        "romExts": [
+            ".zip",
+            ".7z"
+        ]
+    },
+    "GAME & WATCH": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "gw_libretro",
+        "execs": [
+            "gw_libretro"
+        ],
+        "romDirs": [
+            "GW"
+        ],
+        "romExts": [
+            ".mgw",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "GAME BOY": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "gambatte_libretro",
+        "execs": [
+            "gambatte_libretro",
+            "gearboy_libretro",
+            "tgbdual_libretro"
+        ],
+        "romDirs": [
+            "GB"
+        ],
+        "romExts": [
+            ".gb",
+            ".gbc",
+            ".zip",
+            ".dmg", ".7z"
+        ]
+    },
+    "GAME BOY ADVANCE": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "gpsp_libretro",
+        "execs": [
+            "mgba_libretro",
+            "gpsp_libretro",
+            "vbam_libretro"
+        ],
+        "romDirs": [
+            "GBA"
+        ],
+        "romExts": [
+            ".gba",
+            ".zip",
+            ".bin", ".7z"
+        ]
+    },
+    "GAME BOY COLOR": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "gambatte_libretro",
+        "execs": [
+            "gambatte_libretro",
+            "gearboy_libretro",
+            "tgbdual_libretro"
+        ],
+        "romDirs": [
+            "GBC"
+        ],
+        "romExts": [
+            ".gbc",
+            ".zip", ".7z"
+        ]
+    },
+    "GAME GEAR": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "picodrive_libretro",
+        "execs": [
+            "genesis_plus_gx_libretro",
+            "picodrive_libretro"
+        ],
+        "romDirs": [
+            "GG"
+        ],
+        "romExts": [
+            ".gg",
+            ".zip",
+            ".7zip", ".7z"
+        ]
+    },
+    "INTELLIVISION": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "freeintv_libretro",
+        "execs": [
+            "freeintv_libretro"
+        ],
+        "romDirs": [
+            "INTELLIVISION"
+        ],
+        "romExts": [
+            ".int",
+            ".bin",
+            ".rom",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "J2ME": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "freej2me-plus_libretro",
+        "execs": [
+            "freej2me-plus_libretro",
+            "freej2me_libretro"
+        ],
+        "romDirs": [
+            "J2ME"
+        ],
+        "romExts": [
+            ".jar", ".zip", ".7z"
+        ]
+    },
+    "MEGADUCK": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "gambatte_libretro",
+        "execs": [
+            "gambatte_libretro",
+            "gearboy_libretro",
+            "tgbdual_libretro"
+        ],
+        "romDirs": [
+            "MEGADUCK"
+        ],
+        "romExts": [
+            ".gb",
+            ".gbc",
+            ".zip",
+            ".dmg", ".7z"
+        ]
+    },
+    "MSX": {
+        "enabled": true,
+        "category": "computer",
+        "selectedExec": "bluemsx_libretro",
+        "execs": [
+            "bluemsx_libretro"
+        ],
+        "romDirs": [
+            "MSX"
+        ],
+        "romExts": [
+            ".cas",
+            ".dsk",
+            ".m3u",
+            ".mx1",
+            ".rom",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "NEO GEO": {
+        "enabled": true,
+        "category": "arcade",
+        "selectedExec": "fbneo_libretro",
+        "execs": [
+            "fbneo_libretro",
+	    "fbneo_new_libretro",
+            "fbalpha2012_libretro"
+        ],
+        "romDirs": [
+            "NEOGEO"
+        ],
+        "romExts": [
+            ".zip", ".7z"
+        ]
+    },
+    "NEO GEO CD": {
+        "enabled": true,
+        "category": "arcade",
+        "selectedExec": "fbneo_libretro",
+        "execs": [
+            "fbneo_libretro",
+	    "fbneo_new_libretro",
+            "fbalpha2012_libretro"
+        ],
+        "romDirs": [
+            "NEOCD"
+        ],
+        "romExts": [
+            ".bin",
+            ".cue",
+            ".iso",
+            ".chd", ".zip", ".7z"
+        ]
+    },
+    "NEO GEO POCKET": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "mednafen_ngp_libretro",
+        "execs": [
+            "mednafen_ngp_libretro"
+        ],
+        "romDirs": [
+            "NGP"
+        ],
+        "romExts": [
+            ".ngp",
+            ".ngpc",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "NEO GEO POCKET COLOR": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "mednafen_ngp_libretro",
+        "execs": [
+            "mednafen_ngp_libretro"
+        ],
+        "romDirs": [
+            "NGPC"
+        ],
+        "romExts": [
+            ".ngpc",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "NES": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "fceumm_libretro",
+        "execs": [
+            "fceumm_libretro",
+            "nestopia_libretro",
+            "quicknes_libretro"
+        ],
+        "romDirs": [
+            "FC", "NES"
+        ],
+        "romExts": [
+            ".nes",
+            ".fds",
+            ".zip",
+            ".unif",
+            ".uni", ".7z"
+        ]
+    },
+    "ODYSSEY / VIDEOPAC": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "o2em_libretro",
+        "execs": [
+            "o2em_libretro"
+        ],
+        "romDirs": [
+            "ODYSSEY",
+            "VIDEOPAC"
+        ],
+        "romExts": [
+            ".bin",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "PC ENGINE": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "mednafen_pce_fast_libretro",
+        "execs": [
+            "mednafen_pce_fast_libretro",
+            "mednafen_pce_libretro",
+            "mednafen_supergrafx_libretro"
+        ],
+        "romDirs": [
+            "PCE"
+        ],
+        "romExts": [
+            ".pce",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "PC ENGINE CD": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "mednafen_pce_fast_libretro",
+        "execs": [
+            "mednafen_pce_fast_libretro",
+            "mednafen_pce_libretro",
+            "mednafen_supergrafx_libretro"
+        ],
+        "romDirs": [
+            "PCECD"
+        ],
+        "romExts": [
+            ".pce",
+            ".cue",
+            ".bin",
+            ".chd",
+            ".ccd",
+            ".bin",
+            ".zip",
+            ".7z",
+            ".m3u",
+            ".toc"
+        ]
+    },
+    "PICO-8": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "fake08_libretro",
+        "execs": [
+            "fake08_libretro"
+        ],
+        "romDirs": [
+            "PICO"
+        ],
+        "romExts": [
+            ".p8",
+            ".png", ".zip", ".7z"
+        ]
+    },
+    "PLAYSTATION": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "pcsx_rearmed_libretro",
+        "execs": [
+            "pcsx_rearmed_libretro"
+        ],
+        "romDirs": [
+            "PS"
+        ],
+        "romExts": [
+            ".bin",
+            ".cue",
+            ".toc",
+            ".cbn",
+            ".chd",
+            ".exe",
+            ".img",
+            ".ccd",
+            ".sub",
+            ".iso",
+            ".m3u",
+            ".mdf",
+            ".mts",
+            ".pbp",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "POKEMON MINI": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "pokemini_libretro",
+        "execs": [
+            "pokemini_libretro"
+        ],
+        "romDirs": [
+            "POKE"
+        ],
+        "romExts": [
+            ".min",
+            ".zip", ".7z"
+        ]
+    },
+    "PORTS": {
+        "enabled": true,
+        "category": "arcade",
+        "romExts": [
+            ".sh"
+        ],
+        "execs": [
+            "generic"
+        ],
+        "romDirs": [
+            "PORTS"
+        ],
+        "selectedExec": "generic"
+    },
+    "SATELLAVIEW": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "snes9x2005_libretro",
+        "execs": [
+            "snes9x2002_libretro",
+            "snes9x2005_libretro",
+            "snes9x2010_libretro",
+            "snes9x_libretro"
+        ],
+        "romDirs": [
+            "SATELLAVIEW"
+        ],
+        "romExts": [
+            ".fig",
+            ".gd3",
+            ".sfc",
+            ".smc",
+            ".swc",
+            ".zip",
+            ".7z", ".bs"
+        ]
+    },
+    "SCUMMVM": {
+        "enabled": true,
+        "category": "computer",
+        "selectedExec": "scummvm_libretro",
+        "execs": [
+            "scummvm_libretro"
+        ],
+        "romDirs": [
+            "SCUMMVM"
+        ],
+        "romExts": [
+            ".scummvm",
+            ".zip",
+            ".7zip", ".7z"
+        ]
+    },
+    "SEGA 32X": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "picodrive_libretro",
+        "execs": [
+            "genesis_plus_gx_libretro",
+            "picodrive_libretro"
+        ],
+        "romDirs": [
+            "THIRTYTWOX"
+        ],
+        "romExts": [
+            ".m3u",
+            ".mdx",
+            ".md",
+            ".smd",
+            ".gen",
+            ".bin",
+            ".cue",
+            ".iso",
+            ".chd",
+            ".bms",
+            ".sms",
+            ".gg",
+            ".sg",
+            ".68k",
+            ".sgd", ".32x", ".zip", ".7z"
+        ]
+    },
+    "SEGA CD": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "picodrive_libretro",
+        "execs": [
+            "genesis_plus_gx_libretro",
+            "picodrive_libretro"
+        ],
+        "romDirs": [
+            "SEGACD"
+        ],
+        "romExts": [
+            ".m3u",
+            ".bin",
+            ".cue",
+            ".iso",
+            ".chd",
+            ".68k",
+            ".sgd", ".zip", ".7z"
+        ]
+    },
+    "SEGA GENESIS": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "picodrive_libretro",
+        "execs": [
+            "genesis_plus_gx_libretro",
+            "picodrive_libretro"
+        ],
+        "romDirs": [
+            "MD"
+        ],
+        "romExts": [
+            ".m3u",
+            ".mdx",
+            ".md",
+            ".smd",
+            ".gen",
+            ".bin",
+            ".cue",
+            ".iso",
+            ".chd",
+            ".bms",
+            ".sms",
+            ".gg",
+            ".sg",
+            ".68k",
+            ".sgd", ".zip", ".7z"
+        ]
+    },
+    "SEGA MASTER SYSTEM": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "picodrive_libretro",
+        "execs": [
+            "genesis_plus_gx_libretro",
+            "picodrive_libretro"
+        ],
+        "romDirs": [
+            "MS"
+        ],
+        "romExts": [
+            ".sms",
+            ".sgd", ".zip", ".7z"
+        ]
+    },
+    "SEGA SG-1000": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "picodrive_libretro",
+        "execs": [
+            "genesis_plus_gx_libretro",
+            "picodrive_libretro"
+        ],
+        "romDirs": [
+            "SEGASGONE"
+        ],
+        "romExts": [
+            ".sms",
+            ".gg",
+            ".sg",
+            ".mv",
+            ".bin",
+            ".rom", ".zip", ".7z"
+        ]
+    },
+    "SNES": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "snes9x2005_libretro",
+        "execs": [
+            "snes9x2002_libretro",
+            "snes9x2005_libretro",
+            "snes9x2010_libretro",
+            "snes9x_libretro"
+        ],
+        "romDirs": [
+            "SFC"
+        ],
+        "romExts": [
+            ".fig",
+            ".gd3",
+            ".sfc",
+            ".smc",
+            ".swc",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "SUFAMI": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "snes9x2005_libretro",
+        "execs": [
+            "snes9x2002_libretro",
+            "snes9x2005_libretro",
+            "snes9x2010_libretro",
+            "snes9x_libretro"
+        ],
+        "romDirs": [
+            "SUFAMI"
+        ],
+        "romExts": [
+            ".fig",
+            ".gd3",
+            ".sfc",
+            ".smc",
+            ".swc",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "SUPER GAME BOY": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "gambatte_libretro",
+        "execs": [
+            "gambatte_libretro",
+            "gearboy_libretro",
+            "tgbdual_libretro"
+        ],
+        "romDirs": [
+            "SGB"
+        ],
+        "romExts": [
+            ".gbc",
+            ".sfc",
+            ".zip", ".7z"
+        ]
+    },
+    "SUPER GRAFX": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "mednafen_supergrafx_libretro",
+        "execs": [
+            "mednafen_pce_fast_libretro",
+            "mednafen_pce_libretro",
+            "mednafen_supergrafx_libretro"
+        ],
+        "romDirs": [
+            "SGFX"
+        ],
+        "romExts": [
+            ".pce",
+            ".sgx",
+            ".cue",
+            ".bin",
+            ".chd",
+            ".ccd",
+            ".bin",
+            ".zip",
+            ".7z",
+            ".m3u",
+            ".toc"
+        ]
+    },
+    "TIC-80": {
+        "enabled": true,
+        "category": "computer",
+        "selectedExec": "tic80_libretro",
+        "execs": [
+            "tic80_libretro"
+        ],
+        "romDirs": [
+            "TIC"
+        ],
+        "romExts": [
+            ".fd",
+            ".sap",
+            ".k7",
+            ".m7",
+            ".rom",
+            ".zip",
+            ".7z",
+            ".tic"
+        ]
+    },
+    "VECTREX": {
+        "enabled": true,
+        "category": "console",
+        "selectedExec": "vecx_libretro",
+        "execs": [
+            "vecx_libretro"
+        ],
+        "romDirs": [
+            "VECTREX"
+        ],
+        "romExts": [
+            ".vec",
+            ".bin",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "VIC20": {
         "enabled": true,
         "category": "computer",
         "romExts": [
@@ -201,556 +1162,9 @@
             "vice_xvic_libretro"
         ],
         "romDirs": [
-            "COMMODORE",
             "VIC20"
         ],
         "selectedExec": "vice_x64_libretro"
-    },
-    "AMSTRAD CPC": {
-        "enabled": true,
-        "category": "computer",
-        "selectedExec": "cap32_libretro",
-        "execs": [
-            "cap32_libretro"
-        ],
-        "romDirs": [
-            "CPC"
-        ],
-        "romExts": [
-            ".dsk",
-            ".sna",
-            ".tap",
-            ".cdt",
-            ".voc",
-            ".m3u",
-            ".cpr",
-            ".zip"
-        ]
-    },
-    "CPS": {
-        "enabled": true,
-        "category": "arcade",
-        "selectedExec": "fbalpha2012_libretro",
-        "execs": [
-            "fbneo_libretro",
-            "mame2003_plus_libretro",
-            "mame2003_libretro",
-            "mame2000_libretro",
-            "fbalpha2012_libretro"
-        ],
-        "romDirs": [
-            "CPS"
-        ],
-        "romExts": [
-            ".zip"
-        ]
-    },
-    "CPS1": {
-        "enabled": true,
-        "category": "arcade",
-        "selectedExec": "fbalpha2012_libretro",
-        "execs": [
-            "fbneo_libretro",
-            "mame2003_plus_libretro",
-            "mame2003_libretro",
-            "mame2000_libretro",
-            "fbalpha2012_libretro"
-        ],
-        "romDirs": [
-            "CPS1"
-        ],
-        "romExts": [
-            ".zip"
-        ]
-    },
-    "CPS2": {
-        "enabled": true,
-        "category": "arcade",
-        "selectedExec": "fbalpha2012_libretro",
-        "execs": [
-            "fbneo_libretro",
-            "mame2003_plus_libretro",
-            "mame2003_libretro",
-            "mame2000_libretro",
-            "fbalpha2012_libretro"
-        ],
-        "romDirs": [
-            "CPS2"
-        ],
-        "romExts": [
-            ".zip"
-        ]
-    },
-    "CPS3": {
-        "enabled": true,
-        "category": "arcade",
-        "selectedExec": "fbalpha2012_libretro",
-        "execs": [
-            "fbneo_libretro",
-            "mame2003_plus_libretro",
-            "mame2003_libretro",
-            "mame2000_libretro",
-            "fbalpha2012_libretro"
-        ],
-        "romDirs": [
-            "CPS3"
-        ],
-        "romExts": [
-            ".zip"
-        ]
-    },
-    "DOS": {
-        "enabled": true,
-        "category": "computer",
-        "selectedExec": "dosbox_pure_libretro",
-        "execs": [
-            "dosbox_pure_libretro"
-        ],
-        "romDirs": [
-            "DOS"
-        ],
-        "romExts": [
-            ".exe",
-            ".com",
-            ".bat",
-            ".conf",
-            ".zip",
-            ".dosz",
-            ".iso",
-            ".cue",
-            ".ins",
-            ".img",
-            ".ima",
-            ".vhd",
-            ".jrc",
-            ".tc",
-            ".m3u",
-            ".m3u8"
-        ]
-    },
-    "FAIRCHILD": {
-        "enabled": true,
-        "category": "console",
-        "selectedExec": "freechaf_libretro",
-        "execs": [
-            "freechaf_libretro"
-        ],
-        "romDirs": [
-            "FAIRCHILD"
-        ],
-        "romExts": [
-            ".bin",
-            ".rom",
-            ".chf",
-            ".zip",
-            ".7z"
-        ]
-    },
-    "NES": {
-        "enabled": true,
-        "category": "console",
-        "selectedExec": "fceumm_libretro",
-        "execs": [
-            "fceumm_libretro",
-            "nestopia_libretro",
-            "quicknes_libretro"
-        ],
-        "romDirs": [
-            "FC",
-            "FDS"
-        ],
-        "romExts": [
-            ".nes",
-            ".fds",
-            ".zip",
-            ".unif",
-            ".uni"
-        ]
-    },
-    "GAME BOY": {
-        "enabled": true,
-        "category": "handheld",
-        "selectedExec": "gambatte_libretro",
-        "execs": [
-            "gambatte_libretro",
-            "gearboy_libretro",
-            "tgbdual_libretro"
-        ],
-        "romDirs": [
-            "GB",
-            "MEGADUCK"
-        ],
-        "romExts": [
-            ".gb",
-            ".gbc",
-            ".zip",
-            ".dmg"
-        ]
-    },
-    "GAME BOY COLOR": {
-        "enabled": true,
-        "category": "handheld",
-        "selectedExec": "gambatte_libretro",
-        "execs": [
-            "gambatte_libretro",
-            "gearboy_libretro",
-            "tgbdual_libretro"
-        ],
-        "romDirs": [
-            "GBC",
-            "SGB"
-        ],
-        "romExts": [
-            ".gb",
-            ".gbc",
-            ".zip"
-        ]
-    },
-    "GAME BOY ADVANCE": {
-        "enabled": true,
-        "category": "handheld",
-        "selectedExec": "gpsp_libretro",
-        "execs": [
-            "mgba_libretro",
-            "gpsp_libretro",
-            "vbam_libretro"
-        ],
-        "romDirs": [
-            "GBA"
-        ],
-        "romExts": [
-            ".gba",
-            ".zip",
-            ".bin"
-        ]
-    },
-    "GAME GEAR": {
-        "enabled": true,
-        "category": "console",
-        "selectedExec": "picodrive_libretro",
-        "execs": [
-            "genesis_plus_gx_libretro",
-            "picodrive_libretro"
-        ],
-        "romDirs": [
-            "MS",
-            "GG",
-            "SEGASGONE"
-        ],
-        "romExts": [
-            ".m3u",
-            ".mdx",
-            ".md",
-            ".smd",
-            ".gen",
-            ".bin",
-            ".cue",
-            ".iso",
-            ".chd",
-            ".bms",
-            ".sms",
-            ".gg",
-            ".sg",
-            ".68k",
-            ".sgd"
-        ]
-    },
-    "GAME & WATCH": {
-        "enabled": true,
-        "category": "handheld",
-        "selectedExec": "gw_libretro",
-        "execs": [
-            "gw_libretro"
-        ],
-        "romDirs": [
-            "GW"
-        ],
-        "romExts": [
-            ".mgw",
-            ".zip",
-            ".7z"
-        ]
-    },
-    "INTELLIVISION": {
-        "enabled": true,
-        "category": "console",
-        "selectedExec": "freeintv_libretro",
-        "execs": [
-            "freeintv_libretro"
-        ],
-        "romDirs": [
-            "INTELLIVISION"
-        ],
-        "romExts": [
-            ".int",
-            ".bin",
-            ".rom",
-            ".zip",
-            ".7z"
-        ]
-    },
-    "ATARI LYNX": {
-        "enabled": true,
-        "category": "handheld",
-        "selectedExec": "handy_libretro",
-        "execs": [
-            "handy_libretro"
-        ],
-        "romDirs": [
-            "LYNX"
-        ],
-        "romExts": [
-            ".lnx",
-            ".o",
-            ".zip",
-            ".7z"
-        ]
-    },
-    "SEGA GENESIS": {
-        "enabled": true,
-        "category": "console",
-        "selectedExec": "picodrive_libretro",
-        "execs": [
-            "genesis_plus_gx_libretro",
-            "picodrive_libretro"
-        ],
-        "romDirs": [
-            "MD",
-            "SEGACD",
-            "THIRTYTWOX"
-        ],
-        "romExts": [
-            ".m3u",
-            ".mdx",
-            ".md",
-            ".smd",
-            ".gen",
-            ".bin",
-            ".cue",
-            ".iso",
-            ".chd",
-            ".bms",
-            ".sms",
-            ".gg",
-            ".sg",
-            ".68k",
-            ".sgd"
-        ]
-    },
-    "MSX": {
-        "enabled": true,
-        "category": "computer",
-        "selectedExec": "bluemsx_libretro",
-        "execs": [
-            "bluemsx_libretro"
-        ],
-        "romDirs": [
-            "MSX"
-        ],
-        "romExts": [
-            ".cas",
-            ".dsk",
-            ".m3u",
-            ".mx1",
-            ".rom",
-            ".zip",
-            ".7z"
-        ]
-    },
-    "NEO GEO": {
-        "enabled": true,
-        "category": "arcade",
-        "selectedExec": "fbneo_libretro",
-        "execs": [
-            "fbneo_libretro",
-            "fbalpha2012_libretro"
-        ],
-        "romDirs": [
-            "NEOGEO",
-            "NEOCD"
-        ],
-        "romExts": [
-            ".zip"
-        ]
-    },
-    "NEO GEO POCKET": {
-        "enabled": true,
-        "category": "handheld",
-        "selectedExec": "mednafen_ngp_libretro",
-        "execs": [
-            "mednafen_ngp_libretro"
-        ],
-        "romDirs": [
-            "NGP",
-            "NGPC"
-        ],
-        "romExts": [
-            ".ngp",
-            ".ngpc",
-            ".zip",
-            ".7z"
-        ]
-    },
-    "ODYSSEY / VIDEOPAC": {
-        "enabled": true,
-        "category": "console",
-        "selectedExec": "o2em_libretro",
-        "execs": [
-            "o2em_libretro"
-        ],
-        "romDirs": [
-            "ODYSSEY",
-            "VIDEOPAC"
-        ],
-        "romExts": [
-            ".bin",
-            ".zip",
-            ".7z"
-        ]
-    },
-    "PC ENGINE": {
-        "enabled": true,
-        "category": "console",
-        "selectedExec": "mednafen_pce_fast_libretro",
-        "execs": [
-            "mednafen_pce_fast_libretro",
-            "mednafen_pce_libretro",
-            "mednafen_supergrafx_libretro"
-        ],
-        "romDirs": [
-            "PCE",
-            "PCECD",
-            "SGFX"
-        ],
-        "romExts": [
-            ".pce",
-            ".sgx",
-            ".cue",
-            ".bin",
-            ".chd",
-            ".ccd",
-            ".bin",
-            ".zip",
-            ".7z",
-            ".m3u",
-            ".toc"
-        ]
-    },
-    "TIC-80": {
-        "enabled": true,
-        "category": "computer",
-        "selectedExec": "tic80_libretro",
-        "execs": [
-            "tic80_libretro"
-        ],
-        "romDirs": [
-            "TIC"
-        ],
-        "romExts": [
-            ".fd",
-            ".sap",
-            ".k7",
-            ".m7",
-            ".rom",
-            ".zip",
-            ".7z",
-            ".tic"
-        ]
-    },
-    "POKEMON MINI": {
-        "enabled": true,
-        "category": "handheld",
-        "selectedExec": "pokemini_libretro",
-        "execs": [
-            "pokemini_libretro"
-        ],
-        "romDirs": [
-            "POKE"
-        ],
-        "romExts": [
-            ".min",
-            ".zip"
-        ]
-    },
-    "PLAYSTATION": {
-        "enabled": true,
-        "category": "console",
-        "selectedExec": "pcsx_rearmed_libretro",
-        "execs": [
-            "pcsx_rearmed_libretro"
-        ],
-        "romDirs": [
-            "PS"
-        ],
-        "romExts": [
-            ".bin",
-            ".cue",
-            ".toc",
-            ".cbn",
-            ".chd",
-            ".exe",
-            ".img",
-            ".ccd",
-            ".sub",
-            ".iso",
-            ".m3u",
-            ".mdf",
-            ".mts",
-            ".pbp"
-        ]
-    },
-    "SCUMMVM": {
-        "enabled": true,
-        "category": "computer",
-        "selectedExec": "scummvm_libretro",
-        "execs": [
-            "scummvm_libretro"
-        ],
-        "romDirs": [
-            "SCUMMVM"
-        ],
-        "romExts": [
-            ".scummvm"
-        ]
-    },
-    "SNES": {
-        "enabled": true,
-        "category": "console",
-        "selectedExec": "snes9x2005_libretro",
-        "execs": [
-            "snes9x2002_libretro",
-            "snes9x2005_libretro",
-            "snes9x2010_libretro",
-            "snes9x_libretro"
-        ],
-        "romDirs": [
-            "SFC",
-            "SUFAMI",
-            "SATELLAVIEW"
-        ],
-        "romExts": [
-            ".fig",
-            ".gd3",
-            ".sfc",
-            ".smc",
-            ".swc",
-            ".zip",
-            ".7z"
-        ]
-    },
-    "DOOM": {
-        "enabled": true,
-        "category": "console",
-        "selectedExec": "prboom_libretro",
-        "execs": [
-            "prboom_libretro"
-        ],
-        "romDirs": [
-            "DOOM"
-        ],
-        "romExts": [
-            ".wad"
-        ]
     },
     "VIRTUAL BOY": {
         "enabled": true,
@@ -769,23 +1183,6 @@
         ],
         "selectedExec": "mednafen_vb_libretro"
     },
-    "VECTREX": {
-        "enabled": true,
-        "category": "console",
-        "selectedExec": "vecx_libretro",
-        "execs": [
-            "vecx_libretro"
-        ],
-        "romDirs": [
-            "VECTREX"
-        ],
-        "romExts": [
-            ".vec",
-            ".bin",
-            ".zip",
-            ".7z"
-        ]
-    },
     "WONDERSWAN": {
         "enabled": true,
         "category": "handheld",
@@ -794,11 +1191,26 @@
             "mednafen_wswan_libretro"
         ],
         "romDirs": [
-            "WS",
-            "WSC"
+            "WS"
         ],
         "romExts": [
             ".ws",
+            ".pc2",
+            ".zip",
+            ".7z"
+        ]
+    },
+    "WONDERSWAN COLOR": {
+        "enabled": true,
+        "category": "handheld",
+        "selectedExec": "mednafen_wswan_libretro",
+        "execs": [
+            "mednafen_wswan_libretro"
+        ],
+        "romDirs": [
+            "WSC"
+        ],
+        "romExts": [
             ".wsc",
             ".pc2",
             ".zip",

@@ -1,4 +1,4 @@
-# SuperX CFW for Powkiddy X39 Pro / X45 / X51 / X70 #
+# SuperX CFW for Powkiddy X39 / X39 Pro / X45 / X51 / X70 #
 
 ![image](img-v1.png)
 
@@ -17,13 +17,11 @@ I shall not be held responsible for any damage, loss of data, malfunction, brick
 By installing this firmware, you agree that you do so entirely at your own risk and assume full responsibility for any consequences.
 
 # Supported devices:
+- Powkiddy X39
 - Powkiddy X39 Pro
-
-# Unsupported:
-We need testers to support:
-- X45
-- X51
-- X70 
+- Powkiddy X45
+- Powkiddy X51
+- Powkiddy X70
 
 # Launcher: Simplermenu_plus (SMP)
 Button mapping:
@@ -71,83 +69,171 @@ You can see retroarch logs by using DinguxCommander and going to /tmp folder.
 
 **Retroarch logs are not persistant across console restart**
 
+| System | Folder(s) | Core(s) |
+|----------|----------|----------|
+| Amiga | amiga | puae, puae2021, uae4arm |
+| Amiga CD | amigacd | puae, puae2021, uae4arm |
+| Amstrad CPC | cpc | cap32 |
+| Arcade | arcade | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| Atari 2600 | atari | stella2014 |
+| Atari 5200 | fiftytwohundred | atari800 |
+| Atari 7800 | seventytwohundred | prosystem |
+| Atari Lynx | lynx | handy, mednafen_lynx |
+| BennuGD | bennugd | bennugd |
+| Cave | cave | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| CPS | cps | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| CPS1 | cps1 | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| CPS2 | cps2 | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| CPS3 | cps3 | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| Commodore 64 | commodore | vice_x64, vice_xvic |
+| DOS | dos | dosbox_pure |
+| Doom | doom | prboom |
+| Fairchild Channel F | fairchild | freechaf |
+| Famicom Disk System | fds | fceumm, nestopia, quicknes |
+| Final Burn Alpha | fba | mame2000, mame2003, mame2003_plus, fbalpha2012, fbneo, fbneo_new |
+| Game & Watch | gw | gw |
+| Game Boy | gb | gambatte, gearboy, tgbdual |
+| Game Boy Advance | gba | gpsp, mgba, vbam |
+| Game Boy Color | gbc | gambatte, gearboy, tgbdual |
+| Intellivision | intellivision | freeintv |
+| J2ME | j2me | freej2me, freej2me-plus |
+| Master System | ms | genesis_plus_gx, picodrive |
+| Mega Drive / Genesis | md | genesis_plus_gx, picodrive |
+| Mega Duck | megaduck | gambatte, gearboy, tgbdual |
+| MSX | msx | bluemsx |
+| Neo Geo | neogeo | fbalpha2012, fbneo, fbneo_new |
+| Neo Geo CD | neocd | fbalpha2012, fbneo, fbneo_new |
+| Neo Geo Pocket | ngp | mednafen_ngp |
+| Neo Geo Pocket Color | ngpc | mednafen_ngp |
+| NES / Famicom | fc, nes | fceumm, nestopia, quicknes |
+| Odyssey² / Videopac | odyssey, videopac | o2em |
+| PC Engine | pce | mednafen_pce, mednafen_pce_fast, mednafen_supergrafx |
+| PC Engine CD | pcecd | mednafen_pce, mednafen_pce_fast, mednafen_supergrafx |
+| Pico-8 | pico | fake08 |
+| PlayStation | ps | pcsx_rearmed |
+| Pokémon Mini | poke | pokemini |
+| ScummVM | scummvm | scummvm |
+| Sega Game Gear | gg | genesis_plus_gx, picodrive |
+| Sega Master System | ms | genesis_plus_gx, picodrive |
+| Sega 32X | thirtytwox | genesis_plus_gx, picodrive |
+| Sega SG-1000 | segasgone | genesis_plus_gx, picodrive |
+| Sega CD / Mega-CD | segacd | genesis_plus_gx, picodrive |
+| Satellaview | satellaview | snes9x, snes9x2002, snes9x2005, snes9x2010 |
+| SNES | sfc | snes9x, snes9x2002, snes9x2005, snes9x2010 |
+| Sufami Turbo | sufami | snes9x, snes9x2002, snes9x2005, snes9x2010 |
+| Super Game Boy | sgb | gambatte, gearboy, tgbdual |
+| SuperGrafx | sgfx | mednafen_pce, mednafen_pce_fast, mednafen_supergrafx |
+| TIC-80 | tic | tic80 |
+| Vectrex | vectrex | vecx |
+| VIC-20 | vic20 | vice_x64, vice_xvic |
+| Virtual Boy | vb | mednafen_vb |
+| WonderSwan | ws | mednafen_wswan |
+| WonderSwan Color | wsc | mednafen_wswan |
+| ZX Spectrum | zxs | fuse |
 
-| Core | System | Folder | Libretro |
-|------|--------|--------|----------|
-| o2em | ODYSSEY / VIDEOPAC | odyssey, videopac | https://docs.libretro.com/library/o2em/ |
-| freeintv | intellivision | intellivision | https://docs.libretro.com/library/freeintv/ |
-| bluemsx | msx | msx | https://docs.libretro.com/library/bluemsx/ |
-| puae | amiga / amigacd | amiga | https://docs.libretro.com/library/puae/ |
-| cap32 | amstrad cpc | cpc | https://docs.libretro.com/library/cap32/ |
-| mame2000 | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2000/ |
-| mame2003 | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003/ |
-| mame2003_plus | arcade | arcade, fba, cps, cps1, cps2, cps3 | https://docs.libretro.com/library/mame2003_plus/ |
-| fbalpha2012 | arcade / neo geo | arcade, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbalpha2012/ |
-| fbneo | arcade / neo geo | arcade, fba, cps, cps1, cps2, cps3, neogeo, neocd | https://docs.libretro.com/library/fbneo/ |
-| atari800 | atari 5200 | fiftytwohundred | https://docs.libretro.com/library/atari800/ |
-| prosystem | atari 7800 | seventytwohunder | https://docs.libretro.com/library/prosystem/ |
-| stella2014 | atari 2600 | atari | https://docs.libretro.com/library/stella2014/ |
-| handy | atari lynx | lynx | https://docs.libretro.com/library/handy/ |
-| prboom | doom | doom | https://docs.libretro.com/library/prboom/ |
-| dosbox_pure | dos | dos | https://docs.libretro.com/library/dosbox_pure/ |
-| freechaf | fairchild | fairchild | https://docs.libretro.com/library/freechaf/ |
-| gw | game & watch | gw | https://docs.libretro.com/library/gw/ |
-| gpsp | game boy advance | gba | https://docs.libretro.com/library/gpsp/ |
-| mgba | game boy advance | gba | https://docs.libretro.com/library/mgba/ |
-| vbam | game boy advance | gba | https://docs.libretro.com/library/vbam/ |
-| gambatte | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/gambatte/ |
-| gearboy | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/gearboy/ |
-| tgbdual | game boy / color | gb, gbc, sgb, megaduck | https://docs.libretro.com/library/tgbdual/ |
-| genesis_plus_gx | sega (gg, md, cd, 32x) | ms, gg, md, segacd, thirtytwox | https://docs.libretro.com/library/genesis_plus_gx/ |
-| picodrive | sega (gg, md, cd, 32x) | ms, gg, md, segacd, thirtytwox | https://docs.libretro.com/library/picodrive/ |
-| mednafen_ngp | neo geo pocket | ngp, ngpc | https://docs.libretro.com/library/mednafen_ngp/ |
-| fceumm | nes | fc, fds | https://docs.libretro.com/library/fceumm/ |
-| nestopia | nes | fc, fds | https://docs.libretro.com/library/nestopia/ |
-| quicknes | nes | fc, fds | https://docs.libretro.com/library/quicknes/ |
-| mednafen_pce | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_pce/ |
-| mednafen_pce_fast | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_pce_fast/ |
-| mednafen_supergafx | pc engine | pce, pcecd, sgfx | https://docs.libretro.com/library/mednafen_supergrafx/ |
-| tic80 | tic-80 | tic | https://docs.libretro.com/library/tic80/ |
-| pcsx_rearmed | playstation | ps | https://docs.libretro.com/library/pcsx_rearmed/ |
-| pokemini | pokemon mini | poke | https://docs.libretro.com/library/pokemini/ |
-| scummvm | scummvm | scummvm | https://docs.libretro.com/library/scummvm/ |
-| snes9x | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x/ |
-| snes9x2002 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2002/ |
-| snes9x2005 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2005/ |
-| snes9x2010 | snes | sfc, sufami, satellaview | https://docs.libretro.com/library/snes9x_2010/ |
-| vecx | vectrex | vectrex | https://docs.libretro.com/library/vecx/ |
-| mednafen_vb | virtual boy | vb | https://docs.libretro.com/library/mednafen_vb/ |
-| mednafen_wswan | wonderswan | ws, wsc | https://docs.libretro.com/library/mednafen_wswan/ |
-| fuse | zx spectrum | zxs | https://docs.libretro.com/library/fuse/ |
-| 2048 | - | - | https://docs.libretro.com/library/2048/ |
-| mrboom | - | - | https://docs.libretro.com/library/mrboom/ |
-
-Data files for ScummVM can be found in https://github.com/scummvm/scummvm/tree/v2.1.1/dists/engine-data
+| Core | Link |
+|------|------|
+| 2048 | https://docs.libretro.com/library/2048/ |
+| atari800 | https://docs.libretro.com/library/atari800/ |
+| bennugd | https://github.com/diekleinekuh/BennuGD_libretro |
+| bluemsx | https://docs.libretro.com/library/bluemsx/ |
+| cap32 | https://docs.libretro.com/library/cap32/ |
+| dosbox_pure | https://docs.libretro.com/library/dosbox_pure/ |
+| fake08 | https://github.com/jtothebell/fake-08 |
+| fbalpha2012 | https://docs.libretro.com/library/fbalpha2012/ |
+| fbneo (from 2021 available on buildbot-libretro) | https://docs.libretro.com/library/fbneo/ |
+| fbneo_new (most up-to-date, slower) | https://docs.libretro.com/library/fbneo/ |
+| fceumm | https://docs.libretro.com/library/fceumm/ |
+| freechaf | https://docs.libretro.com/library/freechaf/ |
+| freeintv | https://docs.libretro.com/library/freeintv/ |
+| freej2me | https://github.com/hex007/freej2me |
+| freej2me-plus | https://github.com/TASEmulators/freej2me-plus |
+| fuse | https://docs.libretro.com/library/fuse/ |
+| gambatte | https://docs.libretro.com/library/gambatte/ |
+| gearboy | https://docs.libretro.com/library/gearboy/ |
+| genesis_plus_gx | https://docs.libretro.com/library/genesis_plus_gx/ |
+| gpsp | https://docs.libretro.com/library/gpsp/ |
+| gw | https://docs.libretro.com/library/gw/ |
+| handy | https://docs.libretro.com/library/handy/ |
+| mame2000 | https://docs.libretro.com/library/mame2000/ |
+| mame2003 | https://docs.libretro.com/library/mame2003/ |
+| mame2003_plus | https://docs.libretro.com/library/mame2003_plus/ |
+| mednafen_lynx | https://docs.libretro.com/library/beetle_lynx/ |
+| mednafen_ngp | https://docs.libretro.com/library/mednafen_ngp/ |
+| mednafen_pce | https://docs.libretro.com/library/beetle_pce_fast/ |
+| mednafen_pce_fast | https://docs.libretro.com/library/mednafen_pce_fast/ |
+| mednafen_supergrafx | https://docs.libretro.com/library/mednafen_supergrafx/ |
+| mednafen_vb | https://docs.libretro.com/library/mednafen_vb/ |
+| mednafen_wswan | https://docs.libretro.com/library/mednafen_wswan/ |
+| mgba | https://docs.libretro.com/library/mgba/ |
+| mrboom | https://docs.libretro.com/library/mrboom/ |
+| nestopia | https://docs.libretro.com/library/nestopia/ |
+| o2em | https://docs.libretro.com/library/o2em/ |
+| pcsx_rearmed | https://docs.libretro.com/library/pcsx_rearmed/ |
+| picodrive | https://docs.libretro.com/library/picodrive/ |
+| pokemini | https://docs.libretro.com/library/pokemini/ |
+| prboom | https://docs.libretro.com/library/prboom/ |
+| prosystem | https://docs.libretro.com/library/prosystem/ |
+| puae (from 2021 available on buildbot-libretro) | https://docs.libretro.com/library/puae/ |
+| puae2021 (most up-to-date, slower) | https://docs.libretro.com/library/puae/ |
+| quicknes | https://docs.libretro.com/library/quicknes/ |
+| scummvm | https://docs.libretro.com/library/scummvm/ |
+| snes9x | https://docs.libretro.com/library/snes9x/ |
+| snes9x2002 | https://docs.libretro.com/library/snes9x_2002/ |
+| snes9x2005 | https://docs.libretro.com/library/snes9x_2005/ |
+| snes9x2010 | https://docs.libretro.com/library/snes9x_2010/ |
+| stella2014 | https://docs.libretro.com/library/stella2014/ |
+| tgbdual | https://docs.libretro.com/library/tgbdual/ |
+| tic80 (from 2021 available on buildbot-libretro) | https://docs.libretro.com/library/tic80/ |
+| uae4arm | https://github.com/libretro/uae4arm-libretro |
+| vbam | https://docs.libretro.com/library/vbam/ |
+| vecx | https://docs.libretro.com/library/vecx/ |
+| vice_x64 | https://docs.libretro.com/library/vice/ |
+| vice_xvic | https://docs.libretro.com/library/vice/ |
 
 # Known issues:
- - First time a Favorite is added in SMP, the GUI is changing to another System/Rom selection
  - Using 2x Video filter with PCSX-Rearmed core is creating graphical glitches
  - FPS overlay is upscaled with the core output when using Hardware upscaler.
    - You can disable the overlay in RetroArch Settings->On-Screen Display->On-Screen Notifications->Notification Visibility-> Enable Menu-only notifications
-   - If you open at least once the Menu, FPS will stay but won't be updated (known issue)
- - FPS counter is flickering in Software Nearest mode
- - DOSBOX Pure screen inverted in Software Nearest mode 
+ - No sounds for J2ME core
 
 # Installation:
  - Copy zip content on SD-card. run.sh must be at the root of the sdcard
  - You can copy your bios in CFW/retroarch/system, stock SD card contains some bios in game/.bios folder
-
+ - 
  **Only in case of first installation:**
- 
- - Put update.zip on SD Card 
-      -  update.zip contains original Powkiddy firmware with startup script updated
-      -  **Verify the update.zip CRC once copied on SD is correct !**  
  - Reboot the console and perform the update when asked by the console. If the update is not detected, remove and insert the SD card when builtin frontend is started.
  
 # Uninstall:
  - Remove run.sh
 
 # Changelog
+## V1.1:
+General:
+- Support of all Powkiddy ATM7051: x39, x39pro, x45, x51 and x70
+- Disable/enable loudpspeaker depending on which app is started
+- Create welcome and poweroff screen image. In APPS you can find Activate_bootlogo and Restore_bootlogo
+- Play a welcome and poweroff sound
+- Enhancement of the building process and flag optimization (increased performance)
+
+Retroarch:
+- Add uae4arm, bennugd, fake08, freej2me and freej2me-plus cores
+- Puae2021 and fbneo-new are most up-to-date but seems to be slower, use puae and fbneo (version from libretro buildbot 2021)
+- Bump all cores to last recent version
+- X51 variant : Rotate 90° screen in SMP and Retroarch
+- Fix FPS counter display
+- Fix Integer Scale only scaling when no rotation is applied (fill screen height)
+- Fix Software nearest invalid rotation when core output in 32bpp
+
+SMP Launcher:
+- Unifying of all resolutions in one single theme.ini and adapt all resolutions placements (854x480,816x480,800x480,1024x600,480x272)
+- Refactoring of systems.json
+- Add CAVE, Bennugd, j2me and Pico8 systems
+- Add multiple translation language
+- Add progress during rom list generation
+- Fix issue when adding first favorite
+- Fix issue with non-ascii characters
+
 ## V1:
 - Major update with launcher Simplermenu_Plus integration and faster starting
 - New system folder structures and lot of cores added
@@ -179,13 +265,13 @@ Data files for ScummVM can be found in https://github.com/scummvm/scummvm/tree/v
 
 # Build from source:
  - Install Ubuntu or WSL2
- - Get this repository
- - git submodule init
- - git submodule update
- - run the scripts 0.prepare.sh, 1.make-libs.sh, etc....
+ - Get this repository (git clone ...)
+ - cd powkiddy....
+ - ./build-all.sh
 
 # Credits:
 - @dmolina007 [https://github.com/dmolina007] for theme developments, ideas, support, testing and discord maintenance
+- @dajoho [https://github.com/dajoho] for the help in adjusting building process and the custom and generic update.zip working on all consoles models.
 - @acmeplus [https://github.com/acmeplus] for his help and simplermenu_plus launcher ([https://github.com/rg35xx-cfw/simplermenu_plus](https://github.com/rg35xx-cfw/simplermenu_plus))
 - @FoxExe [https://github.com/FoxExe] for the firmware extractor/generator to update stock firmware ([https://github.com/FoxExe/PowKiddy_fw](https://github.com/FoxExe/PowKiddy_fw))
 - Retroarch/Libretro teams and all cores creators 
@@ -193,18 +279,6 @@ Data files for ScummVM can be found in https://github.com/scummvm/scummvm/tree/v
 - st-sdl creator (https://github.com/benob/rs97_st-sdl)
   
 # Notes:
-
-## Updated /etc/init.d/rcS script to start retroarch on boot:
-
-This is running run.sh script on the SD Card
-```
-                        echo "run nomal mode"
-                        mount /dev/mmcblk0p1 /mnt/card/
-                        sleep 5
-                        /mnt/card/run.sh &
-                        sleep 5
-                        manager &
-```
 
 ## ADB
 ADB is running on native FS, this CFW is mounting a new FS and chroot to it.

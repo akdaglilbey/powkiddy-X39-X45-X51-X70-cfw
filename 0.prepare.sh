@@ -1,8 +1,5 @@
 #/bin/sh
 
-git submodule init
-git submodule update
-
 ## install needed
 sudo apt-get -y update
 sudo apt-get -y install \
@@ -13,6 +10,7 @@ sudo apt-get -y install \
 	cmake \
 	cmake-curses-gui \
 	cpio \
+	doxygen \
 	git \
 	libncurses5-dev \
 	locales \
@@ -27,7 +25,13 @@ sudo apt-get -y install \
 	bison \
 	autoconf \
 	automake \
-	libtool
+	libtool \
+	ant \
+	openjdk-21-jdk-headless \
+	7zip
+
+git submodule init
+git submodule update
 
 ## extract linaro to toolchain
 rm -rf sysroot

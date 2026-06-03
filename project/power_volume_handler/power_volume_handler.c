@@ -23,7 +23,12 @@
 #include <sys/select.h>
 #include <sys/reboot.h>
 #include <linux/input.h>
-
+#include <stdint.h>
+#include <sys/mman.h>
+#include <sys/ioctl.h>
+#include <linux/fb.h>
+#include <dirent.h>
+#include <ctype.h>
 /* ─── Configuration ─────────────────────────────────────────────────────── */
 
 #define POLL_INTERVAL_MS        500
@@ -44,12 +49,12 @@
 /* Tinymix PA controls */
 #define TINYMIX_PATH            "tinymix"
 #define PA_SWITCH_CTL           "35"    /* speaker on off switch */
-
+#define ACTIVATE_SOUND          "SOUND_PROCESS_LIST"
 /* Power button */
 #define INPUT_EVENT0            "/dev/input/event0"
 #define INPUT_EVENT1            "/dev/input/event1"
 #define EVDEV_BTN_POWER         116
-#define POWER_HOLD_MS           3000
+#define POWER_HOLD_MS           1500
 
 /* Log */
 #define LOG_PATH                "/tmp/powkiddy_daemon.log"
@@ -178,6 +183,94 @@ static void set_pa(int on)
     }
 }
 
+static int process_exists(const char *name)
+{
+    DIR *proc = opendir("/proc");
+    if (!proc)
+        return 0;
+
+    struct dirent *ent;
+
+    while ((ent = readdir(proc)) != NULL)
+    {
+        /*
+         * PID directories only
+         */
+
+        if (!isdigit(ent->d_name[0]))
+            continue;
+
+        char path[256];
+        snprintf(path, sizeof(path),
+                 "/proc/%s/comm",
+                 ent->d_name);
+
+        FILE *f = fopen(path, "r");
+        if (!f)
+            continue;
+
+        char comm[256];
+
+        if (fgets(comm, sizeof(comm), f))
+        {
+            /*
+             * remove trailing newline
+             */
+
+            comm[strcspn(comm, "\n")] = 0;
+
+            if (strcmp(comm, name) == 0)
+            {
+                fclose(f);
+                closedir(proc);
+                return 1;
+            }
+        }
+
+        fclose(f);
+    }
+
+    closedir(proc);
+
+    return 0;
+}
+
+static int any_process_running(void)
+{
+    const char *env = getenv(ACTIVATE_SOUND);
+    //if not found we activate the sound
+    if (!env || !*env)
+        return 1;
+
+    /*
+     * strtok modifies buffer
+     */
+
+    char *copy = strdup(env);
+    if (!copy)
+        return 0;
+
+    int found = 0;
+
+    char *tok = strtok(copy, ";");
+
+    while (tok)
+    {
+        if (process_exists(tok))
+        {
+            printf("Found process: %s\n", tok);
+            found = 1;
+            break;
+        }
+
+        tok = strtok(NULL, ";");
+    }
+
+    free(copy);
+
+    return found;
+}
+
 /* ─── ADB management ─────────────────────────────────────────────────────── */
 /*
 static void adb_cleanup(void)
@@ -214,15 +307,11 @@ static int adb_load(void)
 }
 */
 /* ─── Power button ───────────────────────────────────────────────────────── */
-
 static void trigger_poweroff(void)
 {
+
     log_msg("Power button held %dms -> shutdown", POWER_HOLD_MS);
-    system("killall retroarch 2>/dev/null");
-    system("killall simplermenu_plus 2>/dev/null");
-	sync();
-    sleep(1);
-    system("poweroff");
+    system("shutdown.sh");
     running = 0;
 }
 
@@ -285,6 +374,8 @@ int main(void)
 
     int prev_pc       = -1;
     int prev_earphone = -1;
+    int prev_loudspeaker = 0; //loudspeaker is off at starting
+    set_pa(0);
 
     while (running) {
 
@@ -321,12 +412,30 @@ int main(void)
                 trigger_poweroff();
             }
         }
-
-        /* ── Earphone detection ── */
-        int earphone = read_earphone_state();
-        if (earphone >= 0 && earphone != prev_earphone) {
-            set_pa(!earphone);  /* plugged=1 -> PA off, unplugged=0 -> PA on */
-            prev_earphone = earphone;
+        
+        //check if sound output must be set to on
+        int process_found = any_process_running();
+        if(process_found == 0) // no process found
+        {
+            if(prev_loudspeaker == 1)//loudspeaker set to on, we set to off
+            {
+                set_pa(0);  /* loudspeaker set to off */
+                prev_loudspeaker = 0;
+            }
+        }
+        else
+        {
+            int earphone = read_earphone_state();
+            if (earphone == 1 && prev_loudspeaker == 1)  //headset connected and loudspeakder connected
+            {
+                set_pa(0);  /* loudspeaker set to off */
+                prev_loudspeaker = 0;
+            }
+            else if(earphone == 0 && prev_loudspeaker == 0) //headset disconnected and loudspeaker off, set to on
+            { //set pa to on
+                set_pa(1);  /* loudspeaker set to on */
+                prev_loudspeaker = 1;
+            }
         }
 
         /* ── ADB hotplug ── */

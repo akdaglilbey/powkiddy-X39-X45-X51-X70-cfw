@@ -2,7 +2,11 @@
 #	DinguxCommander Makefile for Powkiddy
 #
 
-CXXFLAGS += $(shell $(SDL_CONFIG) --cflags)
+SDL_PREFIX ?= $(SYSROOT)/usr/local
+SDL_CFLAGS ?= -I$(SDL_PREFIX)/include -I$(SDL_PREFIX)/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
+SDL_LIBS ?= -L$(SDL_PREFIX)/lib -lSDL -lpthread
+
+CXXFLAGS += $(SDL_CFLAGS)
 
 CXXFLAGS += -DPATH_DEFAULT=\"/mnt/card\"
 CXXFLAGS += -DFILE_SYSTEM=\"/mnt/card\"
@@ -32,7 +36,7 @@ RESDIR := res
 CXXFLAGS += -DRESDIR="\"$(RESDIR)\""
 
 LINKFLAGS += -s
-LINKFLAGS += $(shell $(SDL_CONFIG) --libs) -lSDL_image -lSDL_ttf
+LINKFLAGS += $(SDL_LIBS) -lSDL_image -lSDL_ttf
 
 CMD := @
 SUM := @echo
@@ -54,7 +58,7 @@ all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(addprefix $(OUTDIR)/,$(OBJS))
 	$(SUM) "  LINK    $@"
-	$(CMD)$(CXX) $(LINKFLAGS) -o $@ $^
+	$(CMD)$(CXX) -o $@ $^ $(LINKFLAGS)
 
 $(OUTDIR)/%.o: src/%.cpp
 	@mkdir -p $(@D)
