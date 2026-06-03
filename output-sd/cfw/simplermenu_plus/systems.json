@@ -184,7 +184,7 @@
         "category": "handheld",
         "selectedExec": "handy_libretro",
         "execs": [
-            "handy_libretro"
+            "handy_libretro", "mednafen_lynx"
         ],
         "romDirs": [
             "LYNX"
