@@ -204,9 +204,8 @@ make distclean || true
   --arch=arm \
   --cpu=cortex-a9 \
   --sysroot="${SYSROOT}" \
-  --extra-cflags="-mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard" \
-  --extra-ldflags="--sysroot=${SYSROOT}" \
-  --disable-largefile \
+  --extra-cflags="-mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -Dfcntl64=fcntl" \
+  --extra-ldflags="--sysroot=${SYSROOT} -Dfcntl64=fcntl" \
   --disable-shared \
   --enable-static \
   --enable-filters \
