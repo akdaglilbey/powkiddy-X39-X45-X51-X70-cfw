@@ -13,6 +13,7 @@ cd zlib-1.2.8
 make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 cd ..
+ln -sf libz.a $SYSROOT/usr/local/lib/libzlib.a
 
 rm -rf lpng1655
 unzip lpng1655.zip
