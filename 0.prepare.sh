@@ -1,11 +1,11 @@
-#/bin/sh
+#!/bin/sh
 
 ## install needed
 sudo apt-get -y update
 sudo apt-get -y install \
 	bc \
-    build-essential \
-    bzip2 \
+	build-essential \
+	bzip2 \
 	bzr \
 	cmake \
 	cmake-curses-gui \
@@ -28,7 +28,8 @@ sudo apt-get -y install \
 	libtool \
 	ant \
 	openjdk-21-jdk-headless \
-	7zip
+	7zip \
+	p7zip-full
 
 git submodule init
 git submodule update
