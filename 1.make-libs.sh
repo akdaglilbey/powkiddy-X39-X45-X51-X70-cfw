@@ -13,6 +13,8 @@ cd zlib-1.2.8
 make -j$NUM_THREAD
 make install DESTDIR=$SYSROOT
 cd ..
+# FIX: BennuGD_libretro searches for '-lzlib' instead of standard '-lz' (libz.a).
+# Creating a symbolic link ensures the build compiles seamlessly in clean environments.
 ln -sf libz.a $SYSROOT/usr/local/lib/libzlib.a
 
 rm -rf lpng1655
