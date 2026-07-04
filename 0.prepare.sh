@@ -4,8 +4,8 @@
 sudo apt-get -y update
 sudo apt-get -y install \
 	bc \
-	build-essential \
-	bzip2 \
+    build-essential \
+    bzip2 \
 	bzr \
 	cmake \
 	cmake-curses-gui \
